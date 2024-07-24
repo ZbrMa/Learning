@@ -1,0 +1,11 @@
+.event-search-container {
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+}
+
+@media screen and (min-width: 1024px) {
+    .event-search-container {
+        grid-template-columns: 5fr 6fr;
+        grid-gap: 64px;
+    }
+}

@@ -1,0 +1,27 @@
+.info-prompt {
+    font-size: 20px;
+    display: grid;
+    border-radius: var(--corner);
+    margin: 6px auto;
+    position: relative;
+    align-items: center;
+    padding: 2px 8px;
+    align-content: center;
+    grid-template-columns: auto auto;
+    gap: 6px;
+}
+
+.info-prompt.positive {
+    background-color: rgba(0, 255, 0, 0.1);
+    color: green;
+}
+
+.info-prompt.negative {
+    color:var(--red);
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+.info-prompt.informative {
+    color: var(--greyTextHover);
+    background-color: var(--secondary);
+}

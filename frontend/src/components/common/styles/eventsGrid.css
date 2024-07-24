@@ -1,0 +1,20 @@
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    grid-gap: 32px;
+    padding: 0 4%;
+}
+
+
+@media screen and (min-width: 768px) {
+    .event-grid {
+        grid-template-columns: repeat(auto-fit, minmax(calc(50% - 64px), 1fr));
+        grid-gap: 64px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .event-grid {
+        grid-template-columns: repeat(auto-fit, minmax(calc(33.33% - 64px), 1fr));
+    }
+}

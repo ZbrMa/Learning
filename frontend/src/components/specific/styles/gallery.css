@@ -1,0 +1,138 @@
+.gallery {
+    width: 100%;
+    margin-top:80px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 16px;
+  }
+  
+  .grid-item {
+    background-color: #ccc;
+    border-radius: var(--corner);
+    -webkit-box-shadow: 0px 0px 4px 0px var(--shadow);
+    -moz-box-shadow: 0px 0px 4px 0px var(--shadow);
+    box-shadow: 0px 0px 4px 0px var(--shadow);
+    transition: transform .5s;
+  }
+
+  .grid-item:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+
+  .grid-item img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--corner);
+  }
+  
+  /* Vzor opakování */
+  .grid-item:nth-child(1) {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+  
+  .grid-item:nth-child(2),
+  .grid-item:nth-child(4) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  
+  .grid-item:nth-child(3) {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+  
+  .grid-item:nth-child(5) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  
+  /* Opakování vzoru */
+  .grid-item:nth-child(n+6):nth-child(4n+1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  
+  .grid-item:nth-child(n+6):nth-child(4n+3),
+  .grid-item:nth-child(n+6):nth-child(4n+4) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  
+  .grid-item:nth-child(n+6):nth-child(4n+2) {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+  
+  .grid-item:nth-child(n+6):nth-child(4n+5) {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+
+  .image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, 0.85);
+    display: none;
+    z-index: 99;
+  }
+
+.image-container.opened {
+    display: block;
+}
+
+.image-detail {
+    max-width: 1440px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.image-detail-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.close-button{
+    position: absolute;
+    right: 6%;
+    top: 10vh;
+    color: var(--greyText);
+    font-size: 36px;
+    background-color: transparent;
+    border: none;
+}
+
+.close-button:hover {
+    cursor: pointer;
+    color: var(--primary);
+}
+
+.image-detail img {
+    object-fit: cover;
+    max-width: 60%;
+    height: auto;
+    max-height: 80vh;
+    margin-top: 10vh;
+    flex: 1 1 auto;
+}
+
+.image-desc {
+    font-size: 28px;
+    flex: 1 1 auto;
+    color: var(--primary);
+    margin-top: 20px;
+}

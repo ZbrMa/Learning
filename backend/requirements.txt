@@ -1,0 +1,7 @@
+flask,
+flask-login,
+flask-jwt-extended,
+flask-session,
+flask-cors,
+pymysql,
+werkzeug

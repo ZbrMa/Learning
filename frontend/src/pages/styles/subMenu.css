@@ -1,0 +1,27 @@
+.sub-menu {
+    margin-top: 100px;
+    display: flex;
+    gap:16px;
+    padding: 0 7.5%;
+    max-width: 1440px;
+    font-size: 20px;
+}
+
+.sub-menu-item {
+    align-content: center;
+    background-color: var(--secondary);
+    border-radius: var(--corner);
+    padding: 2px 8px;
+    display: flex;
+    gap: 6px;
+}
+
+.sub-menu-item:hover {
+    cursor: pointer;
+    background-color: var(--primary);
+    color: var(--red);
+}
+
+.sub-menu-item svg {
+    margin: auto;
+}

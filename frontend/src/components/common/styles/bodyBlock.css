@@ -1,0 +1,24 @@
+.body-block-secondary, .body-block-primary {
+    padding: 40px 7.5%;
+    font-size: 18px;
+}
+
+.body-block-secondary {
+    background-color: var(--secondary)
+}
+
+.body-block-primary{
+    background-color: var(--primary);
+}
+
+.body-inner-block {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.page-title {
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 10px;
+}

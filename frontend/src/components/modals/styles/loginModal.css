@@ -1,0 +1,13 @@
+.login-container {
+    margin: 20px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    position: relative;
+}
+
+.login-bottom{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

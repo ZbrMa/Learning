@@ -1,0 +1,42 @@
+.profile-nav {
+    display: none;
+    width: fit-content;
+    position: absolute;
+    top: 80px;
+    right:0;
+    background-color: var(--primary);
+    color: var(--greyText);
+    font-size: 20px;
+    border-bottom-left-radius: var(--corner) ;
+    border-bottom-right-radius: var(--corner) ;
+    transition: top 0.5s ease-in-out;
+}
+
+.navbar.scrolled .profile-nav {
+    top:60px;
+}
+
+.profile-nav.opened {
+    display: block;
+}
+
+.profile-nav-item {
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    border-radius: var(--corner);
+}
+
+.profile-nav-item:hover {
+    cursor: pointer;
+    background-color: var(--primaryHover);
+    color: var(--greyTextHover);
+    border-radius: var(--corner);
+}
+
+.profile-nav-item:hover .nav-link {
+    background-color: var(--primaryHover);
+    color: var(--greyTextHover);
+    border-radius: var(--corner);
+}
+

@@ -1,0 +1,43 @@
+.info-line {
+    margin-bottom:10px;
+    letter-spacing: normal;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    border-radius: var(--corner);
+    height: fit-content;
+}
+
+.info-rect {
+    background-color: var(--red);
+    width: 5px;
+    margin-right: 10px;
+    border-radius: var(--corner);
+}
+
+.info-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-name {
+    color: var(--greyText);
+    margin-bottom: 2px;
+    font-size: 16px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.info-name svg {
+    margin-left:6px;
+}
+
+.info-name svg:hover {
+    cursor: pointer;
+}
+
+.info-content {
+    font-size: 20px;
+    color: var(--greyTextHover);
+}

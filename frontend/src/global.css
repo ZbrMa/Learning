@@ -1,0 +1,61 @@
+:root {
+  --primary:white;
+  --primaryHover:rgb(245, 245, 255);
+  --secondary:rgb(245, 245, 245);
+  --red:rgb(240, 0, 0);
+  --redHover:rgb(200, 0, 0);
+  --greyText:rgb(128, 128, 128);
+  --greyTextHover:black;
+  --lightBlack:rgba(0,0,0,0.7);
+  --shadow:rgba(0,0,0,.4);
+  --lightBlue:rgb(229, 229, 239);
+  --lightGrey:rgb(220,220,220);
+  --lightGreyHover:rgb(190,190,190);
+  --corner:4px;
+}
+
+body {
+  margin: 0;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 1.5px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  border-radius: var(--corner);
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: var(--corner);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:  rgb(189, 189, 197);
+  border-radius: var(--corner);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:  rgb(158, 158, 165);
+}
+
+#root {
+  display: contents;
+}
+
+.main {
+  flex:1;
+}
