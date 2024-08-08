@@ -5,8 +5,6 @@ I´m using here database on localhost, MySQL service.
 
 It is just testing, so i use some ugly jpeg and png images.  
 
-Main aim is to learn some new skills and features. Design is not the main purpose.  
-
 It is kind of event management application divided to more parts.
 1. Searching for events and their details
 2. Register to an event
