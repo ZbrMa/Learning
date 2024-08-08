@@ -10,7 +10,7 @@ export function LastNews({dataSet}:Props){
 
     return (
         <>
-            {dataSet ? (
+            {dataSet? (
                 <div className="last-news-container">
                     <div className="news-card top-left">
                         <LastNewsCard input={dataSet[0]} />

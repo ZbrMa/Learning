@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { IEvent,INews } from "../../types/types"
 import './styles/card.css'
 import { useNavigate } from "react-router-dom";
@@ -31,34 +32,68 @@ export function EventCard({input,cardType = 'default'}:PropsEvent) {
 
     const navigate = useNavigate();
 
-    return(
-        <div className={`card ${cardType === 'slider'? 'slider': ''}`} onClick={()=>navigate(`/event/${input.id}`)}>
-            <div className="card-img">
-                <img  src={`${input.image}`}></img>
-                <div className="card-date">
-                    <div className="card-day">
-                        {day}.
-                    </div>
-                    <div className="card-month">
-                        {month} {year}
-                    </div>
-                </div>
-                <div className="card-info">
-                    <div className="card-info-inner">
-                        <div className="card-name">
-                            {input.name}
+    if(input.confirmed){
+        return(
+            <div className={`card ${cardType === 'slider'? 'slider': ''}`} onClick={()=>navigate(`/event/${input.id}`)}>
+                <div className="card-img">
+                    <img  src={`${input.image}`}></img>
+                    <div className="card-date">
+                        <div className="card-day">
+                            {day}.
                         </div>
-                        <div className="card-genre">
-                            {input.genre}
+                        <div className="card-month">
+                            {month} {year}
                         </div>
-                        <div className="card-place">
-                            {input.city}
+                    </div>
+                    <div className="card-info">
+                        <div className="card-info-inner">
+                            <div className="card-name">
+                                {input.name}
+                            </div>
+                            <div className="card-genre">
+                                {input.genre}
+                            </div>
+                            <div className="card-place">
+                                {input.city}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
+
+    else {
+        return(
+            <div className='card' onClick={()=>navigate(`/event/${input.id}`)}>
+                <div className="card-img">
+                    <img  src={`${input.placeImage}`}></img>
+                    <div className="card-date">
+                        <div className="card-day">
+                            {day}.
+                        </div>
+                        <div className="card-month">
+                            {month} {year}
+                        </div>
+                    </div>
+                    <div className="card-info">
+                        <div className="card-info-inner">
+                            <div className="card-name">
+                                {input.city}
+                            </div>
+                            <div className="card-place">
+                                {input.spot}
+                            </div>
+                            <div className="card-place">
+                                {input.start}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+    
 };
 
 export function LastNewsCard({input}: PropsNews){

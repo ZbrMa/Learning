@@ -2,7 +2,6 @@ import "react-calendar/dist/Calendar.css";
 import './styles/calendar.css';
 import { useState, useEffect } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-import { start } from "repl";
 import { Button } from "./button";
 
 const dayNames = ['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne'];
@@ -10,9 +9,9 @@ const monthNames = ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 
 var today = new Date();
 today.setHours(0,0,0,0);
 var oneDay = 24 * 60 * 60 * 1000;
-var week = 7 * 24 * 60 * 60 * 1000;
+var week = 7 * oneDay;
 var tomorrow = new Date(today.getTime() + oneDay);
-var thisWeekEnd = new Date(today.getTime() + week - today.getDay() * 2 * oneDay);
+var thisWeekEnd = new Date(today.getTime() + (7 - today.getDay()) * oneDay);
 var nextWeekStart = new Date(thisWeekEnd.getTime() + oneDay);
 var nextWeekEnd = new Date(thisWeekEnd.getTime() + week);
 var thisMonthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
@@ -30,10 +29,6 @@ function weekCount(year: number, month_number: number) {
 
 const getMonthName = (month: number) => {
     return monthNames[month];
-};
-
-const getDayName = (day: number) => {
-    return dayNames[day];
 };
 
 type Props = {
@@ -55,8 +50,8 @@ export function Calendar({returnInterval}:Props) {
     useEffect(()=>{
         if(startDate && endDate){ 
             endDate.setHours(23,59,59,59);
+            returnInterval(startDate,endDate);
         }
-        returnInterval(startDate,endDate);
     },[startDate,endDate])
 
     const handleMonthUp = () => {

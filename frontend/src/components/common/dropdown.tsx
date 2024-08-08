@@ -4,9 +4,10 @@ import './styles/dropdown.css';
 import { render } from "@testing-library/react";
 
 type Props = {
-    options:any;
+    options:{label:string,value:any}[];
     placeholder:string,
     returnSelected:any,
+    multiSelect?:boolean,
 };
 
 const iconStyle = {
@@ -17,11 +18,11 @@ const iconStyle = {
     marginRight:"2px",
 };
 
-export function Dropdown({options,placeholder,returnSelected}:Props){
+export function Dropdown({options,placeholder,returnSelected,multiSelect=true}:Props){
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const[isOpened,setIsOpened] = useState<boolean>(false);
-    const[selected,setSelected] = useState<any[]>([]);
+    const[selected,setSelected] = useState<{label:string,value:any}[]>([]);
 
     const handleOpen =()=>{
         if(!isOpened) setIsOpened(true);
@@ -34,9 +35,10 @@ export function Dropdown({options,placeholder,returnSelected}:Props){
         }
     };
 
-    useEffect(()=>{
-        returnSelected(selected);
-    },[selected])
+    useEffect(() => {
+        const selectedValues = selected.map(item => item.value);
+        returnSelected(multiSelect ? selectedValues : selectedValues[0]);
+    }, [selected]);
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
@@ -45,46 +47,55 @@ export function Dropdown({options,placeholder,returnSelected}:Props){
         };
     }, []);
 
-    const handleSelect = (option: string) => {
-        if (selected.indexOf(option) > -1) {
-            setSelected(selected.filter(function(e) { return e !== option; }));
+    const handleSelect = (option: { label: string, value: any }) => {
+        if (selected.find(item => item.value === option.value)) {
+            setSelected(selected.filter(item => item.value !== option.value));
         } else {
-            setSelected([...selected, option]);
+            if (multiSelect) {
+                setSelected([...selected, option]);
+            } else {
+                setSelected([option]);
+            }
         }
     };
 
-    const handleRemove = (option: string) => {
-        setSelected(selected.filter((item) => item !== option));
+    const handleRemove = (option: { label: string, value: any }) => {
+        setSelected(selected.filter(item => item.value !== option.value));
     };
 
-    return(
-        <div ref={dropdownRef} className={`dropdown ${isOpened? "is-opened": ""}`}>
+    return (
+        <div ref={dropdownRef} className={`dropdown ${isOpened ? "is-opened" : ""}`}>
             <div className="dropdown-inner">
                 <div className="dropdown-head">
                     <div className="dropdown-control">
                         <div className="selected-options">
-                            {selected?.map((key:any)=>
-                                <div className="selected-item" onClick={()=>handleRemove(key)}>
-                                    <div className="selected-text">{key}</div>
-                                    <IoClose style={iconStyle}></IoClose>
+                            {selected.map((item) =>
+                                <div key={item.value} className="selected-item" onClick={() => handleRemove(item)}>
+                                    <div className="selected-text">{item.label}</div>
+                                    <IoClose style={iconStyle} />
                                 </div>
                             )}
                         </div>
                         <div className="select-placeholder" onClick={handleOpen}>{placeholder}</div>
                     </div>
-                    {isOpened? (<IoChevronUp className="dropdown-chevron" onClick={handleOpen}></IoChevronUp>):(<IoChevronDown className="dropdown-chevron" onClick={handleOpen}></IoChevronDown>)}
+                    {isOpened
+                        ? <IoChevronUp className="dropdown-chevron" onClick={handleOpen} />
+                        : <IoChevronDown className="dropdown-chevron" onClick={handleOpen} />}
                 </div>
             </div>
-            <div className="option-container">
-                {options?.map((key:any,index:number)=>
-                    <div 
-                        className={`option ${selected.includes(key.label) ? "selected" : ""}`} 
-                        onClick={()=>handleSelect(key.label)}
-                    >
-                        {key.label}
-                    </div>
-                )}
-            </div>
+            {isOpened && (
+                <div className="option-container">
+                    {options.map((option, index) => (
+                        <div
+                            key={index}
+                            className={`option ${selected.some(item => item.value === option.value) ? "selected" : ""}`}
+                            onClick={() => handleSelect(option)}
+                        >
+                            {option.label}
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

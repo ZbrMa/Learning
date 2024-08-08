@@ -115,12 +115,14 @@ def token_required(f):
 DEFAULT_EMAIL = 'zbranek.m@example.com'
 
 @app.route('/get_event',methods=["GET"])
-def use_event():
+def get_event():
+    confirmed = request.args.get('confirmed')
     genres = request.args.getlist('genreFilter')
     places = request.args.getlist('placeFilter')
     date_interval = [request.args.get('dateInterval[start]'),request.args.get('dateInterval[end]')]
     where_clause = ''
-    params = []
+    if confirmed: params = [1] 
+    else: params = [0]
     if date_interval[0] and date_interval[1]:
         where_clause += ' AND day BETWEEN %s AND %s'
         params+=date_interval
@@ -173,13 +175,20 @@ def use_event():
                     events AS e 
                 LEFT JOIN places AS p ON e.place_id = p.id
                 LEFT JOIN users AS u ON e.user_id = u.id
-                WHERE e.confirmed = 1 AND day >= curdate() ''' + where_clause + "ORDER BY day,start"
+                WHERE e.confirmed = %s AND day >= curdate() ''' + where_clause + "ORDER BY day,start"
     conn = connect()
     cursor = conn.cursor()
-    cursor.execute(query,tuple(params))
-    result = cursor.fetchall()
-    return jsonify(result)
-   # return redirect(url_for('index'))
+    
+    try:
+        cursor.execute(query,tuple(params))
+        result = cursor.fetchall()
+        if len(result) > 0:
+            return jsonify(result)
+        else:
+            return jsonify(None)
+    except Exception as ex:
+        print(ex)
+        return jsonify(None)
 
 @app.route('/get_all_events',methods=["GET"])
 def all_events():
@@ -231,7 +240,10 @@ def all_events():
     cursor = conn.cursor()
     cursor.execute(query)
     result = cursor.fetchall()
-    return jsonify(result)
+    if len(result) > 0:
+        return jsonify(result)
+    else:
+        return jsonify(None)
 
 @app.route('/event_detail',methods=["GET"])
 def event_detail():
@@ -288,14 +300,14 @@ def event_detail():
     result = cursor.fetchone()
     return jsonify(result)
 
-'''@app.route('/get_news',methods=["GET"])
+@app.route('/get_news',methods=["GET"])
 def use_news():
-    query = "SELECT * FROM events WHERE potvrzeno = 1 ORDER BY date,start LIMIT 6"
+    query = "SELECT * FROM events WHERE confirmed = 1 ORDER BY day,start LIMIT 6"
     conn = connect()
     cursor = conn.cursor()
     cursor.execute(query)
     result = cursor.fetchall()
-    return jsonify(result)'''
+    return jsonify(result)
         
 def send_email(date, user_email, phone):
     # Nastavení e-mailových parametrů
@@ -318,58 +330,66 @@ def send_email(date, user_email, phone):
     ret = srv
     srv.sendmail(sender_email, DEFAULT_EMAIL, msg.as_string())
 
-@app.route('/get_news',methods=['GET'])
+@app.route('/get_upcom',methods=['GET'])
 def get_upcom():
-        query = ''' SELECT 
-                        e.id,
-                        e.`day`,
-                        e.`start`,
-                        e.`end`,
-                        e.user_id,
-                        CASE 
-                            WHEN e.user_id IS not NULL THEN u.name 
-                            ELSE e.artist_name
-                        END AS name,
-                        CASE 
-                            WHEN e.user_id is NOT NULL THEN u.nationality  
-                            ELSE e.artist_nationality 
-                        END AS nationality,
-                        CASE 
-                            WHEN e.user_id is NOT NULL THEN u.about 
-                            ELSE e.artist_about
-                        END AS about,
-                        CASE 
-                            WHEN e.user_id is NOT NULL THEN u.image 
-                            ELSE e.artist_image
-                        END AS image,
-                        CASE 
-                            WHEN e.user_id is NOT NULL THEN u.email  
-                            ELSE e.artist_email
-                        END AS email,
-                        CASE 
-                            WHEN e.user_id is NOT NULL THEN u.phone
-                            ELSE e.artist_phone
-                        END AS phone,
-                        p.city,
-                        p.spot,
-                        p.image as placeImage,
-                        p.coor_long as CoorLong,
-                        p.coor_lat as CoorLat,
-                        p.path,
-                        p.desc
-                    FROM 
-                        events AS e 
-                    LEFT JOIN places AS p ON e.place_id = p.id
-                    LEFT JOIN users AS u ON e.user_id = u.id
-                    WHERE e.confirmed = 1 AND day >= curdate() 
-                    ORDER BY day,start 
-                    LIMIT 6'''
-        conn = connect()
-        cursor = conn.cursor()
+    query = ''' SELECT 
+                    e.id,
+                    e.`day`,
+                    e.`start`,
+                    e.`end`,
+                    e.confirmed,
+                    e.genre,
+                    e.user_id,
+                    CASE 
+                        WHEN e.user_id IS not NULL THEN u.name 
+                        ELSE e.artist_name
+                    END AS name,
+                    CASE 
+                        WHEN e.user_id is NOT NULL THEN u.nationality  
+                        ELSE e.artist_nationality 
+                    END AS nationality,
+                    CASE 
+                        WHEN e.user_id is NOT NULL THEN u.about 
+                        ELSE e.artist_about
+                    END AS about,
+                    CASE 
+                        WHEN e.user_id is NOT NULL THEN u.image 
+                        ELSE e.artist_image
+                    END AS image,
+                    CASE 
+                        WHEN e.user_id is NOT NULL THEN u.email  
+                        ELSE e.artist_email
+                    END AS email,
+                    CASE 
+                        WHEN e.user_id is NOT NULL THEN u.phone
+                        ELSE e.artist_phone
+                    END AS phone,
+                    p.city,
+                    p.spot,
+                    p.image as placeImage,
+                    p.coor_long as CoorLong,
+                    p.coor_lat as CoorLat,
+                    p.path,
+                    p.desc
+                FROM 
+                    events AS e 
+                LEFT JOIN places AS p ON e.place_id = p.id
+                LEFT JOIN users AS u ON e.user_id = u.id
+                WHERE e.confirmed = 1 AND day >= curdate() ORDER BY day,start LIMIT 6'''
+    conn = connect()
+    cursor = conn.cursor()
+    
+    try:
         cursor.execute(query)
-        conn.commit()
         result = cursor.fetchall()
-        return jsonify(result)  # Vrátit data ve formátu JSON
+        if len(result) > 0:
+            return jsonify(result)
+        else:
+            return jsonify(None)
+    except Exception as ex:
+        print(ex)
+        return jsonify(None)
+
 
 @app.route('/get_genres', methods=['GET'])
 def get_genres():
@@ -384,7 +404,7 @@ def get_genres():
 def get_places():
     conn = connect()
     cursor = conn.cursor()
-    query = "SELECT DISTINCT city, spot FROM places ORDER BY city,spot"
+    query = "SELECT DISTINCT id, city, spot FROM places ORDER BY city,spot"
     cursor.execute(query)
     data = cursor.fetchall()
     return jsonify(data)
@@ -527,7 +547,24 @@ def logout():
 
 @app.route('/new_ev',methods=['POST'])
 def new_ev():
-    print(request.args)
+    params = [
+        request.args['day'],
+        request.args['start'],
+        request.args['end'],
+        request.args['city'],
+    ]
+
+    conn = connect()
+    cursor = conn.cursor()
+    query = '''INSERT INTO events (day,start,end,place_id) VALUES (%s,%s,%s,%s);'''
+    try:
+        cursor.execute(query,tuple(params,))
+        conn.commit()
+        return jsonify(success = True, message= 'Událost vytvořena')
+    except Exception as ex:
+        print(ex)
+        return jsonify(success = False, message='Chyba při vytváření události')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

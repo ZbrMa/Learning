@@ -15,11 +15,13 @@ export function Domu() {
     const [filters,setFilters] = useState<{}>({});
 
     const returnFilters = (filter:{}) => {
-        setFilters(filter);
+        setFilters({...filter,confirmed:1});
     };
     
     const { data: events, loading, error } = useApiGet<IEvent[]>('/get_event', filters);
+    const { data: upcom, loading:ucomLoading, error:upcomErr } = useApiGet<IEvent[]>('/get_upcom',{},false);
     const { data: news, loading:newsLoading, error:newsError } = useApiGetNoParams<INews[]>('/get_news');
+
 
     return (
         <div className="page">
@@ -49,11 +51,15 @@ export function Domu() {
             />
             <BodyBlock>
                 <BlockTitle text="Nadcházející akce"></BlockTitle>
-                <Slider slidedObject={events}></Slider>
+                <Slider slidedObject={upcom}></Slider>
             </BodyBlock>
             <BodyBlock color="secondary">
                 <BlockTitle text="Novinky"></BlockTitle>
-                <LastNews dataSet={news}></LastNews>
+                {newsLoading? (
+                    <div>Načítám</div>
+                ):(
+                    news? (<LastNews dataSet={news}></LastNews>): (<div>Žádné novinky</div>)
+                )}
             </BodyBlock>
             <BodyBlock>
                 <BlockTitle text="Najdi svou událost"></BlockTitle>

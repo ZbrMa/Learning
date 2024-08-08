@@ -19,7 +19,7 @@ export function Registrace() {
         setFilters(filter);
     };
     
-    const { data: events, loading, error } = useApiGet<IEvent[]>('/get_event', filters);
+    const { data: events, loading:eventsLoading, error } = useApiGet<IEvent[]>('/get_event', filters);
 
     return (
         <div className="page">
@@ -49,7 +49,12 @@ export function Registrace() {
                 <EventFilter getFilter={returnFilters}></EventFilter>
             </BodyBlock>
             <BodyBlock color="secondary">
-                <EventsGrid dataSet={events}></EventsGrid>
+                {eventsLoading?
+                    (
+                        <div>Načítám</div>
+                    ):(
+                        <EventsGrid dataSet={events}></EventsGrid>
+                )}
             </BodyBlock>
         </div>
     );

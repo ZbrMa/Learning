@@ -10,12 +10,16 @@ export const api = axios.create({
     },
 });
 
-export const useApiGet = <T,>(apiPoint: string, getParams: any = {}) => {
+export const useApiGet = <T,>(apiPoint:string, getParams:any = {}, refetch:boolean = true) => {
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
     const getParamsRef = useRef(getParams);
+
+    useEffect(() => {
+        getParamsRef.current = getParams;
+    }, [getParams]);
 
     const fetchData = async () => {
         setLoading(true);
@@ -35,10 +39,19 @@ export const useApiGet = <T,>(apiPoint: string, getParams: any = {}) => {
             setLoading(false);
         }
     };
+    
+    useEffect(() => {
+        if(refetch){
+            fetchData();
+        }
+    }, [getParams, refetch]);
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        if (!refetch) {
+            fetchData();
+        }
+    }, []); 
+    
 
     return { data, loading, error };
 };

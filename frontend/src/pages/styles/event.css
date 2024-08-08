@@ -136,11 +136,17 @@
     border-bottom: none;
 }
 
+.info-item-container {
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    gap:16px;
+}
+
 .info-item {
     /*border-bottom: 2px solid var(--secondary);*/
     font-size: 28px;
-    padding: 16px 0;
-    grid-column: 1 / span 1;
+    padding-bottom: 32px;
+    /*grid-column: 1 / span 1;*/
 }   
 
 .info-item-title {
@@ -173,7 +179,7 @@
 .place-container {
     display: grid;
     grid-template-columns: repeat(2,1fr);
-    gap: 64px;
+    column-gap: 64px;
 }
 
 .place-right {

@@ -24,6 +24,8 @@ export function EventFilter({getFilter}:Props) {
         label: place.city
     })) || [];
 
+    
+
     const genreOptions = genres?.map(genre => ({
         value: genre.genre,
         label: genre.genre
