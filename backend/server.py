@@ -37,7 +37,7 @@ def connect():
         db='busking', 
         user='root', 
         passwd='moje_heslo', 
-        host='localhost', 
+        #host='localhost', 
         port=3306, 
         cursorclass=DictCursor,
         read_timeout=timeout,
