@@ -31,20 +31,6 @@ jwt = JWTManager(app)
 login_manager = LoginManager(app)
 
 timeout = 10
-'''def connect():
-    connection = pymysql.connect(
-    charset="utf8mb4",
-    connect_timeout=timeout,
-    cursorclass=pymysql.cursors.DictCursor,
-    db="defaultdb",
-    host="mysql-pokus-pokus.a.aivencloud.com",
-    password="AVNS_LudGZ8xqV88TuCDAV4r",
-    read_timeout=timeout,
-    port=27178,
-    user="avnadmin",
-    write_timeout=timeout,
-    )
-    return connection'''
 
 def connect():
     connection = pymysql.connect(
