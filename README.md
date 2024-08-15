@@ -44,4 +44,4 @@ Artist detail on event page
 4. Turn on MySQL service on your PC
 5. Create some localhost database
 6. Navigate to backend
-7. Run server.py in debugg mode
+7. Run server.py
