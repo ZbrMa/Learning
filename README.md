@@ -12,5 +12,9 @@ I am making it to learn and test Typescript, React, CSS, HTML, Node.js
 2. Admin can send notifiacation to user
 3. User can sign up/out to/from event
 4. Maybe some type of forum or chat
+5. Repair some design glitches
 
 ## Preview
+![New user](busking1.png)  
+![Profile](busking2.png)  
+![Event searching](busking3.png)  
