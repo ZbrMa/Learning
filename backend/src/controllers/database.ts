@@ -28,11 +28,14 @@ const sslCert = `
   -----END CERTIFICATE-----
   `;
 
-export const db = mysql.createConnection({
+export const db = mysql.createPool({
   host: "mysql-pokus-pokus.a.aivencloud.com",
   user: "avnadmin",
   password: "AVNS_LudGZ8xqV88TuCDAV4r",
   database: "busking",
+  waitForConnections:true,
+  queueLimit:10,
+  connectionLimit:5,
   port: 27178,
   ssl: {
     ca: sslCert,
@@ -40,10 +43,11 @@ export const db = mysql.createConnection({
   },
 });
 
-export const connectDB = () => {
+/*export const connectDB = () => {
   db.connect((err) => {
     if (err) {
       console.log("chyba při připojení k databázi.", err);
+      connectDB();
     } else {
       console.log("připoeno k databázi");
     }
@@ -58,4 +62,4 @@ export const disconnectDB = () => {
       console.log("odpojeno z databáze");
     }
   });
-};
+};*/

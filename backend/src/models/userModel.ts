@@ -44,6 +44,48 @@ export const getAllUsers = (
   });
 };
 
+export const getUserModel = (userId:number,callback:(err:Error |null, response:IUser | null)=>void)=>{
+
+  const sql = `SELECT 
+    u.id ,
+    u.inserted,
+    u.name,
+    u.surname ,
+    u.nick,
+    u.birth ,
+    u.email ,
+    u.image,
+    u.phone ,
+    u.description,
+    u.country,
+    c.name as countryName,
+    u.city,
+    u.address,
+    u.website ,
+    u.twitter,
+    u.instagram ,
+    u.facebook ,
+    u.checked ,
+    u.role ,
+    u.band ,
+    a.name as art
+    FROM users u
+    LEFT JOIN arts a ON u.art = a.id 
+    LEFT JOIN countries c ON u.country = c.id
+    WHERE u.id = ? LIMIT 1`;
+
+
+  db.query<RowDataPacket[]>(sql, userId, (err, res) => {
+      const response = res[0] as IUser;
+    if (err) {
+      return callback(err,null);
+    } else {
+      return callback(null, response);
+    }
+  });
+
+};
+
 export const postNewUser = (
   user: INewUser,
   callback: (err: Error | null, result: boolean | string) => void
@@ -65,8 +107,8 @@ export const postNewUser = (
 
     const sql = `
       INSERT INTO users (
-        name, surname, password, email, nick, birth, country, city, address, band, phone, art
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+       inserted, name, surname, password, email, nick, birth, country, city, address, band, phone, art
+      ) VALUES (CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(sql, params, (err, res) => {
@@ -112,7 +154,7 @@ export const login = (
 };
 
 export const postEditUser = (
-  user: Omit<IEditableUser,'image'>,
+  user: Omit<IEditableUser,'image' | 'inserted'>,
   callback: (err: Error | null, result: boolean) => void
 ) => {
   const sql = `
@@ -228,6 +270,19 @@ export const checkNickModel = (nick:string,callback:(error:Error| null, result:b
       return callback(null,true);
     }
   });
+};
+
+export const checkUserModel = (id:number,callback:(error:Error| null, result:{message:string,success:boolean})=>void) => {
+  const sql = 'UPDATE users SET checked = 1 WHERE id = ?';
+
+  db.query(sql,id,(err,res)=>{
+    if(err) {
+      return callback(err,{message:'Potvrzení se nezdařilo.',success:false});
+    } else {
+      return callback(null,{message:`Uživatel ${id} byl potvrzen.`,success:true});
+    } 
+  });
+
 };
 
 

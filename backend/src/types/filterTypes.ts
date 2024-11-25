@@ -9,6 +9,11 @@ export interface IArt {
     name:string,
 }
 
+export interface ICountry {
+    id:number,
+    name:string,
+};
+
 export interface IEventFilter {
     places:number[],
     arts:number[];

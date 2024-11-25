@@ -7,6 +7,8 @@ import {
   postNewImage,
   checkEmailModel,
   checkNickModel,
+  checkUserModel,
+  getUserModel,
 } from "../models/userModel";
 import { Request, Response } from "express";
 import { IChangePassword, IEditableUser, INewUser } from "../types/userTypes";
@@ -16,6 +18,15 @@ export const getUsers = (req:Request,res: Response) => {
   getAllUsers((err, users) => {
     if (err) {
       return res.status(500).json({ message: "Chyba při získávání uživatelů" });
+    }
+    res.status(200).json(users);
+  });
+};
+
+export const getUser = (req:Request,res: Response) => {
+  getUserModel(req.body.userId,(err, users) => {
+    if (err) {
+      return res.status(500).json({ message: "Chyba při získávání uživatele" });
     }
     res.status(200).json(users);
   });
@@ -63,7 +74,7 @@ export const loginUser = (req: Request, res: Response) => {
 };
 
 export const editUser = (req: Request, res: Response) => {
-  const editUser: Omit<IEditableUser,'image'> = {
+  const editUser: Omit<IEditableUser,'image' | 'inserted'> = {
     id: req.body.id,
     phone: req.body.phone,
     country: req.body.country,
@@ -125,6 +136,18 @@ export const checkNick = (req:Request,res:Response) => {
   const nick = req.body.nick;
 
   checkNickModel(nick,(err,result)=>{
+    if (err) {
+      return res.status(500).json(result);
+    } else{
+      res.status(200).json(result);
+    }
+  });
+};
+
+export const checkUser = (req:Request,res:Response) => {
+  const id = req.body.id;
+
+  checkUserModel(id,(err,result)=>{
     if (err) {
       return res.status(500).json(result);
     } else{

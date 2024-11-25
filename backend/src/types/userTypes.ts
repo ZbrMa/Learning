@@ -6,6 +6,7 @@ export interface IUser {
     nick:string,
     birth:string,
     country:string,
+    countraName?:string | undefined,
     city:string,
     address:string,
     band:string,
@@ -20,6 +21,7 @@ export interface IUser {
     art:number,
     image:string,
     role:number,
+    inserted:Date,
 };
 
 export type INewUser = Pick<IUser, 'name' | 'surname' | 'email' | 'password' | 'nick' | 'birth' | 'country' | 'city' | 'address' | 'band' | 'phone' | 'art'>;
