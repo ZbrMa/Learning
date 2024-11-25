@@ -1,0 +1,73 @@
+.input__container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+    width: 100%;
+    position: relative;
+}
+
+input {
+    border:none;
+    background-color:var(--lightGray);
+    padding: 0.8rem 1rem;
+    color: var(--black);
+    cursor: pointer;
+    font-size: inherit;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all .2s ease-in-out;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+   /* border: 2px solid var(--lightGrayHover);
+    border-radius: var(--radius);*/
+}
+
+input::placeholder {
+    font-size: 0.8rem;
+    color: var(--grayText) !important;
+    margin-block: auto;
+}
+
+input[type=number], input[type=text],input[type=email], input[type=password]  {
+    cursor: text;
+}
+
+.input__container label {
+    font-size: .9rem;
+    background-color:transparent;
+    color: var(--black);
+    transition: all .2s ease-in-out;
+
+}
+
+.input__container:hover label {
+    color: vaR(--black);
+
+}
+
+input:hover, input:focus, input:active{
+   
+    background-color: var(--lightGrayHover);
+    border: none;
+    outline: none;
+}
+
+input:-webkit-autofill {
+    background-color: var(--lightGray);
+    border: none;
+    color: var(--black);
+    -webkit-box-shadow: 0 0 0 30px var(--lightGray) inset;
+    -webkit-text-fill-color: var(--black);
+  }
+
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    background-color: var(--lightGrayHover);
+    border: none;
+    color: var(--black);
+    -webkit-box-shadow: 0 0 0 30px var(--lightGrayHover) inset;
+    -webkit-text-fill-color: var(--black);
+}

@@ -1,0 +1,5 @@
+.call__action, .reference {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}

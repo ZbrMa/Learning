@@ -1,0 +1,100 @@
+.register__steps {
+    min-height: calc(100vh - 128px);
+    max-width: 800px;
+    margin-inline: auto;
+    background: var(--white);
+    -webkit-box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.15);
+}
+
+.register__steps .input__container, .register__steps .dropdown {
+    margin: 0;
+    margin-bottom: 8px;
+    width: 300px;
+    margin-inline: auto;
+}
+
+.register__steps .input__container input, .register__steps .dropdown-inner {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--white);
+    border: 1px solid var(--lightGrayHover);
+    height: 40px;
+}
+
+.register__steps .dropdown-control {
+        font-size: 0.8rem;
+        color: var(--grayText) !important;
+}
+
+.register__steps .input__container:hover input, .register__steps .input__container input:active, .register__steps .input__container input:focus ,.register__steps .dropdown:hover .dropdown-inner{
+    background-color: var(--white);
+    border: 1px solid var(--black);
+    outline: none;
+}
+
+.register__steps .selected-option {
+    color: var(--black);
+    font-size: 1.2rem;
+}
+
+.register__steps label {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.register__step {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-grow: 1;
+    max-width: 400px;
+}
+.register__body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.register__btn {
+    color: vaR(--lightGrayHover);
+}
+
+.register__btn.done {
+    color: var(--black);
+}
+
+.agreement {
+    grid-column: span 2;
+}
+
+.register__head {
+    border-bottom: 2px solid vaR(--lightGray);
+    padding-bottom: 16px;
+}
+
+.register__btns {
+    border-top: 2px solid vaR(--lightGray);
+    margin-top: auto;
+    padding-top: 16px;
+    
+}
+
+.register__fourth {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex-grow: 1;
+}
+
+.register__fourth .input__container {
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.register__fourth .input__container input {
+    width: fit-content;
+}

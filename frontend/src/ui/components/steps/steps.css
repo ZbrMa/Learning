@@ -1,0 +1,17 @@
+.steps__header {
+    color: inherit;
+    display: flex;
+}
+
+.steps__header.vertical {
+    flex-direction: column;
+}
+
+.steps__header--item {
+    color: var(--grayText);
+}
+
+.steps__header--item.done {
+    color: inherit;
+    cursor: pointer;
+}

@@ -1,0 +1,23 @@
+.event__search .input__container {
+    margin-bottom: 0;
+    outline: 2px solid var(--lightGrayHover);
+    width: 100%;
+    outline-offset: -2px;
+}
+
+.event__search input {
+    background-color: var(--white);
+    color: var(--black);
+    padding: 16px;
+}
+
+.event__search input::placeholder {
+    color: var(--black) !important;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.event__search .input__container:hover{
+    outline: 2px solid var(--black);
+    outline-offset: -2px;
+}

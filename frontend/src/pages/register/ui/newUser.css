@@ -1,0 +1,121 @@
+.register__page {
+    position: relative;
+    min-height: 100vh;
+}
+
+.register__nav {
+    z-index: 2;
+    position: relative;
+    padding: 16px 5%;
+}
+
+.register__background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.register__layout {
+    z-index: 2;
+    position: relative;
+    min-height: calc(100vh - 80px - 128px);
+}
+
+.register__inner {
+    width: 100%;
+    height: 100%;
+    min-height: calc(100vh - 80px - 128px);
+}
+
+.register__inner, .register__background {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.register--logo {
+    height: 48px;
+}
+.register__background--left {
+    background-color: var(--black);
+}
+
+.register__background--right {
+    background-color: var(--white);
+}
+
+.register__left {
+   height: 100%;
+}
+
+.register__bottom {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--grayText);
+    align-items: center;
+}
+
+.register__right {
+    align-content: center;
+}
+
+.register__step {
+    max-width: 600px;
+    width: fit-content;
+    margin: auto;
+}
+
+.register__step .dropdown, .register__step .input__container {
+    margin-bottom: 0;
+}
+
+.register__btns {
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+#register-third .dropdown {
+    margin-bottom: 16px;
+}
+
+.register__step .dropdown-inner {
+    border: none;
+    background-color: var(--lightGray);
+    padding: 0.8rem 1rem;
+    color: var(--black);
+    cursor: pointer;
+    font-size: inherit;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all .2s ease-in-out;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.register__page .dropdown:hover .dropdown-inner {
+    border: none;
+    outline: none;
+    background-color: var(--lightGrayHover);
+}
+
+.register__page label {
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.agreement {
+    grid-column: span 2;
+}
+
+.agreement .input__container {
+    flex-direction: row;
+    gap: 16px;
+}
+
+.agreement label {
+    width: fit-content;
+}
+
+.agreement input {
+    width: fit-content;
+}

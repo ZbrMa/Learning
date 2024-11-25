@@ -1,0 +1,12 @@
+.register__container{
+    max-width: 360px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.register__bottom {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--lightGray);
+    align-items: center;
+}

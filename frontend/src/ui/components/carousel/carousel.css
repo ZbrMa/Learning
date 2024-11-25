@@ -1,0 +1,75 @@
+.carousel__container {
+    width: 100%;
+    display: grid;
+}
+
+.carousel__container.left{
+    grid-template-columns: 1fr 5fr;
+}
+
+.carousel__container.right{
+    grid-template-columns: 5fr 1fr;
+}
+
+.carousel__container.center {
+    grid-template-columns: 40px calc(100% - 80px) 40px;
+}
+
+.carousel__side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.carousel__side button {
+    width: fit-content;
+}
+
+.carousel__container.left .carousel__side {
+    align-items: flex-end;
+}
+
+.carousel__container.right .carousel__side {
+    align-items: flex-start;
+}
+
+.outer-carousel {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.slider-moving {
+    transition: transform 1s ease-in-out;
+    display: grid;
+}
+
+.slider-item {
+    width: 100%;
+    height: 100%;
+}
+
+.carousel__buttons {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.slider.lefted .carousel__buttons {
+    align-items: flex-end;
+}
+
+.slider.righted .carousel__buttons {
+    align-items: flex-start;
+}
+
+.carousel__buttons svg {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width:768px){
+    .slider{
+        grid-template-columns: 40px calc(100% - 80px) 40px;
+        padding: 0;
+    }
+}

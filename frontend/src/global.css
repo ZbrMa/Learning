@@ -1,0 +1,111 @@
+body, body *{
+  margin: 0;
+  font-family: "Montserrat", sans-serif, -apple-system, blinkmacsystemfont, Segoe UI;
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--white);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+:root {
+  --white:rgb(255,255,255);
+  --lightGray:rgb(245,245,245);
+  --black:rgb(47,47,47);
+  --red:rgb(220,0,0);
+  --lightGrayHover:rgb(200,200,200);
+  --darkGray:rgb(150,150,150);
+  --lightGreen:rgb(210, 255, 210);
+  --darkGreen:rgb(0,100,0);
+  --darkRed:rgb(140,0,0);
+  --lightRed:rgb(255, 220, 220);
+  --radius:6px;
+  --grayText:rgb(120,120,120);
+  --lightYellow:rgb(255, 248, 186);
+  --darkYellow:rgb(158, 121, 8);
+}
+
+img {
+  object-fit: cover;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  font-size: inherit;
+}
+
+main {
+  margin-top: 64px;
+  min-height: 100vh;
+  
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+p,h1,h2,h3,h4{
+  color:var(--black)
+}
+
+.gradient {
+  background: rgb(20,20,20);
+  background: linear-gradient(0deg, rgba(20,20,20,1) 0%, rgba(20,20,20,0) 80%);
+}
+
+.bg-white {
+  background-color: var(--white);
+}
+
+.bg-black {
+  background-color: vaR(--black);
+}
+
+.bg-red {
+  background-color: var(--red);
+}
+
+.bg-green {
+  background-color: var(--darkGreen);
+}
+
+.bg-lightred {
+  background-color: var(--lightRed);
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--lightGray);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--lightGrayHover);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--black);
+}

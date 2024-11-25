@@ -1,0 +1,141 @@
+.alert__container {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    position: fixed;
+    z-index: 2000;
+    top: 64px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    width: fit-content;
+    max-width: 50%;
+    margin: auto;
+    align-items: center;
+    -webkit-box-shadow: 4px 13px 20px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 4px 13px 20px 0px rgba(0,0,0,0.1);
+    box-shadow: 4px 13px 20px 0px rgba(0,0,0,0.1);
+}
+
+.alert__container svg {
+    height: 32px;
+    width: 32px;
+    color: inherit;
+}
+
+.alert__container.positive {
+    background-color: var(--lightGreen);
+    color:var(--darkGreen);
+}
+
+.alert__container::before {
+    content: "";
+    height: 100%;
+    width: 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.alert--title {
+    margin-top: 4px;
+}
+
+.alert__body {
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.alert__body:first-child {
+    margin-top: 4px;
+}
+
+.alert__container.positive::before {
+    background-color: var(--darkGreen);
+}
+
+.alert__container.negative {
+    background-color: var(--lightRed);
+    color: var(--darkRed);
+}
+
+.alert__container.negative::before {
+    background-color: var(--darkRed);
+}
+
+.alert__container.neutral {
+    background-color: var(--lightGray);
+    color: rgb(60, 60, 60);
+}
+
+.alert__container.neutral::before {
+    background-color: var(--lightGrayHover);
+}
+
+.alert__container.alert {
+    background-color: var(--lightYellow);
+    color: rgb(185, 143, 18);
+}
+
+.alert__container.alert::before {
+    background-color: var(--darkYellow);
+}
+
+.alert__container.positive .alert--title {
+    color: var(--darkGreen);
+}
+
+.alert__container.negative .alert--title {
+    color: var(--darkRed);
+}
+
+.alert__container.neutral .alert--title {
+    color: var(--black);
+}
+
+.alert__container.alert .alert--title {
+    color: var(--darkYellow);
+}
+
+.alert__content {
+    font-size: 1rem;
+    margin-right: 64px;
+}
+
+.alert__container .button {
+    background-color: inherit;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: auto;
+}
+
+.alert__container .button:hover {
+    background-color: transparent;
+    scale: 1.1;
+}
+
+.alert__container .button svg {
+    color: inherit;
+    width: inherit;
+    height: inherit;
+}
+
+.alert--button {
+    background-color: transparent;
+    position: absolute;
+    right: 16px;
+    top: 20px;
+    padding: 0;
+    width: 24px;
+    height:24px;
+    color: inherit;
+    border: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: auto;
+}

@@ -1,0 +1,59 @@
+.grid-2{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+.grid-3{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+
+.grid-4{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+
+.g-8 {
+    gap: 8px;
+}
+
+.g-16 {
+    gap: 16px;
+}
+
+.g-32 {
+    gap: 32px;
+}
+
+.g-64 {
+    gap: 64px;
+}
+
+.g-128 {
+    gap: 128px;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.items-base {
+    align-items: baseline;
+}
+
+.content-center {
+    justify-content: center;
+}
+
+.content-space {
+    justify-content: space-between;
+}

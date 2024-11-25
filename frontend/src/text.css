@@ -1,0 +1,187 @@
+.tx-white{
+    color:var(--white)
+}
+
+.tx-black {
+    color:var(--black)
+}
+
+.tx-gray {
+  color: var(--grayText);
+}
+
+.tc-red {
+  color: var(--red);
+}
+
+.tc-green {
+  color: var(--darkGreen);
+}
+
+.tc-darkred {
+  color: var(--darkRed);
+}
+
+h1,h2,h3,h4 {
+    margin: 0;
+  }
+  
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2rem;
+  }
+  
+  .tx-xs {
+    font-size: 0.8rem;
+  }
+  
+  .tx-sm {
+    font-size: 1rem;
+  }
+  
+  .tx-md {
+    font-size: 1.2rem;
+  }
+  
+  .tx-lg {
+    font-size: 1.4rem;
+  }
+  
+  .tx-xl {
+    font-size: 1.6rem;
+  }
+  
+  .tx-ex {
+    font-size: 1.8rem;
+  }
+  
+  .h-xs {
+    font-size: 1.2rem;
+  }
+  
+  .h-sm {
+    font-size: 1.6rem;
+  }
+  
+  .h-md {
+    font-size: 1.8rem;
+  }
+  
+  .h-lg {
+    font-size: 2rem;
+  }
+  
+  .h-xl {
+    font-size: 2.25rem;
+  }
+  
+  .h-ex {
+    font-size: 2.6rem;
+  }
+  
+  .h-top {
+    font-size: 3.2rem;
+  }
+
+  @media only screen and (max-width:992px){
+    .scrollable--img {
+        position: relative;
+        animation: none;
+        margin-bottom: 16px;
+    }
+  
+    .tx-md {
+        font-size: 1rem;
+    }
+  
+    .tx-lg {
+        font-size: 1.2rem;
+    }
+  
+    .tx-xl {
+        font-size: 1.46rem;
+    }
+  
+    .tx-ex {
+        font-size: 1.6rem;
+    }
+  
+    .h-sm {
+        font-size: 1.4rem;
+    }
+    
+    .h-md {
+        font-size: 1.6rem;
+    }
+    
+    .h-lg {
+        font-size: 1.8rem;
+    }
+    
+    .h-xl {
+        font-size: 2rem;
+    }
+    
+    .h-ex {
+        font-size: 2.25rem;
+    }
+  }
+  
+  @media only screen and (max-width:768px){
+    .tx-lg {
+        font-size: 1rem;
+    }
+  
+    .tx-xl {
+        font-size: 1.2rem;
+    }
+  
+    .tx-ex {
+        font-size: 1.4rem;
+    }
+  
+    .h-sm {
+        font-size: 1.2rem;
+    }
+  
+    .h-md {
+        font-size: 1.4rem;
+    }
+    
+    .h-lg {
+        font-size: 1.6rem;
+    }
+    
+    .h-xl {
+        font-size: 1.8rem;
+    }
+    
+    .h-ex {
+        font-size: 2rem;
+    }
+  }
+
+  .light {
+    font-weight: 300;
+  }
+  
+  .med {
+    font-weight: 400;
+  }
+  
+  .bold {
+    font-weight: 500;
+  }
+  
+  .xbold {
+    font-weight: 600;
+  }
+
+  .thick {
+    font-weight: 800;
+  }
+
+  .text-center {
+    text-align: center;
+  }

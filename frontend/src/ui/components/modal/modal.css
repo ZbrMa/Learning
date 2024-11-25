@@ -1,0 +1,28 @@
+.modal__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.481);
+    z-index: 1000;
+}
+
+.modal__content {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    max-width: 90vw;
+    background-color: var(--white);
+}
+
+.modal__header {
+    border-bottom: 2px solid vaR(--lightGray);
+}
+
+.modal__header svg {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+}
+

@@ -1,0 +1,124 @@
+.profile__form {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 64px;
+}
+
+.profile__header {
+    border-bottom: 2px solid var(--lightGray);
+}
+
+.profile__form .input__container {
+    display: grid;
+    grid-template-columns: 100px auto;
+    padding: 8px 0;
+    margin: 0;
+    width: 100%;
+    gap: 16px;
+}
+
+.profile__form label {
+    align-self: center;
+    font-size: 0.9rem;
+}
+
+.profile__form input {
+    font-size: 1rem;
+    border: none;
+    background-color: transparent;
+    padding: 8px;
+    opacity: 1;
+    appearance: none;
+}
+.profile__form .info--title{
+    padding-block: 8px;
+}
+
+.profile__form .info--data {
+    padding: 8px;
+}
+
+.profile__form input:disabled:hover, .profile__form input:disabled:focus, .profile__form input:disabled:active {
+    border: none;
+}
+
+.profile__form input:not(:disabled){
+    outline: 1px solid var(--lightGrayHover);
+    outline-offset: -1px;
+    border: none;
+}
+
+.profile__form input:not(:disabled):hover, .profile__form input:not(:disabled):focus, .profile__form input:not(:disabled):active {
+    outline: 1px solid var(--black);
+    outline-offset: -1px;
+    border: none;
+}
+
+.profile__form .dropdown {
+    width: 100%;
+    padding: 0;
+}
+
+.profile__form .dropdown-inner {
+    padding: 8px;
+    border: none;
+}
+
+.profile__form .dropdown:hover .dropdown-inner {
+    border: none;
+}
+
+.profile__form .dropdown {
+    outline:1px solid var(--lightGrayHover);
+    outline-offset: -1px;
+    margin-block:-8px;
+    margin-right: -8px;
+}
+
+.profile__form .dropdown.disabled {
+    outline: none;
+}
+
+.profile__form .dropdown:hover {
+    background-color: var(--white);
+    outline:1px solid var(--black);
+    outline-offset: -1px;
+}
+
+.profile__form .dropdown.disabled:hover {
+    background-color: var(--white);
+    outline: none;
+}
+
+
+.profile__form .option-container {
+    border-radius: 0;
+}
+
+.profile__form textarea {
+    outline: 1px solid var(--lightGrayHover);
+    outline-offset: -1px;
+    background-color: transparent;
+    padding-inline: 8px;
+}
+
+.profile__form .textarea__container {
+    grid-template-columns: 100px auto;
+    gap: 16px;
+}
+
+.profile__form textarea:disabled {
+    outline: none;
+    border: none;
+}
+
+.profile__form textarea:disabled:hover, .profile__form textarea:disabled:focus, .profile__form textarea:disabled:active{
+    outline: none;
+    border: none;
+}
+
+.profile__form textarea:hover, .profile__form textarea:focus, .profile__form textarea:active{
+    border: none;
+    outline: 1px solid var(--black);
+    outline-offset: -1px;
+}

@@ -1,0 +1,21 @@
+.info__line {
+    display: grid;
+    grid-template-columns: 100px auto;
+    width: 100%;
+    gap: 16px;
+    padding: 8px 0;
+}
+
+.info--title {
+    color: var(--darkGray);
+    font-size: 0.9rem;
+}
+
+.info--data {
+    color: var(--black);
+    text-align: left;
+}
+
+.info--data:has(.dropdown){
+    padding: 0;
+}
