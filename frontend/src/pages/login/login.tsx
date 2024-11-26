@@ -61,9 +61,9 @@ export function Login() {
       } else {
         const token = data.token;
         const expiryTime = new Date().getTime() + 30 * 60 * 1000;
-        sessionStorage.setItem("authToken", token);
-        sessionStorage.setItem("tokenExpiry", expiryTime.toString());
-        sessionStorage.setItem("userData", JSON.stringify(data.user));
+        localStorage.setItem("authToken", token);
+        localStorage.setItem("tokenExpiry", expiryTime.toString());
+        localStorage.setItem("userData", JSON.stringify(data.user));
         dispatch(loginSuccess({ ...data.user, token }));
         navigate("/");
       }

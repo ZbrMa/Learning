@@ -6,10 +6,11 @@ import "./boxModel.css";
 import "./grid.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import { userStore } from "./store/userStore";
+import { userStore, persistor } from "./store/userStore";
 import { BrowserRouter } from "react-router-dom";
 import { ModalContextProvider } from "./context/modalContext";
 import { AlertProvider } from "./context/alertContext";
+import { PersistGate } from 'redux-persist/integration/react';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,6 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={userStore}>
+      <PersistGate loading={<div>Načítání...</div>} persistor={persistor}>
       <ModalContextProvider>
         <AlertProvider>
           <BrowserRouter>
@@ -24,6 +26,7 @@ root.render(
           </BrowserRouter>
         </AlertProvider>
       </ModalContextProvider>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

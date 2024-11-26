@@ -1,40 +1,29 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Login } from "./pages/login/login";
 import { Register } from "./pages/register/register";
 import { Profile } from "./pages/profile";
 import { Domu } from "./pages/Domu";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { loginSuccess, logout } from "./api/authSlice";
 import { UdalostiPage } from "./pages/Udalosti";
 import { SpravaPage } from "./pages/Sprava";
 import { LoginEvent } from "./pages/LoginEvent";
 import { UserPage } from "./pages/User";
 import { ProtectedRoute } from "./ui/components/protectedRoute";
+import { useSelector } from "react-redux";
+import { RootState } from "./store/userStore";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { initializeAuth } from "./api/authSlice";
+import { useLocation } from "react-router-dom";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const tokenExpiry = sessionStorage.getItem("tokenExpiry");
-  const token = sessionStorage.getItem("authToken");
-  const userData = sessionStorage.getItem("userData");
-  const navigate = useNavigate();
+  const location = useLocation();
 
-  useEffect(() => {
-    if (token && tokenExpiry && userData) {
-      const isExpired = new Date().getTime() > parseInt(tokenExpiry);
-      if (isExpired) {
-        dispatch(logout());
-        
-        if (window.location.pathname !== '/') {
-          navigate('/'); 
-        }
-      } else {
-        const user = JSON.parse(userData);
-        dispatch(loginSuccess({ ...user, token }));
-      }
-    }
-  }, [dispatch, token, tokenExpiry, userData, navigate]);
-  
+  useEffect(()=>{
+    dispatch(initializeAuth());
+  },[location]);
+
+  const token = useSelector((state: RootState) => state.auth.token);
 
   return (
     <Routes>

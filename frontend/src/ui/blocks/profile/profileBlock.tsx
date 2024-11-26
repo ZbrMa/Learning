@@ -92,7 +92,7 @@ export function ProfileBlock() {
       <ChnagePasswordForm />
     </BodyBlock>
     <BodyBlock title="Co mě čeká">
-      <UserEvents userId={user.id}/>
+      <UserEvents userId={user.id} action="signOut"/>
     </BodyBlock>
     
     </>

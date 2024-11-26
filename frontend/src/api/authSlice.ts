@@ -36,21 +36,38 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         loginSuccess: (state, action: PayloadAction<ExtendedUser>) => {
+
             return { ...state, ...action.payload };
         },
         logout: () => {
-            sessionStorage.removeItem("tokenExpiry");
-            sessionStorage.removeItem("authToken");
-            sessionStorage.removeItem("userData");
-            return {
-              ...initialState,
-            };        
-          },
-        editSuccess: (state,action:PayloadAction<IEditableUser>) =>{
-            return {...state,...action.payload};
+            localStorage.removeItem("tokenExpiry");
+            localStorage.removeItem("authToken");
+            localStorage.removeItem("userData");
+            return { ...initialState };
         },
-    }
+        editSuccess: (state, action: PayloadAction<IEditableUser>) => {
+            return { ...state, ...action.payload };
+        },
+        initializeAuth: (state) => {
+            const token = localStorage.getItem("authToken");
+            const tokenExpiry = localStorage.getItem("tokenExpiry");
+            const userData = localStorage.getItem("userData");
+            
+            if (token && tokenExpiry && userData) {
+                const isExpired = new Date().getTime() > parseInt(tokenExpiry);
+                if (isExpired) {
+                    localStorage.clear();
+                    return { ...initialState };
+                } else {
+                    const user = JSON.parse(userData);
+                    return { ...state, ...user, token };
+                }
+            }
+
+            return { ...initialState };
+        },
+    },
 });
 
-export const { loginSuccess, logout, editSuccess } = authSlice.actions;
+export const { loginSuccess, logout, editSuccess,initializeAuth } = authSlice.actions;
 export default authSlice.reducer;
