@@ -11,13 +11,14 @@ const routesPath = path.join(__dirname, 'routes');
 
 app.use(express.json());
 
-app.use('/uploads/users', express.static(path.join(__dirname, 'users')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(cors({
     origin: 'http://localhost:3000',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }));
+  
 
 app.options('*', cors());
 
@@ -29,7 +30,6 @@ export const userStorage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname));
     },
 });
-
 
 fs.readdirSync(routesPath).forEach((file) => {
     if (file.endsWith('.ts')) {

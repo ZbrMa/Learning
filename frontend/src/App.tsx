@@ -24,6 +24,7 @@ const App: React.FC = () => {
       const isExpired = new Date().getTime() > parseInt(tokenExpiry);
       if (isExpired) {
         dispatch(logout());
+        
         if (window.location.pathname !== '/') {
           navigate('/'); 
         }

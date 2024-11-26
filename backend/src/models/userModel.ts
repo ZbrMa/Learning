@@ -11,6 +11,7 @@ import path from "path";
 import fs from 'fs';
 
 const JWT_SECRET = "tajne_heslo";
+const SERVER_NAME = "http://localhost:5000";
 
 export const getAllUsers = (
   callback: (err: Error | null, results?: IUser[]) => void
@@ -285,46 +286,46 @@ export const checkUserModel = (id:number,callback:(error:Error| null, result:{me
 
 };
 
-
-export const postNewImage = (
-  image: Express.Multer.File,
+export const saveUserImage = (
   userId: number,
-  callback: (err: Error | null, result: { success: boolean; message: string }) => void
+  imageBuffer: Buffer,
+  originalName: string,
+  callback: (err: Error | null, result: { success: boolean; message: string, imagePath?:string }) => void
 ) => {
   try {
-    const uploadDir = path.join(__dirname, 'uploads/users');
+      const uploadDir = path.join(__dirname, '../uploads/users');
 
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-
-    const filePath = path.join(uploadDir, 'user',String(userId));
-
-    fs.writeFile(filePath, image.buffer, (err) => {
-      if (err) {
-        console.error('Chyba při ukládání souboru:', err);
-        return callback(err, { success: false, message: 'Chyba při ukládání obrázku.' });
+      if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
       }
 
-      console.log('Soubor byl úspěšně uložen:', filePath);
+      const fileExtension = path.extname(originalName);
+      const fileName = `user${userId}${fileExtension}`;
+      const filePath = path.join(uploadDir, fileName);
 
-      const imageUrl = `/uploads/users/user${userId}`;
+      fs.writeFile(filePath, imageBuffer, (err) => {
+          if (err) {
+              console.error('Chyba při ukládání souboru:', err);
+              return callback(err, { success: false, message: 'Chyba při ukládání obrázku.' });
+          }
 
-      const sql = 'UPDATE users SET image = ? WHERE id = ?';
-      const params = [imageUrl, userId];
+          const imageUrl = SERVER_NAME+`/uploads/users/${fileName}`;
 
-      db.query(sql, params, (dbErr, dbRes) => {
-        if (dbErr) {
-          console.error('Chyba při ukládání cesty do databáze:', dbErr);
-          return callback(dbErr, { success: false, message: 'Chyba při ukládání cesty k obrázku.' });
-        }
+          const sql = 'UPDATE users SET image = ? WHERE id = ?';
+          const params = [imageUrl, userId];
 
-        console.log('Cesta k obrázku byla uložena do databáze');
-        callback(null, { success: true, message: 'Obrázek byl úspěšně uložen.' });
+          db.query(sql, params, (dbErr, dbRes) => {
+              if (dbErr) {
+                  console.error('Chyba při ukládání cesty do databáze:', dbErr);
+                  return callback(dbErr, { success: false, message: 'Chyba při ukládání cesty k obrázku.' });
+              }
+
+              callback(null, { success: true, message: 'Obrázek byl úspěšně uložen.',imagePath:imageUrl});
+          });
       });
-    });
   } catch (error) {
-    console.error('Chyba při zpracování obrázku:', error);
-    callback(error as Error, { success: false, message: 'Chyba při zpracování obrázku.' });
+      console.error('Chyba při zpracování obrázku:', error);
+      callback(error as Error, { success: false, message: 'Chyba při zpracování obrázku.' });
   }
 };
+

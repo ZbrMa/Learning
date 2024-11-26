@@ -4,13 +4,13 @@ import {
   postEditUser,
   postNewUser,
   postNewPassword,
-  postNewImage,
+  saveUserImage,
   checkEmailModel,
   checkNickModel,
   checkUserModel,
   getUserModel,
 } from "../models/userModel";
-import { Request, Response } from "express";
+import { Request, Response,NextFunction , RequestHandler} from "express";
 import { IChangePassword, IEditableUser, INewUser } from "../types/userTypes";
 import multer from "multer";
 
@@ -156,30 +156,27 @@ export const checkUser = (req:Request,res:Response) => {
   });
 };
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+export const uploadUserImage: RequestHandler = (req, res, next) => {
+  const userId = parseInt(req.params.id, 10);
+  const image = req.file;
 
-export const uploadUserImage = (req: Request, res: Response) => {
-  upload.single('file')(req, res, (err) => {
-    if (err) {
-      return res.status(500).json({ message: 'Chyba při nahrávání souboru', error: err });
-    }
+  if (!image) {
+      res.status(400).json({ success: false, message: 'Obrázek nebyl poskytnut.' });
+      return;
+  }
 
-    if (!req.body.image) {
-      return res.status(400).json({ message: 'No file uploaded' });
-    }
+  if (isNaN(userId)) {
+      res.status(400).json({ success: false, message: 'ID uživatele je neplatné.' });
+      return;
+  }
 
-    const userId = req.body.user;
-
-    postNewImage(req.body.image, userId, (err, result) => {
+  saveUserImage(userId, image.buffer, image.originalname, (err, result) => {
       if (err) {
-        return res.status(500).json({ message: result.message });
-      } else {
-        res.status(200).json({
-          message: result.message,
-          imagePath: `/uploads/users/user${userId}`,
-        });
+          res.status(500).json(result);
+          return;
       }
-    });
+      res.status(200).json(result);
   });
+
+  return;
 };

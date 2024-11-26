@@ -8,7 +8,7 @@ interface EventFilterParams {
   checked:boolean,
 };
 
-interface MessageResponse {
+export interface MessageResponse {
   success:boolean,
   message:string,
 };

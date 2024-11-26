@@ -34,6 +34,7 @@ export function ImageInput({ img,returnFile,className, ...props }: ImageInputPro
         ref={fileInputRef}
         onChange={handleFileChange}
         style={{ display: "none" }}
+        accept="image/jpeg,image/jpg, image/png, image/bmp, image/webp, image/svg+xml"
       />
     </div>
   );

@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/userStore";
+import { loginSuccess } from "../../../api/authSlice";
 import { formatDate } from "date-fns";
 import "./profileBlock.css";
 import { Button } from "../../components/button/button";
@@ -16,12 +17,31 @@ import { ImageInput } from "../../components/imageInput/imageInput";
 import { useChangeImageMutation } from "../../../api/userApiSlice";
 import { BodyBlock } from "../bodyBlock/bodyBlock";
 import { UserEvents } from "./ui/userEvents";
+import { Spinner } from "../../components/spinner/spinner";
+import { useAlert } from "../../../context/alertContext";
+import { useDispatch } from "react-redux";
 
 export function ProfileBlock() {
   const user = useSelector((root: RootState) => root.auth);
+  const dispatch = useDispatch();
 
   const { setModal } = useContext(ModalContext);
-  const [sendImage, { data, isLoading }] = useChangeImageMutation();
+  const {showAlert} = useAlert();
+  const [sendImage, { data, isLoading}] = useChangeImageMutation();
+
+  const handleImageChange = async(file: File) => {
+    if (file) {
+      const response = await sendImage({ user: user.id, image: file });
+      if(response.error) {
+        showAlert(<Alert type="negative" title="Chyba serveru">Obrázek se napodařilo aktualizovat. Zkuste to později.</Alert>)
+      } else if (response.data.success) {
+        showAlert(<Alert type="positive" title="Úspěch">{response.data.message}</Alert>)
+        response.data.imagePath && dispatch(loginSuccess({...user,image:response.data.imagePath}));
+      } else {
+        showAlert(<Alert type="negative" title="Nastala chyba">{response.data.message}</Alert>)
+      }
+    }
+  };
 
   return (
     <>
@@ -29,12 +49,16 @@ export function ProfileBlock() {
       <div className="profile__container">
         <div className="profile__grid">
           <div className="profile__left">
-            <ImageInput
+            {isLoading ? (
+              <Spinner fixed={false}/>
+            ):(
+              <ImageInput
               img={user.image}
-              returnFile={(e) => sendImage({ user: user.id, image: e })}
+              returnFile={handleImageChange}
               className="profile--img"
             />
-
+            )}
+            
             {user.checked ? (
               <div className="profile__credentials mt-32">
                 <InfoLine title="E-mail">{user.email}</InfoLine>
@@ -47,14 +71,6 @@ export function ProfileBlock() {
                   >
                     <IoIosLock />
                     Změnit heslo
-                  </Button>
-                  <Button
-                    onClick={() => setModal("editEmailModal")}
-                    style={{ fontSize: "1rem", padding: "8px" }}
-                    variant="ternary"
-                  >
-                    <MdOutlineAlternateEmail />
-                    Změnit e-mail
                   </Button>
                 </div>
               </div>
@@ -75,7 +91,10 @@ export function ProfileBlock() {
       
       <ChnagePasswordForm />
     </BodyBlock>
-    <UserEvents userId={user.id}/>
+    <BodyBlock title="Co mě čeká">
+      <UserEvents userId={user.id}/>
+    </BodyBlock>
+    
     </>
   );
 }

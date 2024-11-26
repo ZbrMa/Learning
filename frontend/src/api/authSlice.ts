@@ -38,7 +38,14 @@ const authSlice = createSlice({
         loginSuccess: (state, action: PayloadAction<ExtendedUser>) => {
             return { ...state, ...action.payload };
         },
-        logout: () => initialState,
+        logout: () => {
+            sessionStorage.removeItem("tokenExpiry");
+            sessionStorage.removeItem("authToken");
+            sessionStorage.removeItem("userData");
+            return {
+              ...initialState,
+            };        
+          },
         editSuccess: (state,action:PayloadAction<IEditableUser>) =>{
             return {...state,...action.payload};
         },
