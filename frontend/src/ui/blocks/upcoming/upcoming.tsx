@@ -15,10 +15,9 @@ export function UpcomingBlock(){
     return(
         <BodyBlock>
             <div className="upcom__events g-32">
-                <div className="flex-col">
-                    <SectionHeader>Co se bude dít</SectionHeader>
-                    <p className="pb-16 mb-16">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Fusce aliquam vestibulum ipsum.</p>
-                    <Button variant='ternary' size='small'><Link to={'/events'} className="flex items-center g-8">Události <MdArrowForward/></Link></Button>
+                <div className="flex-col content-space">
+                    <h1 className="cap h-top thick tx-lightGray">Co se chystá?</h1>
+                    <Button variant='ternary'><Link to={'/events'} className="flex items-center g-8">Události <MdArrowForward/></Link></Button>
                 </div>
             <Carousel
                 smallDev={2}

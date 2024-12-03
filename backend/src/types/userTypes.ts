@@ -32,3 +32,7 @@ export interface IChangePassword {
     old:string,
     new:string,
 };
+
+export interface IForgotPassword {
+    email:string,
+};

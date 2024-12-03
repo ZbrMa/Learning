@@ -5,6 +5,7 @@ import {
   INewUser,
   IUser,
   IChangePassword,
+  INewPassword,
 } from "../types/users";
 import { MessageResponse } from "./eventApiSlice";
 
@@ -66,6 +67,13 @@ export const userApi = createApi({
         body: newPass,
       }),
     }),
+    forgotPassword: builder.mutation<{ success: boolean; message: string },INewPassword>({
+      query: (newPass) => ({
+        url: "/forgotPassword",
+        method: "POST",
+        body: newPass,
+      }),
+    }),
     checkEmail: builder.mutation<boolean, { email: string }>({
       query: (payload) => ({
         url: "/checkEmail",
@@ -99,6 +107,7 @@ export const {
   useLoginMutation,
   useEditUserMutation,
   useChangePasswordMutation,
+  useForgotPasswordMutation,
   useChangeImageMutation,
   useCheckEmailMutation,
   useCheckNickMutation,

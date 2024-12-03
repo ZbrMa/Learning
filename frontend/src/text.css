@@ -10,16 +10,23 @@
   color: var(--grayText);
 }
 
+.tx-lightGray {
+  color: var(--darkGray);
+}
+
 .tc-red {
   color: var(--red);
 }
-
 .tc-green {
   color: var(--darkGreen);
 }
 
 .tc-darkred {
   color: var(--darkRed);
+}
+
+.cap {
+  text-transform: uppercase;
 }
 
 h1,h2,h3,h4 {

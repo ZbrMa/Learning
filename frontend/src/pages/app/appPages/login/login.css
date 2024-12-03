@@ -1,0 +1,13 @@
+.register__container{
+    max-width: 360px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.register__bottom {
+    border-top: 1px solid var(--lightGray);
+}
+
+.register__bottom > * {
+    width: 100%;
+}

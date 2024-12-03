@@ -6,37 +6,17 @@ import "./intro.css";
 
 export function IntroBlock() {
   return (
-    <>
       <BodyBlock>
         <div className="grid-2 g-128">
           <div className="flex-col content-space">
-            <SectionHeader>Úvod</SectionHeader>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Fusce aliquam vestibulum ipsum. Suspendisse sagittis ultrices augue.</p>
+            <h2 className="cities--header h-top thick cities--title mb-32">Úvod</h2>
+            <p>Naším cílem je podpořit pouliční umělce a propojit je s diváky. Díky našemu projektu mohou umělci snadno najít místa pro svá vystoupení, zatímco návštěvníci mohou objevovat nové talenty a užít si kulturu přímo na ulicích.</p>
           </div>
           <div className="flex-col g-32">
-            <p className="h-xl xbold tx-gray"><Highlight>Lorem</Highlight> ipsum dolor sit amet, consectetuer adipiscing <Highlight>elit</Highlight>. Fusce aliquam <Highlight>vestibulum</Highlight> ipsum.</p>
-            <Button variant='ternary'>Více o projektu</Button>
+            <p className="h-xl xbold tx-gray">Poznejte <Highlight>živé umění</Highlight> v pulzujících <Highlight>ulicích města</Highlight>. Podpořte umělce a staňte se součástí <Highlight>komunity</Highlight>.</p>
+            <Button variant='ternary' style={{marginTop:'64px'}}>Více o projektu</Button>
           </div>
         </div>
       </BodyBlock>
-      <BodyBlock variant="full">
-        {/*<h1 className="xbold h-xl text-center mb-64">V jakých městech nás najdete?</h1>*/}
-        <div className="flex cities__cards">
-          <CityCard title="Brno" image="/images/brno.jpg">''Město studentů''</CityCard>
-          <CityCard title="Praha" image="/images/praha.jpg">''Matka měst''</CityCard>
-          <CityCard title="Olomouc" image="/images/olomouc.jpg">''Perla Hané''</CityCard>
-        </div>
-      </BodyBlock>
-      {/*<BodyBlock variant='full' style={{paddingBottom:'0'}}>
-        <div className="intro__cards">
-          <BigCard image="/images/brno.jpg" title="Brno" subtitle="''Město studentů''" button={<Button variant='secondary'>Více o Brnu</Button>}>
-          </BigCard>
-          <BigCard image="/images/praha.jpg" title="Praha" subtitle="''Matka měst''" button={<Button variant='secondary'>Více o Praze</Button>}>
-          </BigCard>
-          <BigCard image="/images/olomouc.jpg" title="Olomouc" subtitle="''Perla Hané''" button={<Button variant='secondary'>Více o Olomouci</Button>}>
-          </BigCard>
-        </div>
-      </BodyBlock>*/}
-    </>
   );
 }

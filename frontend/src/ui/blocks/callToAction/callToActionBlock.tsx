@@ -3,35 +3,54 @@ import { Button } from "../../components/button/button";
 import "./callToActionBlock.css";
 import { ReferenceCard } from "../../components/referenceCard/referenceCard";
 import { Link } from "react-router-dom";
+import { InfoCard } from "../../components/infoCard/infoCard";
+import { useEffect } from "react";
+
+const images = [
+  '/images/praha.jpg',
+    '/images/busking.jpg',
+    '/images/profilovy.jpg',
+    '/images/brno.jpg',
+]
 
 export function CallToActionBlock() {
+
   return (
     <>
-      <BodyBlock color="grey">
-        <div className="reference">
-        <SectionHeader>Komunita</SectionHeader>
-          <ReferenceCard title="FrantaArt" image="/images/profilovy.jpg">
+      <BodyBlock color="grey" id="comunity">
+        <div className="comunity">
+          {/*<ReferenceCard title="FrantaArt" image="/images/profilovy.jpg">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vestibulum
             fermentum tortor id mi. Maecenas aliquet accumsan leo. Praesent id
             justo in neque elementum ultrices. Phasellus faucibus molestie nisl.
             Nullam eget nisl. Curabitur bibendum justo non orci. Integer
             malesuada. Praesent vitae arcu tempor neque lacinia pretium. Vivamus
             luctus egestas leo.
-          </ReferenceCard>
+          </ReferenceCard>*/}
+          <div className="comunity__gallery">
+            {images.map((image,index)=>(
+              <img src={image} key={image+index}/>
+            ))}
+          </div>
+          <div className="flex-col g-32 content-center">
+            <h2 className="cities--header h-top thick cities--title">Staň se součástí našeho světa!</h2>
+            <div className="flex g-32">
+            <InfoCard name="míst">5</InfoCard>
+            <InfoCard name="umělců">200+</InfoCard>
+            <InfoCard name="akcí měsíčně">100+</InfoCard>
+            </div>
+            
+          </div>
+          
         </div>
       </BodyBlock>
-      <BodyBlock color="black">
+      <BodyBlock color="black" id="action-call">
         <div className="call__action flex-col items-center">
-          <h1 className="h-xl xbold tx-white">Jsi busker?</h1>
-          <p className="text-center tx-gray">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vestibulum
-            fermentum tortor id mi. Maecenas aliquet accumsan leo. Praesent id
-            justo in neque elementum ultrices. Phasellus faucibus molestie nisl.
-            Nullam eget nisl. Curabitur bibendum justo non orci. Integer
-            malesuada. Praesent vitae arcu tempor neque lacinia pretium. Vivamus
-            luctus egestas leo.
+          <h1 className="cap h-top thick tx-white">Jsi busker?</h1>
+          <p className="text-center tx-lightGray">
+          Ať už jsi umělec, nebo fanoušek pouličního umění, naše platforma je tu pro tebe. Přidej se k nám a vytvářejme společně nezapomenutelné zážitky!
           </p>
-          <Button className="bold xbold fit"><Link to={'/register'}>Chci být součástí</Link></Button>
+          <Button className="bold xbold fit"><Link to={'/app/register'}>Chci být součástí</Link></Button>
         </div>
       </BodyBlock>
     </>

@@ -14,7 +14,7 @@ import { format,addDays } from "date-fns";
 
 export function NewEventForm() {
     const {data:places} = useGetPlacesQuery();
-    const [newEvent,setNewEvent] = useState<INewEvent>({day:'',time:'',place:-1});
+    const [newEvent,setNewEvent] = useState<INewEvent>({day:'',start:'',end:'',place:-1});
     const [createEvent] = useCreateNewEventMutation();
     const {showAlert} = useAlert();
     const {setModal} = useContext(ModalContext);
@@ -39,7 +39,7 @@ export function NewEventForm() {
     };
 
     return(
-        <form className="flex-col g-16" onSubmit={(e)=>handleSubmit(e)}>
+        <form className="grid-2 g-16" onSubmit={(e)=>handleSubmit(e)}>
                 {places && 
                     <GroupedDropdown
                         options={places}
@@ -60,11 +60,17 @@ export function NewEventForm() {
                 />
                 <Input
                     type='time'
-                    onChange={(e)=>handleSetNewEvent('time',e.target.value)}
-                    label="Čas"
+                    onChange={(e)=>handleSetNewEvent('start',e.target.value)}
+                    label="Začátek"
                     labelPosition="out"
                 />
-                <Button type='submit' style={{width:'100%'}}>Vytvořit</Button>
+                 <Input
+                    type='time'
+                    onChange={(e)=>handleSetNewEvent('end',e.target.value)}
+                    label="Konec"
+                    labelPosition="out"
+                />
+                <Button type='submit'>Vytvořit</Button>
             </form>
     );
 };

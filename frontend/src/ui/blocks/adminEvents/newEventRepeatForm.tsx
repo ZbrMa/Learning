@@ -35,7 +35,8 @@ export function NewEventRepeatForm() {
     weekDay: 0,
     interval: 7,
     period: { start: "", end: "" },
-    time: "",
+    start: "",
+    end:"",
     place: 0,
   });
   const [createEvent] = useCreateRepeatEventsMutation();
@@ -66,7 +67,7 @@ export function NewEventRepeatForm() {
     e.preventDefault();
     if (newEvent.place === undefined || newEvent.place === 0) {
       showAlert(<Alert type="neutral">Vyberte místo</Alert>);
-    } else if (newEvent.time === undefined || newEvent.time === "") {
+    } else if (newEvent.start === undefined || newEvent.start === "" || newEvent.end === undefined || newEvent.end === "") {
       showAlert(<Alert type="neutral">Vyberte čas</Alert>);
     } else {
       const response = await createEvent(newEvent);
@@ -91,9 +92,15 @@ export function NewEventRepeatForm() {
           optionLabel="spot"
           multiSelect={false}
           label="Místo"
-          style={{ gridColumn: "span 2" }}
         />
       )}
+      <MySelect
+        label="Interval"
+        options={intervalOptions}
+        returnSelected={(e) => handleSetNewEvent("interval", e)}
+        placeholder="Vyberte interval"
+        defaultValue={intervalOptions[0].value}
+      />
       <Input
         type="date"
         onChange={(e) => {
@@ -111,20 +118,19 @@ export function NewEventRepeatForm() {
         labelPosition="out"
         min={start}
       />
-      <MySelect
-        label="Interval"
-        options={intervalOptions}
-        returnSelected={(e) => handleSetNewEvent("interval", e)}
-        placeholder="Vyberte interval"
-        defaultValue={intervalOptions[0].value}
+      <Input
+        type="time"
+        onChange={(e) => handleSetNewEvent("start", e.target.value)}
+        label="Začátek"
+        labelPosition="out"
       />
       <Input
         type="time"
-        onChange={(e) => handleSetNewEvent("time", e.target.value)}
-        label="Čas"
+        onChange={(e) => handleSetNewEvent("end", e.target.value)}
+        label="Konec"
         labelPosition="out"
       />
-      <Button type="submit" style={{ width: "100%", gridColumn: "span 2" }}>
+      <Button type="submit" style={{ gridColumn: "span 2" }}>
         Vytvořit
       </Button>
     </form>

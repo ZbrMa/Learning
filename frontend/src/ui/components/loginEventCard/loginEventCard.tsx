@@ -75,9 +75,9 @@ export function LoginEventCard({
         </div>
       </div>
       <div>
-        <span className="flex g-8 tx-md bold mb-8">
+        <span className="flex items-center g-8 tx-md bold mb-8">
           <IoTimeOutline />{" "}
-          {format(parse(event.time, "HH:mm:ss", new Date()), "HH:mm")}
+          {format(parse(event.start, "HH:mm:ss", new Date()), "HH:mm")} - {format(parse(event.end, "HH:mm:ss", new Date()), "HH:mm")}
         </span>
         <span className="flex g-8 tx-md bold">
           <IoLocationOutline /> {event.city}, {event.spot}

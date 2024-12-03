@@ -4,6 +4,7 @@ import {
   postEditUser,
   postNewUser,
   postNewPassword,
+  forgotPasswordModel,
   saveUserImage,
   checkEmailModel,
   checkNickModel,
@@ -11,7 +12,7 @@ import {
   getUserModel,
 } from "../models/userModel";
 import { Request, Response,NextFunction , RequestHandler} from "express";
-import { IChangePassword, IEditableUser, INewUser } from "../types/userTypes";
+import { IChangePassword, IEditableUser, IForgotPassword, INewUser } from "../types/userTypes";
 import multer from "multer";
 
 export const getUsers = (req:Request,res: Response) => {
@@ -111,6 +112,22 @@ export const changePassword = (req:Request,res:Response) =>{
   postNewPassword(newPass,(err,result)=>{
     if (err) {
       console.log("uprava hesla", err);
+      return res.status(500).json(result);
+    } else if (result) {
+      res.status(200).json(result);
+    } else {
+      return res.status(500).json(result);
+    }
+  });
+};
+
+export const forgotPassword = (req:Request,res:Response) =>{
+  const newPass:IForgotPassword = {
+    email:req.body.email,
+  };
+  forgotPasswordModel(newPass,(err,result)=>{
+    if (err) {
+      console.log("zapomenute heslo", err);
       return res.status(500).json(result);
     } else if (result) {
       res.status(200).json(result);

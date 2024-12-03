@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IAdminEvent, IEvent, IEventReduced, INewEvent, IRepeatEvent } from "../types/events";
+import { IAdminEvent, IEvent, IEventReduced, INewEvent, IRepeatEvent,IEditableEvent } from "../types/events";
 import { IEventDateRangeFilter, IEventFilter } from "../types/filtersTypes";
 
 interface EventFilterParams {
@@ -55,6 +55,14 @@ export const eventApi = createApi({
       }),
       invalidatesTags:['events'],
     }),
+    editEvent:builder.mutation<MessageResponse,IEditableEvent>({
+      query:(payload) => ({
+        url:'/editEvent',
+        method:'POST',
+        body:payload,
+      }),
+      invalidatesTags:['events'],
+    }),
     createRepeatEvents:builder.mutation<MessageResponse,IRepeatEvent>({
       query:(payload) => ({
         url:'/repeatEvent',
@@ -80,7 +88,7 @@ export const eventApi = createApi({
       }),
       invalidatesTags:['events'],
     }),
-    getUserEvents: builder.query<IEventReduced[],{userId:number}>({
+    getUserEvents: builder.query<IEventReduced[],{userId:number,startDate:Date}>({
       query:(payload) => ({
         url:'/userEvents',
         method:'POST',
@@ -106,6 +114,7 @@ export const {
     useGetAdminEventsQuery,
     useCreateNewEventMutation,
     useCreateRepeatEventsMutation,
+    useEditEventMutation,
     useDeleteEventMutation,
     useGetEventDatesQuery,
     useLoginEventMutation,

@@ -2,6 +2,7 @@ import { db } from "../controllers/database";
 import {
   IChangePassword,
   IEditableUser,
+  IForgotPassword,
   INewUser,
   IUser,
 } from "../types/userTypes";
@@ -244,6 +245,34 @@ export const postNewPassword = (
 
   params;
 };
+
+export const forgotPasswordModel = (
+  newPass: IForgotPassword,
+  callback: (
+    err: Error | null,
+    result: { success: boolean; message: string }
+  ) => void
+) => {
+  const checkSql = `SELECT * FROM users WHERE email = ?`;
+
+  db.query(checkSql, newPass.email, (err, res) => {
+    if (err) {
+      return callback(err, {
+        success: false,
+        message: "Nastala chyba. Zkus to později.",
+      });
+    }
+
+    const result = res as RowDataPacket[];
+    if (result.length > 0) {
+      console.log('posílám email');
+      return callback(null,{success:true,message:"Zkontroluj svou emailovou schránku."})
+    } else {
+      return callback(null, { success: false, message: "Zkontroluj zadanou emailovou adresu." });
+    }
+  });
+};
+
 
 export const checkEmailModel = (email:string,callback:(error:Error| null, result:boolean)=>void) => {
   const sql = 'SELECT email FROM users WHERE email = ?';

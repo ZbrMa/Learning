@@ -1,5 +1,5 @@
 import { Response,Request } from "express";
-import { adminEventsModel, deleteEventModel, eventDetailModel, filteredEvents, newEventModel, newEventRepeatModel, upcomingEvents, eventDatesModel, loginEventModel, signOutEventModel, userEventsModel } from "../models/eventModel";
+import { adminEventsModel, deleteEventModel, eventDetailModel, filteredEvents, newEventModel, newEventRepeatModel, upcomingEvents, eventDatesModel, loginEventModel, signOutEventModel, userEventsModel, editEventModel } from "../models/eventModel";
 import { IEventDateRangeFilter, IEventFilter } from "../types/filterTypes";
 
 export const getEventDetil = (req: Request, res: Response) => {
@@ -112,9 +112,19 @@ export const getUpcomingEvents = (req: Request, res: Response) => {
   };
 
   export const postUserEvents = (req:Request,res:Response)=>{
-    userEventsModel(req.body.userId,(err,response)=>{
+    userEventsModel(req.body.userId,req.body.startDate,(err,response)=>{
       if(err){
         return res.status(500).json({message:'Chyba při získávání eventů.'});
+      } else {
+        return res.status(200).json(response);
+      }
+    });
+  };
+
+  export const postEditEvent = (req:Request,res:Response)=>{
+    editEventModel(req.body,(err,response)=>{
+      if(err){
+        return res.status(500).json(response);
       } else {
         return res.status(200).json(response);
       }

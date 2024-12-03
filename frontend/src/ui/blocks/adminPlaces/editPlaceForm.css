@@ -1,0 +1,17 @@
+.place__form .textarea__container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 0;
+}
+
+.place__form .textarea__container textarea {
+    height: 100%;
+}
+
+.place__form .textarea__container label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0;
+    margin-bottom: 8px;
+}

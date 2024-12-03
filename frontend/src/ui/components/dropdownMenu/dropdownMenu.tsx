@@ -1,10 +1,10 @@
-import {  useState, useRef } from "react";
+import React, {  useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import './dropdownMenu.css';
 import { useClickOutside } from "../../../hooks/clickHooks";
 
 type DropdownMenuProps = {
-    options: { label: string; link?: string; onClick?: React.MouseEventHandler }[];
+    options: { label: string; link?: string; onClick?: React.MouseEventHandler, optionIcon?:React.ReactNode }[];
     children: React.ReactNode;
 };
 
@@ -24,9 +24,9 @@ export function DropdownMenu({ options, children }: DropdownMenuProps) {
                 {options.map((option, index) => (
                     <li key={option.label + index} className="dropdown__menu--item">
                         {option.link ? (
-                            <Link to={option.link}>{option.label}</Link>
+                            <Link to={option.link} className="flex g-16 items-center">{option.optionIcon}{option.label}</Link>
                         ) : (
-                            <span onClick={option.onClick}>{option.label}</span>
+                            <span onClick={option.onClick} className="flex g-16 items-center">{option.optionIcon}{option.label}</span>
                         )}
                     </li>
                 ))}

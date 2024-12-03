@@ -1,4 +1,4 @@
-import { HTMLAttributes, useRef } from "react";
+import { HTMLAttributes, useRef,useState, useEffect } from "react";
 import './imageInput.css';
 
 interface ImageInputProps extends HTMLAttributes<HTMLElement> {
@@ -8,6 +8,7 @@ interface ImageInputProps extends HTMLAttributes<HTMLElement> {
 
 export function ImageInput({ img,returnFile,className, ...props }: ImageInputProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [preview, setPreview] = useState<string>(img);
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
@@ -17,14 +18,24 @@ export function ImageInput({ img,returnFile,className, ...props }: ImageInputPro
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-        returnFile(event.target.files[0]);
+      const file = event.target.files[0];
+      setPreview(URL.createObjectURL(file));
+      returnFile(file);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (preview && preview !== img) {
+        URL.revokeObjectURL(preview);
+      }
+    };
+  }, [preview, img]);
 
   return (
     <div className={`image__input ${className}`} {...props}>
       <img
-        src={img}
+        src={preview}
         alt="Klikněte pro nahrání souboru"
         onClick={handleImageClick}
       />
@@ -34,7 +45,7 @@ export function ImageInput({ img,returnFile,className, ...props }: ImageInputPro
         ref={fileInputRef}
         onChange={handleFileChange}
         style={{ display: "none" }}
-        accept="image/jpeg,image/jpg, image/png, image/bmp, image/webp, image/svg+xml"
+        accept="image/jpeg,image/jpg,image/png,image/bmp,image/webp,image/svg+xml"
       />
     </div>
   );

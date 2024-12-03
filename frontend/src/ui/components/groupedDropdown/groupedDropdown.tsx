@@ -21,7 +21,15 @@ function groupBy<T>(array: T[], key: keyof T) {
   return grouped;
 }
 
-interface DropdownProps<T> extends HTMLAttributes<HTMLElement> {
+function areObjectsEqual(obj1: any, obj2: any): boolean {
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  if (keys1.length !== keys2.length) return false;
+
+  return keys1.every((key) => obj1[key] === obj2[key]);
+}
+
+interface DropdownProps<T> extends Omit<HTMLAttributes<HTMLElement>,'defaultValue'> {
   options: T[];
   placeholder: string;
   returnSelected: (value: T[]) => void;
@@ -30,6 +38,7 @@ interface DropdownProps<T> extends HTMLAttributes<HTMLElement> {
   groupKey: keyof T;
   optionLabel: keyof T;
   label?: string;
+  defaultValue?:T,
 };
 
 export function GroupedDropdown<T>({
@@ -41,11 +50,12 @@ export function GroupedDropdown<T>({
   groupKey,
   optionLabel,
   label,
+  defaultValue,
   ...props
 }: DropdownProps<T>) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpened, setIsOpened] = useState(false);
-  const [selected, setSelected] = useState<T[]>([]);
+  const [selected, setSelected] = useState<T[]>(options.filter((option) => areObjectsEqual(option, defaultValue)) || []);
   const [grouped, setGrouped] = useState<
     { groupName: T[keyof T]; groupItems: T[] }[]
   >([]);

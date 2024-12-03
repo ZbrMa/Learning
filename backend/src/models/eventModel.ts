@@ -1,15 +1,16 @@
 import { QueryResult, RowDataPacket } from "mysql2";
 import { db } from "../controllers/database";
-import { IAdminEvent, IEventReduced, INewEvent, IRepeatEvent, IEvent } from "../types/eventTypes";
+import { IAdminEvent, IEventReduced, INewEvent, IRepeatEvent, IEvent,IEditableEvent } from "../types/eventTypes";
 import { format } from "date-fns";
 import { IEventDateRangeFilter, IEventFilter } from "../types/filterTypes";
 import { generateIntervals } from "../utils/dateUtils";
+import { IMessageResponse } from "../types/responseTypes";
 
 export const eventDetailModel = (
   eventId:number,
   callback: (err: Error | null, results: IEvent | null) => void
 ) => {
-  const sql = `SELECT e.id, e.event_day as day, e.event_time as time, p.city, p.spot, a.name as art, u.nick, u.id as artistId, c.name,u.description as about, u.website, u.facebook, u.instagram, u.twitter, u.image
+  const sql = `SELECT e.id, e.event_day as day, e.event_start as start, e.event_end as end, p.city, p.spot, a.name as art, u.nick, u.id as artistId, c.name,u.description as about, u.website, u.facebook, u.instagram, u.twitter, u.image
               FROM events e
               LEFT JOIN places p ON e.place_id = p.id
               LEFT JOIN users u ON e.user_id = u.id
@@ -31,7 +32,7 @@ export const eventDetailModel = (
 export const upcomingEvents = (
   callback: (err: Error | null, results: IEventReduced[] | null) => void
 ) => {
-  const sql = `   SELECT e.id, e.event_day as day, e.event_time as time, p.city, p.spot, a.name as art, u.nick, u.id as artistId,c.name, u.description as about, c.name, u.website, u.facebook, u.instagram, u.twitter, u.image
+  const sql = `   SELECT e.id, e.event_day as day, e.event_start as start, e.event_end as end, p.city, p.spot, a.name as art, u.nick, u.id as artistId,c.name, u.description as about, c.name, u.website, u.facebook, u.instagram, u.twitter, u.image
               FROM events e
               LEFT JOIN places p ON e.place_id = p.id
               LEFT JOIN users u ON e.user_id = u.id
@@ -71,7 +72,7 @@ export const filteredEvents = (
     whereClause += ` AND a.id IN (${artsClause}) `;
   };
 
-  const sql = `   SELECT e.id, e.event_day as day, e.event_time as time, p.city, p.spot, a.name as art, u.nick, u.id as artistId,c.name,u.description as about, c.name, u.website, u.facebook, u.instagram, u.twitter, u.image
+  const sql = `   SELECT e.id, e.event_day as day, e.event_start as start,e.event_end as end,  p.city, p.spot, a.name as art, u.nick, u.id as artistId,c.name,u.description as about, c.name, u.website, u.facebook, u.instagram, u.twitter, u.image
               FROM events e
               LEFT JOIN places p ON e.place_id = p.id
               LEFT JOIN users u ON e.user_id = u.id
@@ -80,7 +81,7 @@ export const filteredEvents = (
                     WHERE e.user_id IS ${eventFilter.checked ? 'NOT': ''} NULL 
                     AND e.event_day BETWEEN ? AND ?
                     ${whereClause}
-                    ORDER BY e.event_day, e.event_time`;
+                    ORDER BY e.event_day, e.event_start`;
   db.query<IEvent[] & RowDataPacket[]>(sql,params, (err, res) => {
     if (err) {
       console.log(err);
@@ -94,7 +95,7 @@ export const filteredEvents = (
 };
 
 export const adminEventsModel = (callback:(err:Error |null, response:IAdminEvent[] |null)=>void) => {
-  const sql = 'SELECT e.id as id, e.event_day as day, e.event_time as time, e.user_id as user, p.city, p.spot FROM events e LEFT JOIN places p ON e.place_id = p.id ORDER BY e.event_day';
+  const sql = 'SELECT e.id as id, e.event_day as day, e.event_start as start,e.event_end as end, e.user_id as user,e.place_id as placeId, p.city, p.spot FROM events e LEFT JOIN places p ON e.place_id = p.id ORDER BY e.event_day';
 
   db.query<IAdminEvent[] & RowDataPacket[]>(sql,(err,res)=>{
     if(err){
@@ -103,6 +104,19 @@ export const adminEventsModel = (callback:(err:Error |null, response:IAdminEvent
       return callback(null,res);
     } else {
       return callback(null,null);
+    }
+  });
+};
+
+export const editEventModel = (event:IEditableEvent, callback:(err:Error |null, response:IMessageResponse)=>void) => {
+  console.log(event);
+  const sql = "UPDATE events SET event_day = ?, event_start = ?, event_end = ? WHERE id = ?";
+
+  db.query(sql,[event.day,event.start,event.end,event.id],(err,res)=>{
+    if(err){
+      return callback(err,{success:false,message:"Úprava se nezdařila."})
+    } else {
+      return callback(null,{success:true,message:"Událost byla úspěšně upravena."});
     }
   });
 };
@@ -128,9 +142,9 @@ export const eventDatesModel = (checked:boolean,callback:(err:Error |null, respo
   });
 };
 
-export const newEventModel = (newEvent:INewEvent,callback:(err:Error | null, response:{success:boolean,message:string})=>void) => {
-  const sql = 'INSERT INTO events (event_day,event_time,place_id) VALUES (?,?,?);';
-  const params = [newEvent.day,newEvent.time,newEvent.place];
+export const newEventModel = (newEvent:INewEvent,callback:(err:Error | null, response:IMessageResponse)=>void) => {
+  const sql = 'INSERT INTO events (event_day,event_start, event_end,place_id) VALUES (?,?,?);';
+  const params = [newEvent.day,newEvent.start, newEvent.end,newEvent.place];
 
   db.query(sql,params,(err,res)=>{
     if(err){
@@ -142,12 +156,12 @@ export const newEventModel = (newEvent:INewEvent,callback:(err:Error | null, res
 
 };
 
-export const newEventRepeatModel = (newRepeat:IRepeatEvent,callback:(err:Error | null,response:{success:boolean,message:string})=>void) => {
-  const {period,interval,time,place} = newRepeat;
+export const newEventRepeatModel = (newRepeat:IRepeatEvent,callback:(err:Error | null,response:IMessageResponse)=>void) => {
+  const {period,interval,start,end,place} = newRepeat;
   const dates = generateIntervals(period.start,period.end,interval);
-  const sql = 'INSERT IGNORE INTO events (event_day,event_time,place_id) VALUES ?';
+  const sql = 'INSERT IGNORE INTO events (event_day,event_start,event_end, place_id) VALUES ?';
   
-  const params = dates.map(date => [date, time, place]);
+  const params = dates.map(date => [date, start,end, place]);
 
   db.query(sql,[params],(err,res)=>{
     if(err){
@@ -177,12 +191,12 @@ export const loginEventModel = (
   userId: number,
   callback: (err: Error | null, response: { success: boolean; message: string }) => void
 ) => {
-  const checkEventSql = 'SELECT event_day, event_time FROM events WHERE id = ?';
+  const checkEventSql = 'SELECT event_day, event_start, event_end FROM events WHERE id = ?';
 
   const conflictCheckSql = `
     SELECT id 
     FROM events 
-    WHERE user_id = ? AND event_day = ? AND event_time = ?
+    WHERE user_id = ? AND event_day = ? AND event_start = ? AND event_end = ?
   `;
 
   const updateSql = 'UPDATE events SET user_id = ? WHERE id = ?';
@@ -198,9 +212,9 @@ export const loginEventModel = (
       return callback(null, { success: false, message: 'Událost nenalezena.' });
     }
 
-    const { event_day, event_time } = eventDetails[0];
+    const { event_day, event_start, event_end } = eventDetails[0];
 
-    db.query(conflictCheckSql, [userId, event_day, event_time], (err, conflictRes) => {
+    db.query(conflictCheckSql, [userId, event_day, event_start, event_end], (err, conflictRes) => {
       if (err) {
         return callback(err, { success: false, message: 'Chyba při kontrole konfliktu.' });
       }
@@ -237,15 +251,16 @@ export const signOutEventModel = (id:number,callback:(err:Error | null, response
 
 export const userEventsModel = (
   userId:number,
+  startDay:Date,
   callback: (err: Error | null, results: IEventReduced[] | null) => void
 ) => {
-  const sql = `   SELECT e.id, e.event_day as day, e.event_time as time, p.city, p.spot
+  const sql = `   SELECT e.id, e.event_day as day, e.event_start as start, e.event_end as end,  p.city, p.spot
               FROM events e
               LEFT JOIN places p ON e.place_id = p.id
                     WHERE e.user_id = ?  
-                    AND e.event_day >= CURDATE()
-                    ORDER BY e.event_day, e.event_time`;
-  db.query<IEventReduced[] & RowDataPacket[]>(sql,userId, (err, res) => {
+                    AND e.event_day BETWEEN ? AND DATE_ADD(?, INTERVAL 7 DAY)
+                    ORDER BY e.event_day, e.event_start`;
+  db.query<IEventReduced[] & RowDataPacket[]>(sql,[userId,startDay,startDay], (err, res) => {
     if (err) {
       console.log(err);
       return callback(err, null);

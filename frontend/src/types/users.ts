@@ -33,3 +33,7 @@ export interface IChangePassword {
     new:string,
     newRepeat:string,
 };
+
+export interface INewPassword {
+    email:string,
+};

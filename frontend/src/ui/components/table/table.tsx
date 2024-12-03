@@ -7,6 +7,7 @@ type TableRowData<T> = T;
 export interface IColumn<T> {
   header: string;
   accessor?: keyof T;
+  placeholder?:string,
   render: (row: T) => React.ReactNode;
 }
 
@@ -83,6 +84,7 @@ const Table = memo(function Table<T>({
                   {column.accessor && (
                     <ColumnFilter
                       column={column.accessor}
+                      placeholder={column.placeholder}
                       filterValue={filters[String(column.accessor)] || ""}
                       onFilterChange={handleFilterChange}
                     />
@@ -150,10 +152,12 @@ const TableCell = memo(function TableCell({ children }: TableCellProps) {
 
 const ColumnFilter = <T,>({
   column,
+  placeholder,
   filterValue,
   onFilterChange,
 }: {
   column: keyof T;
+  placeholder?:string;
   filterValue: string;
   onFilterChange: (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -164,7 +168,7 @@ const ColumnFilter = <T,>({
     type="text"
     value={filterValue}
     onChange={(e) => onFilterChange(e, column)}
-    placeholder={`${String(column)}...`}
+    placeholder={`${placeholder ?? String(column)}...`}
     className="column--filter tx-sm"
   />
 );

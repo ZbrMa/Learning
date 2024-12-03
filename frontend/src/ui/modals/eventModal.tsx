@@ -57,7 +57,9 @@ export function EventModal({ event }: EventModalProps) {
           <div className="flex-col g-16">
             <div className="flex g-8 items-center tx-md bold">
               <IoTimeOutline />
-              {format(parse(event.time, "HH:mm:ss", new Date()), "HH:mm")}
+              {format(parse(event.start, "HH:mm:ss", new Date()), "HH:mm")}
+              -
+              {format(parse(event.end, "HH:mm:ss", new Date()), "HH:mm")}
             </div>
             <div className="flex g-8 items-center tx-md bold">
               <IoLocationOutline />

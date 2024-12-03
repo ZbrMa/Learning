@@ -1,0 +1,56 @@
+.notification__container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 100%;
+    height: calc(100vh - 64px);
+}
+
+.notification__list {
+    height: fit-content;
+    max-height: calc(100vh - 128px);
+    overflow-y: auto;
+}
+
+.notification__list__item {
+    border-top: 1px solid var(--lightGray);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+}
+
+.notification__list__item:hover {
+    background-color: var(--lightGray);
+}
+
+.notification__list__item.active::before {
+    height: 100%;
+    background-color: var(--red);
+    width: 8px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "";
+}
+
+.notification__right {
+    position: relative;
+}
+
+.notification__right svg {
+    width: 50%;
+    height: 50%;
+    color: var(--lightGray);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.notification__header {
+    border-bottom: 1px solid var(--darkGray);
+}
+
+.notification--time {
+    flex: 1 1 33.33%;
+    text-align: right;
+}

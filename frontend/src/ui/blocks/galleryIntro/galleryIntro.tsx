@@ -28,7 +28,6 @@ export function GalleryIntro() {
             <div className="gallery__intro">
                 <div className="gallery__intro__top mb-32 flex content-space">
                 <h1 className="h-xl xbold">#busking</h1>
-                <Button variant='ternary' size="small"><Link to={'/galerie'} className="flex items-center g-8">Galerie <MdArrowForward/></Link></Button>
                 </div>
                 
             <RandomGrid

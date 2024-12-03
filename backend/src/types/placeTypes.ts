@@ -1,14 +1,11 @@
 export interface IPlace {
     id:number,
     city:string,
-    place:string,
+    spot:string,
     image:string,
-    geo:IGeo,
-    path:string,
-    address:string,
+    latitude:number,
+    longitude:number,
+    about?:string,
 };
 
-interface IGeo {
-    geo_lat:number,
-    geo_long:number,
-};
+export type INewPlace = Omit<IPlace, 'image' | 'id'>

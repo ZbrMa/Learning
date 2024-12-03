@@ -18,7 +18,7 @@ export function Modal({children,title,id,custom= false}:ModalProps){
     if(modal === id){
         if (custom){
             return ReactDOM.createPortal(
-                <div className="modal__container flex items-center content-center">
+                <div className="modal__container flex items-center content-center" id={id}>
                     <div className="page--shadow"></div>
                     {children}
                 </div>,
@@ -26,7 +26,7 @@ export function Modal({children,title,id,custom= false}:ModalProps){
             );
         }
         return ReactDOM.createPortal(
-            <div className="modal__container flex items-center content-center">
+            <div className="modal__container flex items-center content-center" id={id}>
                 <div className="page--shadow"></div>
                 <div className="modal__content">
                     <ModalHeader close={() => setModal(null)}>{title}</ModalHeader>
@@ -63,7 +63,7 @@ type ModalHeaderProps = {
 const ModalHeader = memo(function ModalHeader({children,close}:ModalHeaderProps){
 
     return(
-        <div className="modal__header flex items-center content-space p-16">
+        <div className="modal__header flex g-16 items-center content-space p-16">
             <h3 className="h-md bold">{children}</h3>
             <IoCloseOutline onClick={close}/>
         </div>

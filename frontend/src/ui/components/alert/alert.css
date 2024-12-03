@@ -105,7 +105,7 @@
     margin-right: 64px;
 }
 
-.alert__container .button {
+.alert__container .icon--button {
     background-color: inherit;
     width: 24px;
     height: 24px;
@@ -113,7 +113,7 @@
     margin: auto;
 }
 
-.alert__container .button:hover {
+.alert__container .icon--button:hover {
     background-color: transparent;
     scale: 1.1;
 }

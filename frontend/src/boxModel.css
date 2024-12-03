@@ -91,6 +91,10 @@
   .my-32{
     margin-block: 32px;
   }
+
+  .my-64 {
+    margin-block: 64px;
+  }
   
   .mx-16{
     margin-inline: 16px;

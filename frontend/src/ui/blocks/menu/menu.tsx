@@ -1,4 +1,4 @@
-import { IoPersonOutline } from "react-icons/io5";
+import { IoLogOutOutline, IoMailOutline, IoPersonOutline } from "react-icons/io5";
 import { Button, IconButton } from "../../components/button/button";
 import { DropdownMenu } from "../../components/dropdownMenu/dropdownMenu";
 import "./menu.css";
@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/userStore";
 import { logout } from "../../../api/authSlice";
 import { LuPlus } from "react-icons/lu";
-import { IoIosSearch } from "react-icons/io";
 import { IoCalendarOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 
@@ -63,7 +62,7 @@ export function Menu({ variant = "def" }: MenuProps) {
               <Link to="/events">Události</Link>
             </li>
             <li className="nav--link">
-              <Link to="/about">O nás</Link>
+              <Link to="/about">O projektu</Link>
             </li>
             <li className="nav--link">
               <Link to="/kontakt">Kontakt</Link>
@@ -72,21 +71,32 @@ export function Menu({ variant = "def" }: MenuProps) {
         </div>
       </nav>
       <div className="nav__right">
-        <IconButton variant="secondary" style={{fontSize:'1.2rem', fontWeight:'500'}}>
-          cz
-        </IconButton>
+      <DropdownMenu
+          options={[
+                    { label: "cz" },
+                    { label: "en" },
+                    { label: "de"},
+                  ]
+          }
+        >
+          <IconButton variant="secondary" style={{fontSize:'1.2rem', fontWeight:'500'}}>
+            cz
+          </IconButton>
+        </DropdownMenu>
         <DropdownMenu
           options={
             token
               ? role === 2
                 ? [
-                    { label: "Profil", link: `/profil/${id}` },
-                    { label: "Odhlásit se", onClick: handleLogout },
+                    { label: "Profil", link: `/app/profil/${id}`,optionIcon:<IoPersonOutline/> },
+                    { label: "Upozornění", link: `/app/mail`,optionIcon:<IoMailOutline/> },
+                    { label: "Můj kalendář", link: `/app/calendar`,optionIcon:<IoCalendarOutline/> },
+                    { label: "Odhlásit se", onClick: handleLogout,optionIcon:<IoLogOutOutline/> },
                   ]
                 : [{ label: "Odhlásit se", onClick: handleLogout }]
               : [
-                  { label: "Přihlásit se", link: "/login" },
-                  { label: "Registrace", link: "/register" },
+                  { label: "Přihlásit se", link: "/app/login" },
+                  { label: "Registrace", link: "/app/register" },
                 ]
           }
         >
@@ -96,14 +106,14 @@ export function Menu({ variant = "def" }: MenuProps) {
         </DropdownMenu>
         {token ? (
           role === 2 ? (
-            <Link to="/findSpot">
+            <Link to="/app/findSpot">
               <Button>
                 <IoCalendarOutline />
                 Najít událost
               </Button>
             </Link>
           ) : (
-            <Link to="/adminPage">
+            <Link to="/app/adminPage/events">
               <Button>
                 <IoCalendarOutline />
                 Správa
@@ -111,7 +121,7 @@ export function Menu({ variant = "def" }: MenuProps) {
             </Link>
           )
         ) : (
-          <Link to="/register" className="xbold">
+          <Link to="/app/register" className="xbold">
             <Button>
               <LuPlus />
               Přidat se

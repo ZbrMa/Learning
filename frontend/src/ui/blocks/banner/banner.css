@@ -45,9 +45,12 @@
 }
 
 .banner__text {
-    flex-grow: 1;
     align-content: center;
     color: var(--white);
+    width: fit-content;
+    backdrop-filter: blur(3px);
+    margin-block: auto;
+    height: fit-content;
 }
 
 .soc__container {
@@ -74,4 +77,10 @@
     height: 1px;
     background: rgb(0,0,0);
     background: linear-gradient(90deg, rgba(0,0,0,0) 33.33%, rgba(255,255,255,1) 100%);
+}
+
+
+
+.banner--title {
+    text-transform: uppercase;
 }

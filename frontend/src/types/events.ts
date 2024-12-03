@@ -1,7 +1,8 @@
 export interface IEvent {
     id:number,
     day:Date,
-    time:string,
+    start:string,
+    end:string,
     city:string,
     spot:string,
     nick:string,
@@ -22,7 +23,8 @@ export interface IEventReduced {
     city:string,
     spot:string,
     nick:string,
-    time:string,
+    start:string,
+    end:string,
     image:string,
     art:string,
 };
@@ -30,7 +32,8 @@ export interface IEventReduced {
 export interface IAdminEvent {
     id:number,
     day:Date,
-    time:string,
+    start:string,
+    end:string,
     city:string,
     spot:string,
     user:number,
@@ -38,14 +41,23 @@ export interface IAdminEvent {
 
 export interface INewEvent {
     day:string,
-    time:string,
+    start:string,
+    end:string,
     place:number,
 }
+
+export interface IEditableEvent {
+    day:string,
+    start:string,
+    end:string,
+    id:number,
+};
 
 export interface IRepeatEvent {
     weekDay:number,
     interval:number,
     period:{start:string,end:string},
-    time:string,
+    start:string,
+    end:string,
     place:number,
 }

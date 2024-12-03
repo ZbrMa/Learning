@@ -9,7 +9,7 @@ import { useAlert } from "../../../context/alertContext";
 import { useEffect } from "react";
 import { Alert } from "../../components/alert/alert";
 
-export function AdminUsers() {
+export function AdminUsersTable() {
   const [refetch,{ data, isLoading, isFetching }] = useLazyGetUsersQuery();
   const [checkUser] = useCheckUserMutation();
   const {showAlert} = useAlert();
