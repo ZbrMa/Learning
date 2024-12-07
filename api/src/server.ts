@@ -49,4 +49,6 @@ app.get('/', (req, res) => {
 
 app.listen(Number(PORT), '0.0.0.0', () => {
     console.log(`Server běží na portu: ${PORT}`);
+}).on('error', (err) => {
+    console.error('Chyba při spuštění serveru:', err);
 });
