@@ -47,6 +47,6 @@ app.get('/', (req, res) => {
     console.log('API běží!');
 });
 
-app.listen('0.0.0.0', () => {
-    console.log(`Server běží`);
+app.listen(Number(PORT), '0.0.0.0', () => {
+    console.log(`Server běží na portu: ${PORT}`);
 });
