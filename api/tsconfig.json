@@ -15,7 +15,7 @@
       "jsonwebtoken",
       "multer",
       "mysql2"
-    ]
+    ],
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

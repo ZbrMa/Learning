@@ -6,7 +6,7 @@ import multer from 'multer';
 import cors from 'cors';
 
 export const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const routesPath = path.join(__dirname, 'routes');
 
 app.use(express.json());
