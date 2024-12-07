@@ -1,0 +1,45 @@
+name: Deploy into Roští.cz
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ssh.rosti.cz
+      USER: app
+      PORT: 11737
+      NODE_VERSION: 22.9.0
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "v22.9.0"
+      - uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.ROSTI_DEPLOY_SSH_KEY }}
+      - name: Setup hostkey
+        run: |
+          echo "ssh.rosti.cz ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCLv4h0577QlcLWWa9y5JydWOJ7wzfQIxmMGdVlts21NnrGUQUvItlsCBJBpsa31TJVY8zj7e9RmZK/89pAste1xGqF4U+mQ/aRc4ByQMVsMcAoHvoE6gCKTd1ICiuB7pIck2I6rqf/E8DhCWF7C0Cr3sgX8EmnmTTam4GESMcAcSYdcq75JRsHPXv/lDRGSqLhmECRhPHQqGHGKFU8Pc299+QZYmb7lqfigwZX/cROtdZsPzceQV9DxlvQzeUlfyhluXpt3q/2xzQyt7RijpJA74YuBOY/SLuCwWQjPgiMJcztbyEfAdIPFoHCH0cvojvktKyK5Gsf3GrVtfWSUinr" > ./known_hosts
+      - name: env
+        run: |
+          cat << EOF > .env
+          ${{ secrets.ENV }}
+          EOF
+      - name: Install dependencies for backend and frontend
+        run: |
+          npm install --prefix frontend
+          npm install --prefix backend
+      - name: Run start.js
+        run: |
+          node start.js
+      - name: Copy code
+        run: |
+          rsync -ae "ssh -o UserKnownHostsFile=./known_hosts -p $PORT" --delete-after --exclude=.git ./ $USER@$HOST:/srv/app/
+      - name: Apply changes
+        run: |
+          ssh -o UserKnownHostsFile=./known_hosts -p $PORT $USER@$HOST supervisorctl reread
+          ssh -o UserKnownHostsFile=./known_hosts -p $PORT $USER@$HOST supervisorctl restart app
+          ssh -o UserKnownHostsFile=./known_hosts -p $PORT $USER@$HOST supervisorctl restart nginx
