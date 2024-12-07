@@ -14,7 +14,6 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(cors({
-    origin: 'http://localhost:3000',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }));
@@ -48,5 +47,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT,"0.0.0.0", () => {
-    console.log(`Server běží na http://localhost:${PORT}`);
+    console.log(`Server běží na ${PORT}`);
 });
