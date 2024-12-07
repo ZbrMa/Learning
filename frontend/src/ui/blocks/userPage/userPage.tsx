@@ -6,7 +6,6 @@ import { Badge } from "../../components/badge/badge";
 import {
   IoCalendarOutline,
   IoFlagOutline,
-  IoLocationOutline,
   IoLogoFacebook,
   IoLogoInstagram,
   IoLogoTwitter,
@@ -75,7 +74,7 @@ export function UserProfile({ userId }: UserPageProps) {
                     </div>
                   </div>
                   <div className="user__info">
-                    <ProfileInfoBock title="Adresa">
+                    <ProfileInfoBlock title="Adresa">
                       <ProfileInfoLine
                         title="Národnost"
                         icon={<IoFlagOutline />}
@@ -85,8 +84,8 @@ export function UserProfile({ userId }: UserPageProps) {
                       <ProfileInfoLine title="Město" icon={<PiCity />}>
                         {user.city}
                       </ProfileInfoLine>
-                    </ProfileInfoBock>
-                    <ProfileInfoBock title="Kontakt">
+                    </ProfileInfoBlock>
+                    <ProfileInfoBlock title="Kontakt">
                       <ProfileInfoLine
                         title="Email"
                         icon={<MdOutlineAttachEmail />}
@@ -96,8 +95,8 @@ export function UserProfile({ userId }: UserPageProps) {
                       <ProfileInfoLine title="Telefon" icon={<BsTelephone />}>
                         {user.phone}
                       </ProfileInfoLine>
-                    </ProfileInfoBock>
-                    <ProfileInfoBock title="Ostatní">
+                    </ProfileInfoBlock>
+                    <ProfileInfoBlock title="Ostatní">
                       <ProfileInfoLine
                         title="Skupina"
                         icon={<IoPersonOutline />}
@@ -110,22 +109,22 @@ export function UserProfile({ userId }: UserPageProps) {
                       >
                         {format(user.inserted, "dd.MM.yyy")}
                       </ProfileInfoLine>
-                    </ProfileInfoBock>
+                    </ProfileInfoBlock>
                   </div>
                 </div>
               </div>
               <div className="user__right">
-                <ProfileInfoBock title="Něco o mě/nás">
+                <ProfileInfoBlock title="Něco o mě/nás">
                   <p className="tx-sm user--desc pt-16 pb-8">
                     {user.description}
                   </p>
-                </ProfileInfoBock>
-                <ProfileInfoBock
+                </ProfileInfoBlock>
+                <ProfileInfoBlock
                   title="Kde se uvidíme?"
                   className="flex-col g-16"
                 >
-                  <UserEvents userId={userId} action="no action" />
-                </ProfileInfoBock>
+                  <UserEvents action="no action" />
+                </ProfileInfoBlock>
               </div>
             </div>
           )
@@ -140,7 +139,7 @@ interface ProfileInfoBlockProps extends HTMLAttributes<HTMLElement> {
   title: string;
 }
 
-function ProfileInfoBock({
+export function ProfileInfoBlock({
   children,
   title,
   className,
@@ -148,7 +147,7 @@ function ProfileInfoBock({
 }: ProfileInfoBlockProps) {
   return (
     <div className={`user__info__block ${className}`} {...props}>
-      <h3 className="h-xs xbold">{title}</h3>
+      <h3 className="h-xs xbold mb-8">{title}</h3>
       {children}
     </div>
   );
@@ -160,11 +159,13 @@ type ProfileInfoLineProps = {
   icon: React.ReactNode;
 };
 
-function ProfileInfoLine({ children, title, icon }: ProfileInfoLineProps) {
+export function ProfileInfoLine({ children, title, icon }: ProfileInfoLineProps) {
   return (
     <div className="profile__infoline tx-gray tx-sm flex g-8 items-center py-8">
+      <div className="flex g-8 items-center profile__infoline--title">
       {icon}
       <span>{title}:</span>
+        </div>
       <span className="tx-black tx-sm xbold">{children}</span>
     </div>
   );

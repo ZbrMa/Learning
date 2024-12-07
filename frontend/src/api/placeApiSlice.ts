@@ -1,11 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { MessageResponse } from "./eventApiSlice";
 import { INewPlace, IPlace } from "../types/places";
+import apiSlice from "./apiSlice";
 
-export const placeApi = createApi({
-  reducerPath: "placeApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
-  tagTypes:['places'],
+export const placeApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAdminPlaces:builder.query<IPlace[], void>({
       query:()=>'/getAdminPlaces',

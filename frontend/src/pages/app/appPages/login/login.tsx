@@ -49,7 +49,7 @@ export function Login() {
       },
     ],
     onSubmit: (data) => {
-      const loginUser: Pick<IUser, "email" | "password"> = {
+      const loginUser: {email:string,password:string} = {
         email: data["email"],
         password: data["password"],
       };
@@ -68,8 +68,8 @@ export function Login() {
         localStorage.setItem("authToken", token);
         localStorage.setItem("tokenExpiry", expiryTime.toString());
         localStorage.setItem("userData", JSON.stringify(data.user));
-        dispatch(loginSuccess({ ...data.user, token }));
-        navigate("/");
+        dispatch(loginSuccess({ ...data.user, token,authChecked:true }));
+        navigate(`/`);
       }
     }
   }, [data, dispatch, navigate]);

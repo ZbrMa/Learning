@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteEevnt, getAdminEvents, getEventDates, getEventDetil, getUpcomingEvents, postEditEvent, postFilteredEvents,postLoginEvent,postNewEvent, postRepeatEvent, postSignOutEvent, postUserEvents } from '../controllers/eventController';
+import { deleteEevnt, getAdminEvents, getEventDates, getEventDetil, getUpcomingEvents, postEditEvent, postFilteredEvents,postLoginEvent,postNewEvent, postRepeatEvent, postSignOutEvent, postUserEvents, userCalendarEvents } from '../controllers/eventController';
 
 const router = express.Router();
 
@@ -14,6 +14,7 @@ router.post('/eventDates',getEventDates);
 router.post('/loginEvent',postLoginEvent);
 router.post('/signOutEvent',postSignOutEvent);
 router.post('/userEvents',postUserEvents);
+router.post('/userCalendarEvents',userCalendarEvents);
 router.post('/editEvent',postEditEvent);
 
 export default router;

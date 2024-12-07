@@ -37,7 +37,7 @@ export const getAllUsers = (
     u.band ,
     a.name as art
     FROM users u
-    LEFT JOIN arts a ON u.art = a.id `, (err, res) => {
+    LEFT JOIN arts a ON u.art = a.id ORDER BY u.id`, (err, res) => {
     if (err) {
       return callback(err);
     } else {

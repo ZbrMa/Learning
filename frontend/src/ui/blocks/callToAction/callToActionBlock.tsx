@@ -5,6 +5,7 @@ import { ReferenceCard } from "../../components/referenceCard/referenceCard";
 import { Link } from "react-router-dom";
 import { InfoCard } from "../../components/infoCard/infoCard";
 import { useEffect } from "react";
+import { CountUp } from "../../components/countUp/countUp";
 
 const images = [
   '/images/praha.jpg',
@@ -35,9 +36,9 @@ export function CallToActionBlock() {
           <div className="flex-col g-32 content-center">
             <h2 className="cities--header h-top thick cities--title">Staň se součástí našeho světa!</h2>
             <div className="flex g-32">
-            <InfoCard name="míst">5</InfoCard>
-            <InfoCard name="umělců">200+</InfoCard>
-            <InfoCard name="akcí měsíčně">100+</InfoCard>
+            <InfoCard name="míst"><CountUp max={5} duration={1000} step={1}/></InfoCard>
+            <InfoCard name="umělců"><CountUp max={200} duration={2000} step={2}/></InfoCard>
+            <InfoCard name="akcí měsíčně"><CountUp max={150} duration={1500} step={2}/></InfoCard>
             </div>
             
           </div>

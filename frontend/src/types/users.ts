@@ -1,7 +1,6 @@
 export interface IUser {
     id:number,
     inserted:Date,
-    password:string,
     name:string,
     surname:string,
     nick:string,
@@ -24,8 +23,8 @@ export interface IUser {
     role:number,
 };
 
-export type INewUser = Omit<IUser, 'role' | 'id' | 'checked' | 'image' | 'inserted'>;
-export type IEditableUser = Omit<IUser, |'name'| 'surname' | 'email' | 'birth' | 'checked' | 'role' | 'password' | 'inserted'>;
+export type INewUser = Omit<IUser, 'role' | 'id' | 'checked' | 'image' | 'inserted'> & {password:string};
+export type IEditableUser = Omit<IUser, |'name'| 'surname' | 'email' | 'birth' | 'checked' | 'role' | 'inserted'>;
 
 export interface IChangePassword {
     id:number,

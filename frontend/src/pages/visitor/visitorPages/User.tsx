@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import { VisitorLayout } from "../visitorLayout";
 import { UserProfile } from "../../../ui/blocks/userPage/userPage";
 

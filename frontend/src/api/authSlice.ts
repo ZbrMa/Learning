@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser,IEditableUser } from '../types/users';
 import { format } from "date-fns";
+import { useNavigate } from 'react-router';
 
 export interface ExtendedUser extends Omit<IUser,'inserted'> {
     token: string | undefined,
+    authChecked:boolean,
 }
 
 const initialState: ExtendedUser = {
     id: 0,
-    password: '',
     name: '',
     surname: '',
     nick: '',
@@ -29,6 +30,7 @@ const initialState: ExtendedUser = {
     image: '',
     token: undefined,
     role:2,
+    authChecked: false,
 };
 
 const authSlice = createSlice({
@@ -37,13 +39,13 @@ const authSlice = createSlice({
     reducers: {
         loginSuccess: (state, action: PayloadAction<ExtendedUser>) => {
 
-            return { ...state, ...action.payload };
+            return { ...state, ...action.payload, authChecked:true };
         },
         logout: () => {
             localStorage.removeItem("tokenExpiry");
             localStorage.removeItem("authToken");
             localStorage.removeItem("userData");
-            return { ...initialState };
+            return { ...initialState,authChecked:true };
         },
         editSuccess: (state, action: PayloadAction<IEditableUser>) => {
             return { ...state, ...action.payload };
@@ -57,14 +59,15 @@ const authSlice = createSlice({
                 const isExpired = new Date().getTime() > parseInt(tokenExpiry);
                 if (isExpired) {
                     localStorage.clear();
-                    return { ...initialState };
+                   // window.location.pathname = '/';
+                    return { ...initialState, authChecked:true };
                 } else {
                     const user = JSON.parse(userData);
-                    return { ...state, ...user, token };
+                    return { ...state, ...user, token,  authChecked:true};
                 }
             }
 
-            return { ...initialState };
+            return { ...initialState,authChecked:true };
         },
     },
 });

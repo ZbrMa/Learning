@@ -99,7 +99,7 @@ export function Schedule({ events = [], returnInterval,buttonText,eventClick }: 
               const eventsInCell = events ? getEventsForCell(day, hour) : [];
 
               return (
-                <div key={`${day}-${hour}`} className="schedule__cell">
+                <div key={`${day}-${hour}`} className="schedule__cell box">
                   {eventsInCell.length > 0 ? (
                     eventsInCell.map((event) => {
                       const startHour = parseInt(event.start.split(":")[0], 10);

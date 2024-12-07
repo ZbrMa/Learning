@@ -3,7 +3,7 @@ import { forwardRef,memo } from "react";
 import './input.css';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-    label: string,
+    label?: string,
     labelPosition?: 'in' | 'out',
 };
 

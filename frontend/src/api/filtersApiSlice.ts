@@ -1,9 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IArt, IPlace,ICountry } from "../types/filtersTypes";
+import apiSlice from "./apiSlice";
 
-export const filtersApi = createApi({
-  reducerPath: "filtersApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
+export const filtersApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPlaces: builder.query<IPlace[], void>({
       query: () => "/places",

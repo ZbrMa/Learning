@@ -81,3 +81,12 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+input:disabled {
+    cursor: default;
+}
+
+input:disabled:hover {
+    border: none;
+    outline: none;
+}

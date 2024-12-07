@@ -32,7 +32,7 @@ export const Select = forwardRef<HTMLSelectElement,SelectProps>(function({label,
 
 interface MySelectProps extends InputHTMLAttributes<HTMLInputElement> {
     options: IOption[];
-    placeholder: string;
+    placeholder?: string;
     returnSelected: (value: number | string) => void;
     isDisabled?: boolean;
     defaultValue?:string | number,

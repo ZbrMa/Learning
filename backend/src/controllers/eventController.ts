@@ -112,7 +112,18 @@ export const getUpcomingEvents = (req: Request, res: Response) => {
   };
 
   export const postUserEvents = (req:Request,res:Response)=>{
-    userEventsModel(req.body.userId,req.body.startDate,(err,response)=>{
+    userEventsModel(req.body.userId,req.body.startDate,true,(err,response)=>{
+      if(err){
+        return res.status(500).json({message:'Chyba při získávání eventů.'});
+      }
+      
+      return res.status(200).json(response);
+      
+    });
+  };
+
+  export const userCalendarEvents = (req:Request,res:Response)=>{
+    userEventsModel(req.body.userId,req.body.startDate,false,(err,response)=>{
       if(err){
         return res.status(500).json({message:'Chyba při získávání eventů.'});
       } else {

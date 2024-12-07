@@ -24,9 +24,6 @@ export interface IEventReduced {
     end:string,
     city:string,
     spot:string,
-    nick:string,
-    image:string,
-    art:string,
 };
 
 export interface IAdminEvent {

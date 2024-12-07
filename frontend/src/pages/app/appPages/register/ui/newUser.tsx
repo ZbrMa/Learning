@@ -53,7 +53,7 @@ export function NewUser() {
                 </StepsHeader>
                 <div className="flex g-32 pt-16 items-center register__bottom">
                   <span className="tx-gray">Už máš účet?</span>
-                  <Link to={"/login"}>
+                  <Link to={"/app/login"}>
                     <Button
                       variant="link"
                       className="xbold"

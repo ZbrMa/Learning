@@ -21,6 +21,7 @@
 
 .comunity__gallery img {
     align-self: center;
+    border-radius: vaR(--radius);
 }
 
 .comunity__gallery img:nth-child(1){

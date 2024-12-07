@@ -55,7 +55,7 @@ export function GroupedDropdown<T>({
 }: DropdownProps<T>) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpened, setIsOpened] = useState(false);
-  const [selected, setSelected] = useState<T[]>(options.filter((option) => areObjectsEqual(option, defaultValue)) || []);
+  const [selected, setSelected] = useState<T[]>(options.filter((option) => defaultValue && areObjectsEqual(option, defaultValue)) || []);
   const [grouped, setGrouped] = useState<
     { groupName: T[keyof T]; groupItems: T[] }[]
   >([]);
@@ -152,7 +152,7 @@ export function GroupedDropdown<T>({
                 </span>
                 {group.groupItems.map((option, index) => (
                   <div
-                    key={index}
+                    key={index+String(option[optionLabel])}
                     className={`option ${
                       selected.some(
                         (item) => item[optionLabel] === option[optionLabel]

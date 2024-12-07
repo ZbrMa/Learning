@@ -1,20 +1,7 @@
-.profile__form {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    column-gap: 64px;
-}
-
-.profile__header {
-    border-bottom: 2px solid var(--lightGray);
-}
-
 .profile__form .input__container {
-    display: grid;
-    grid-template-columns: 100px auto;
-    padding: 8px 0;
+    padding: 0;
     margin: 0;
     width: 100%;
-    gap: 16px;
 }
 
 .profile__form label {
@@ -22,36 +9,60 @@
     font-size: 0.9rem;
 }
 
+/* Obecné pravidlo pro disabled prvky */
+.profile__form input:disabled,
+.profile__form textarea:disabled,
+.profile__form .dropdown.disabled {
+    cursor: default;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    opacity: 1;
+}
+
+/* Disabled prvky nesmí měnit vzhled na hover, focus nebo active */
+.profile__form input:disabled:hover,
+.profile__form input:disabled:focus,
+.profile__form input:disabled:active,
+.profile__form textarea:disabled:hover,
+.profile__form textarea:disabled:focus,
+.profile__form textarea:disabled:active,
+.profile__form .dropdown.disabled:hover {
+    border: none !important;
+    outline: none !important;
+    background-color: transparent;
+}
+
 .profile__form input {
     font-size: 1rem;
     border: none;
     background-color: transparent;
-    padding: 8px;
+    padding: 0;
     opacity: 1;
     appearance: none;
+    font-weight: 600;
 }
-.profile__form .info--title{
+
+.profile__form input:not(:disabled) {
+    outline: 1px solid var(--darkGray);
+    outline-offset: 4px;
+    border: none;
+}
+
+.profile__form input:not(:disabled):hover,
+.profile__form input:not(:disabled):focus,
+.profile__form input:not(:disabled):active {
+    outline: 1px solid var(--black);
+    outline-offset: 4px;
+    border: none;
+}
+
+.profile__form .info--title {
     padding-block: 8px;
 }
 
 .profile__form .info--data {
     padding: 8px;
-}
-
-.profile__form input:disabled:hover, .profile__form input:disabled:focus, .profile__form input:disabled:active {
-    border: none;
-}
-
-.profile__form input:not(:disabled){
-    outline: 1px solid var(--lightGrayHover);
-    outline-offset: -1px;
-    border: none;
-}
-
-.profile__form input:not(:disabled):hover, .profile__form input:not(:disabled):focus, .profile__form input:not(:disabled):active {
-    outline: 1px solid var(--black);
-    outline-offset: -1px;
-    border: none;
 }
 
 .profile__form .dropdown {
@@ -60,7 +71,7 @@
 }
 
 .profile__form .dropdown-inner {
-    padding: 8px;
+    padding: 0;
     border: none;
 }
 
@@ -69,35 +80,22 @@
 }
 
 .profile__form .dropdown {
-    outline:1px solid var(--lightGrayHover);
-    outline-offset: -1px;
-    margin-block:-8px;
-    margin-right: -8px;
-}
-
-.profile__form .dropdown.disabled {
     outline: none;
+    outline-offset: none;
+    padding: 0;
+    width: 100%;
 }
 
-.profile__form .dropdown:hover {
-    background-color: var(--white);
-    outline:1px solid var(--black);
-    outline-offset: -1px;
+.profile__form .selected-option {
+    font-weight: 600;
 }
-
-.profile__form .dropdown.disabled:hover {
-    background-color: var(--white);
-    outline: none;
-}
-
 
 .profile__form .option-container {
     border-radius: 0;
 }
 
 .profile__form textarea {
-    outline: 1px solid var(--lightGrayHover);
-    outline-offset: -1px;
+    outline: none;
     background-color: transparent;
     padding-inline: 8px;
 }
@@ -107,18 +105,15 @@
     gap: 16px;
 }
 
-.profile__form textarea:disabled {
-    outline: none;
+.profile__form textarea:hover,
+.profile__form textarea:focus,
+.profile__form textarea:active {
     border: none;
+    outline: 1px solid var(--darkGray);
+    outline-offset: 4px;
 }
 
-.profile__form textarea:disabled:hover, .profile__form textarea:disabled:focus, .profile__form textarea:disabled:active{
-    outline: none;
-    border: none;
-}
 
-.profile__form textarea:hover, .profile__form textarea:focus, .profile__form textarea:active{
-    border: none;
-    outline: 1px solid var(--black);
-    outline-offset: -1px;
+.profile__form .profile__infoline--title {
+    min-width: 150px;
 }

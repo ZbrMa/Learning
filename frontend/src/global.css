@@ -11,6 +11,22 @@ body {
   background-color: var(--white);
 }
 
+/*body * {
+  border-radius: 8px;
+}*/
+
+.button, .icon--button, input , .input__container, .dropdown-inner, .modal__container > div {
+  border-radius: 8px;
+}
+
+/*img, .event__modal {
+  border-radius: 16px;
+}
+
+.event__detail__date {
+  border-radius: 4px;
+}*/
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -27,7 +43,7 @@ code {
   --darkGreen:rgb(0,100,0);
   --darkRed:rgb(140,0,0);
   --lightRed:rgb(255, 220, 220);
-  --radius:6px;
+  --radius:8px;
   --grayText:rgb(120,120,120);
   --lightYellow:rgb(255, 248, 186);
   --darkYellow:rgb(158, 121, 8);
@@ -112,4 +128,8 @@ p,h1,h2,h3,h4{
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--black);
+}
+
+.inherit {
+  all: inherit;
 }

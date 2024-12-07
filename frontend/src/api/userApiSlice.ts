@@ -8,14 +8,13 @@ import {
   INewPassword,
 } from "../types/users";
 import { MessageResponse } from "./eventApiSlice";
+import apiSlice from "./apiSlice";
 
 interface ChangeImageReponse extends MessageResponse {
   imagePath?:string,
 }
 
-export const userApi = createApi({
-  reducerPath: "userApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
+export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query<IUser[], void>({
       //prvni je návratový typ, druhý je payload (void znamená, že se nic neočekává)
@@ -35,7 +34,7 @@ export const userApi = createApi({
         body: newUser,
       }),
     }),
-    login: builder.mutation<{ user: IUser; token: string },Pick<IUser, "email" | "password">>({
+    login: builder.mutation<{ user: IUser; token: string },{email:string,password:string}>({
       query: (loginUser) => ({
         url: "/login",
         method: "POST",
@@ -88,10 +87,7 @@ export const userApi = createApi({
         body: payload,
       }),
     }),
-    checkUser: builder.mutation<
-      { message: string; success: boolean },
-      { id: number }
-    >({
+    checkUser: builder.mutation<{ message: string; success: boolean },{ id: number }>({
       query: (payload) => ({
         url: "/checkUser",
         method: "POST",

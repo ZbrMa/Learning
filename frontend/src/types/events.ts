@@ -22,11 +22,8 @@ export interface IEventReduced {
     day:Date,
     city:string,
     spot:string,
-    nick:string,
     start:string,
     end:string,
-    image:string,
-    art:string,
 };
 
 export interface IAdminEvent {

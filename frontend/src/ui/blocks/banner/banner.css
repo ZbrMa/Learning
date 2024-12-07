@@ -48,10 +48,17 @@
     align-content: center;
     color: var(--white);
     width: fit-content;
-    backdrop-filter: blur(3px);
-    margin-block: auto;
+    backdrop-filter: blur(2px);
+    margin: auto;
     height: fit-content;
-}
+    -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+    mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-composite: destination-in;
+    mask-composite: intersect;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+  
 
 .soc__container {
     display: flex;
@@ -83,4 +90,6 @@
 
 .banner--title {
     text-transform: uppercase;
+    font-size: 6rem;
+    font-weight: 700;
 }

@@ -22,6 +22,7 @@
 .user--img {
     width: 128px;
     aspect-ratio: 1;
+    border-radius: var(--radius);
 }
 
 .user__socials {
@@ -36,4 +37,8 @@
 
 .user--desc {
     line-height: 1.4rem;
+}
+
+.profile__infoline--title {
+    min-width: 100px;
 }

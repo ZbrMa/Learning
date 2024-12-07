@@ -7,6 +7,8 @@ import authReducer from '../api/authSlice';
 import { eventApi } from '../api/eventApiSlice';
 import { filtersApi } from '../api/filtersApiSlice';
 import { placeApi } from '../api/placeApiSlice';
+import { notificationsApi } from '../api/notificationApiSlice';
+import apiSlice from '../api/apiSlice';
 
 const persistConfig = {
   key: 'root',
@@ -15,10 +17,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  [userApi.reducerPath]: userApi.reducer,
-  [eventApi.reducerPath]: eventApi.reducer,
-  [filtersApi.reducerPath]: filtersApi.reducer,
-  [placeApi.reducerPath]: placeApi.reducer,
+  [apiSlice.reducerPath]: apiSlice.reducer,
   auth: persistReducer(persistConfig, authReducer),
 });
 
@@ -27,7 +26,7 @@ export const userStore = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(userApi.middleware, eventApi.middleware, filtersApi.middleware, placeApi.middleware),
+    }).concat(apiSlice.middleware,userApi.middleware),
 });
 
 export const persistor = persistStore(userStore);

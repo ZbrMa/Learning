@@ -80,6 +80,7 @@ export const filteredEvents = (
               LEFT JOIN countries c ON u.country = c.id
                     WHERE e.user_id IS ${eventFilter.checked ? 'NOT': ''} NULL 
                     AND e.event_day BETWEEN ? AND ?
+                    AND e.event_day >= CURDATE()
                     ${whereClause}
                     ORDER BY e.event_day, e.event_start`;
   db.query<IEvent[] & RowDataPacket[]>(sql,params, (err, res) => {
@@ -252,22 +253,25 @@ export const signOutEventModel = (id:number,callback:(err:Error | null, response
 export const userEventsModel = (
   userId:number,
   startDay:Date,
+  allEvents:boolean,
   callback: (err: Error | null, results: IEventReduced[] | null) => void
 ) => {
   const sql = `   SELECT e.id, e.event_day as day, e.event_start as start, e.event_end as end,  p.city, p.spot
               FROM events e
               LEFT JOIN places p ON e.place_id = p.id
                     WHERE e.user_id = ?  
-                    AND e.event_day BETWEEN ? AND DATE_ADD(?, INTERVAL 7 DAY)
+                    AND  ${allEvents ? 'e.event_day >= ?':'e.event_day BETWEEN ? AND DATE_ADD(?, INTERVAL 7 DAY)'}
                     ORDER BY e.event_day, e.event_start`;
-  db.query<IEventReduced[] & RowDataPacket[]>(sql,[userId,startDay,startDay], (err, res) => {
+
+  const params = allEvents ? [userId,startDay] : [userId,startDay,startDay];
+  db.query<IEventReduced[] & RowDataPacket[]>(sql,params, (err, res) => {
     if (err) {
       console.log(err);
       return callback(err, null);
     } else if (res.length > 0) {
       return callback(null, res);
     } else {
-      return callback(err, null);
+      return callback(null, null);
     }
   });
 };

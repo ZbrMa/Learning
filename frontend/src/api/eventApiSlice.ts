@@ -1,6 +1,6 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IAdminEvent, IEvent, IEventReduced, INewEvent, IRepeatEvent,IEditableEvent } from "../types/events";
 import { IEventDateRangeFilter, IEventFilter } from "../types/filtersTypes";
+import apiSlice from "./apiSlice";
 
 interface EventFilterParams {
   range:IEventDateRangeFilter,
@@ -13,10 +13,7 @@ export interface MessageResponse {
   message:string,
 };
 
-export const eventApi = createApi({
-  reducerPath: "eventApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
-  tagTypes:['events', 'userEvents'],
+export const eventApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUpcomingEvents: builder.query<IEvent[], void>({
       query: () => "/up_events",
@@ -88,13 +85,25 @@ export const eventApi = createApi({
       }),
       invalidatesTags:['events'],
     }),
-    getUserEvents: builder.query<IEventReduced[],{userId:number,startDate:Date}>({
+    getUserEvents: builder.mutation<IEventReduced[],{userId:number,startDate:Date}>({
       query:(payload) => ({
         url:'/userEvents',
         method:'POST',
         body:payload,
+      }), 
+      transformResponse: (response: any) => {
+        console.log("Transforming response:", response);
+        return response.data || response;
+      }    
+    }),
+    getUserCalendarEvents: builder.query<IEventReduced[],{userId:number,startDate:Date}>({
+      query:(payload) => ({
+        url:'/userCalendarEvents',
+        method:'POST',
+        body:payload,
       }),
       providesTags:['userEvents'],
+      
     }),
     signOutEvent:builder.mutation<MessageResponse,{id:number}>({
       query:(payload) => ({
@@ -119,5 +128,6 @@ export const {
     useGetEventDatesQuery,
     useLoginEventMutation,
     useSignOutEventMutation,
-    useGetUserEventsQuery,
+    useGetUserEventsMutation,
+    useGetUserCalendarEventsQuery,
 } = eventApi;

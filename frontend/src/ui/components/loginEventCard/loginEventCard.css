@@ -3,6 +3,7 @@
     -moz-box-shadow: 0px 0px 20px -10px rgba(0,0,0,.2);
     box-shadow: 0px 0px 20px -10px rgba(0,0,0,.2);
     padding-right: 16px;
+    border-radius: var(--radius);
 }
 
 .event--listed__date {
@@ -15,6 +16,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
 }
 
 .event--month , .event--year {

@@ -14,7 +14,8 @@
 .dash__left__inner {
     position: sticky;
     height: 100%;
-    top: 0;
+    max-height: calc(100vh - 64px);
+    top: 32px;
     width: 100%;
 }
 

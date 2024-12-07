@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import {cs} from 'date-fns/locale';
 import './smallEventCard.css';
 import { Badge } from '../badge/badge';
-import { useContext } from 'react';
+import { useContext, memo } from 'react';
 import { ModalContext } from '../../../context/modalContext';
 import { useLazyGetEventDetailQuery } from '../../../api/eventApiSlice';
 import { EventModal } from '../../modals/eventModal';
@@ -15,7 +15,7 @@ type SmallEventCardProps = {
     square?:boolean,
 };
 
-export function SmallEventCard({event,square=false}:SmallEventCardProps){
+export const SmallEventCard = memo(function SmallEventCard({event,square=false}:SmallEventCardProps){
     const {setModal} = useContext(ModalContext);
 
     const handleClick = async() => {
@@ -47,4 +47,4 @@ export function SmallEventCard({event,square=false}:SmallEventCardProps){
         <EventModal event={event}/>
         </>
     );
-};
+});

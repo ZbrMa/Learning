@@ -1,33 +1,29 @@
+import { UserDashboard } from "./userDashboard";
 import {
   useGetFilteredEventsQuery,
   useLoginEventMutation,
   useGetEventDatesQuery,
-} from "../../../api/eventApiSlice";
-import { useGetPlacesQuery } from "../../../api/filtersApiSlice";
-import { BodyBlock } from "../../../ui/blocks/bodyBlock/bodyBlock";
-import { EventSearchBlock } from "../../../ui/blocks/eventSearch/eventSearch";
-import { VisitorLayout } from "../../visitor/visitorLayout";
-import { Dropdown } from "../../../ui/components/select/select";
+} from "../../../../api/eventApiSlice";
+import { useGetPlacesQuery } from "../../../../api/filtersApiSlice";
 import { useState, useEffect } from "react";
-import { IEventFilter } from "../../../types/filtersTypes";
-import { endOfMonth, endOfWeek, format, parseISO, addDays } from "date-fns";
-import { GroupedDropdown } from "../../../ui/components/groupedDropdown/groupedDropdown";
-import { Calendar } from "../../../ui/components/calendar/calendar";
-import { LoginEventCard } from "../../../ui/components/loginEventCard/loginEventCard";
-import { Spinner } from "../../../ui/components/spinner/spinner";
+import { IEventFilter } from "../../../../types/filtersTypes";
+import { endOfWeek, format, parseISO, addDays } from "date-fns";
+import { GroupedDropdown } from "../../../../ui/components/groupedDropdown/groupedDropdown";
 import { useSearchParams } from "react-router-dom";
-import { Schedule } from "../../../ui/components/schedule/schedule";
+import { Schedule } from "../../../../ui/components/schedule/schedule";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/userStore";
-import { useAlert } from "../../../context/alertContext";
-import { Alert } from "../../../ui/components/alert/alert";
+import { RootState } from "../../../../store/userStore";
+import { useAlert } from "../../../../context/alertContext";
+import { Alert } from "../../../../ui/components/alert/alert";
 import { cs } from "date-fns/locale";
-import { IPlace } from "../../../types/filtersTypes";
+import { IPlace } from "../../../../types/filtersTypes";
+import { Spinner } from "../../../../ui/components/spinner/spinner";
+import { GroupedSelect } from "../../../../ui/components/groupedSelect/groupedSelect";
 
-export function LoginEvent() {
+export function UserFindSpot() {
   const { data: eventDates } = useGetEventDatesQuery({ checked: false });
   const { id: userId } = useSelector((root: RootState) => root.auth);
-  const { data: places } = useGetPlacesQuery();
+  const { data: places, isLoading: placesLoading } = useGetPlacesQuery();
   const [searchParams, setSearchParams] = useSearchParams();
   const [range, setRange] = useState<{ from: Date; to: Date }>({
     from: searchParams.get("from")
@@ -35,7 +31,7 @@ export function LoginEvent() {
       : new Date(),
     to: searchParams.get("to")
       ? parseISO(searchParams.get("to")!)
-      : (endOfWeek(new Date(),{locale:cs})),
+      : endOfWeek(new Date(), { locale: cs }),
   });
   const [filters, setFilters] = useState<IEventFilter>({
     places: searchParams.get("places")
@@ -63,9 +59,9 @@ export function LoginEvent() {
 
   const [loginEvent] = useLoginEventMutation();
 
-  const {showAlert} = useAlert();
+  const { showAlert } = useAlert();
 
-  const handleLoginSpot = async (event:number) => {
+  const handleLoginSpot = async (event: number) => {
     const response = await loginEvent({ id: event, userId: userId });
 
     if (response.data) {
@@ -96,7 +92,7 @@ export function LoginEvent() {
       : new Date();
     const to = searchParams.get("to")
       ? parseISO(searchParams.get("to")!)
-      : addDays(endOfWeek(new Date()),1);
+      : addDays(endOfWeek(new Date()), 1);
 
     setFilters({ places, arts });
     setRange({ from, to });
@@ -113,33 +109,38 @@ export function LoginEvent() {
   }, [filters, range, setSearchParams]);
 
   return (
-    <VisitorLayout>
-      <BodyBlock style={{ marginTop: "0" }}>
-            {places && (
-              <GroupedDropdown<IPlace>
-                placeholder="Místo..."
-                style={{width:'340px',marginInline:'auto'}}
-                className="mb-32"
-                options={places}
-                optionLabel={"spot"}
-                groupKey={"city"}
-                multiSelect={false}
-                defaultValue={places[0]}
-                returnSelected={(e) =>
-                  handleSelect(
-                    "places",
-                    e.map((place) => place.id)
-                  )
-                }
-              />
-            )}
-        <Schedule
-          events={events}
-          returnInterval={(e)=>setRange({from:e,to:(endOfWeek(e,{locale:cs}))})}
-          eventClick={handleLoginSpot}
-          buttonText="Booknout"
-        />
-      </BodyBlock>
-    </VisitorLayout>
+    <UserDashboard>
+      <h3 className="h-xl xbold mb-16 text-center">Registrace místa</h3>
+      {placesLoading ? (
+        <Spinner fixed={false} />
+      ) : (
+        places && (
+          <GroupedSelect<IPlace>
+            placeholder="Místo..."
+            style={{ minWidth: "350px", marginInline: "auto", width:'fit-content' }}
+            className="mb-16"
+            options={places}
+            optionLabel={"spot"}
+            groupKey={"city"}
+            multiSelect={false}
+            defaultValue={places[0]}
+            returnSelected={(e) =>
+              handleSelect(
+                "places",
+                [e.id]
+              )
+            }
+          />
+        )
+      )}
+      <Schedule
+        events={events}
+        returnInterval={(e) =>
+          setRange({ from: e, to: endOfWeek(e, { locale: cs }) })
+        }
+        eventClick={handleLoginSpot}
+        buttonText="Booknout"
+      />
+    </UserDashboard>
   );
 }

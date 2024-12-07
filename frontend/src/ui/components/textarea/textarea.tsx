@@ -2,7 +2,7 @@ import { forwardRef, TextareaHTMLAttributes } from "react";
 import './textarea.css';
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>{
-    label:string,
+    label?:string,
     labelPosition?:'in'|'out',
 };
 
