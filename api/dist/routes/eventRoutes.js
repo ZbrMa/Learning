@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const eventController_1 = require("../controllers/eventController");
+const router = express_1.default.Router();
+router.get('/up_events', eventController_1.getUpcomingEvents);
+router.post('/filter_events', eventController_1.postFilteredEvents);
+router.get('/adminEvents', eventController_1.getAdminEvents);
+router.post('/newEvent', eventController_1.postNewEvent);
+router.post('/repeatEvent', eventController_1.postRepeatEvent);
+router.post('/deleteEvent', eventController_1.deleteEevnt);
+router.post('/eventDetail', eventController_1.getEventDetil);
+router.post('/eventDates', eventController_1.getEventDates);
+router.post('/loginEvent', eventController_1.postLoginEvent);
+router.post('/signOutEvent', eventController_1.postSignOutEvent);
+router.post('/userEvents', eventController_1.postUserEvents);
+router.post('/userCalendarEvents', eventController_1.userCalendarEvents);
+router.post('/editEvent', eventController_1.postEditEvent);
+exports.default = router;
