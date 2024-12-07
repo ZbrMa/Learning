@@ -38,8 +38,6 @@ const PORT = 5000;
 const routesPath = path_1.default.join(__dirname, 'routes');
 exports.app.use(express_1.default.json());
 exports.app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, 'uploads')));
-const frontendBuildPath = path_1.default.join(__dirname, '../frontend/build');
-exports.app.use(express_1.default.static(frontendBuildPath));
 exports.app.use((0, cors_1.default)({
     origin: 'http://localhost:3000',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
