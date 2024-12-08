@@ -18,6 +18,7 @@ import multer from "multer";
 export const getUsers = (req:Request,res: Response) => {
   getAllUsers((err, users) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({ message: "Chyba při získávání uživatelů" });
     }
     res.status(200).json(users);

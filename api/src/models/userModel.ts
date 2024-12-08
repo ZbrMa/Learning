@@ -39,6 +39,7 @@ export const getAllUsers = (
     FROM users u
     LEFT JOIN arts a ON u.art = a.id ORDER BY u.id`, (err, res) => {
     if (err) {
+      console.log('model',err);
       return callback(err);
     } else {
       return callback(null, res);
