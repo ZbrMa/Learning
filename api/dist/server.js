@@ -33,12 +33,15 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const multer_1 = __importDefault(require("multer"));
 const cors_1 = __importDefault(require("cors"));
+const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 exports.app = (0, express_1.default)();
 const PORT = 5000;
 const routesPath = path_1.default.join(__dirname, 'routes');
+const NODE_ENV = 'production';
 exports.app.use(express_1.default.json());
 exports.app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, 'uploads')));
 exports.app.use((0, cors_1.default)({
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -51,18 +54,25 @@ exports.userStorage = multer_1.default.diskStorage({
         cb(null, Date.now() + path_1.default.extname(file.originalname));
     },
 });
+const fileExtension = NODE_ENV === 'production' ? '.js' : '.ts';
 fs_1.default.readdirSync(routesPath).forEach((file) => {
-    if (file.endsWith('.ts')) {
+    if (file.endsWith(fileExtension)) {
         Promise.resolve(`${path_1.default.join(routesPath, file)}`).then(s => __importStar(require(s))).then((module) => {
+            console.log(module.default);
             exports.app.use('/api', module.default);
         }).catch(err => {
             console.error(`Chyba při načítání souboru ${file}:`, err);
         });
     }
 });
+exports.app.use(userRoutes_1.default);
 //connectDB();
 exports.app.get('/', (req, res) => {
     console.log('API běží!');
+});
+exports.app.use('/api', (req, res, next) => {
+    console.log(`Přijatý požadavek na: ${req.url}`);
+    next();
 });
 exports.app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server běží na ${PORT}`);

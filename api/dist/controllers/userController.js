@@ -5,6 +5,7 @@ const userModel_1 = require("../models/userModel");
 const getUsers = (req, res) => {
     (0, userModel_1.getAllUsers)((err, users) => {
         if (err) {
+            console.log(err);
             return res.status(500).json({ message: "Chyba při získávání uživatelů" });
         }
         res.status(200).json(users);

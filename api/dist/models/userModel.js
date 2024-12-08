@@ -11,6 +11,7 @@ const fs_1 = __importDefault(require("fs"));
 const JWT_SECRET = "tajne_heslo";
 const SERVER_NAME = "http://localhost:5000";
 const getAllUsers = (callback) => {
+    console.log(database_1.db);
     database_1.db.query(`SELECT 
     u.id ,
     u.name,
@@ -33,6 +34,7 @@ const getAllUsers = (callback) => {
     FROM users u
     LEFT JOIN arts a ON u.art = a.id ORDER BY u.id`, (err, res) => {
         if (err) {
+            console.log('model', err);
             return callback(err);
         }
         else {

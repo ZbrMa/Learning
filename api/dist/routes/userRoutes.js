@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const multer_1 = __importDefault(require("multer"));
 const userController_1 = require("../controllers/userController");
-const router = express_1.default.Router();
+const userRouter = express_1.default.Router();
 const upload = (0, multer_1.default)({
     storage: multer_1.default.memoryStorage(),
     limits: { fileSize: 5 * 1024 * 1024 },
@@ -27,15 +27,15 @@ const upload = (0, multer_1.default)({
         }
     },
 });
-router.get('/users', userController_1.getUsers);
-router.post('/newUser', userController_1.createNewUser);
-router.post('/login', userController_1.loginUser);
-router.post('/editUser', userController_1.editUser);
-router.post('/changePassword', userController_1.changePassword);
-router.post('/forgotPassword', userController_1.forgotPassword);
-router.post('/checkEmail', userController_1.checkEmail);
-router.post('/checkNick', userController_1.checkNick);
-router.post('/checkUser', userController_1.checkUser);
-router.post('/getUser', userController_1.getUser);
-router.post('/:id/upload-image', upload.single('image'), userController_1.uploadUserImage);
-exports.default = router;
+userRouter.get('/users', userController_1.getUsers);
+userRouter.post('/newUser', userController_1.createNewUser);
+userRouter.post('/login', userController_1.loginUser);
+userRouter.post('/editUser', userController_1.editUser);
+userRouter.post('/changePassword', userController_1.changePassword);
+userRouter.post('/forgotPassword', userController_1.forgotPassword);
+userRouter.post('/checkEmail', userController_1.checkEmail);
+userRouter.post('/checkNick', userController_1.checkNick);
+userRouter.post('/checkUser', userController_1.checkUser);
+userRouter.post('/getUser', userController_1.getUser);
+userRouter.post('/:id/upload-image', upload.single('image'), userController_1.uploadUserImage);
+exports.default = userRouter;
