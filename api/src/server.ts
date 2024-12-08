@@ -31,8 +31,10 @@ export const userStorage = multer.diskStorage({
     },
 });
 
+const fileExtension = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
+
 fs.readdirSync(routesPath).forEach((file) => {
-    if (file.endsWith('.ts')) {
+    if (file.endsWith(fileExtension)) {
         import(path.join(routesPath, file)).then((module) => {
             app.use('/api', module.default);
         }).catch(err => {
