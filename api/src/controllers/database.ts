@@ -1,6 +1,5 @@
 import mysql from "mysql2";
 import dotenv from "dotenv";
-import fs from "fs";
 
 dotenv.config();
 
@@ -31,14 +30,14 @@ yLQRXexpQkf/xGIcY1q0eWreWItBxPjO/4pqA8wGmtrOl4S9yA==
 -----END CERTIFICATE-----`;
 
 export const db = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
+  host: "mysql-pokus-pokus.a.aivencloud.com",
+  user: "avnadmin",
+  password: "AVNS_LudGZ8xqV88TuCDAV4r",
+  database: "busking",
   waitForConnections: true,
   queueLimit: 10,
   connectionLimit: 5,
-  port: Number(process.env.DB_PORT),
+  port: 27178,
   ssl: {
     ca: sslCert,
     rejectUnauthorized: false,
