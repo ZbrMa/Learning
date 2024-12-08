@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import multer from 'multer';
 import cors from 'cors';
+import userRouter from './routes/userRoutes';
 
 export const app = express();
 const PORT = 5000;
@@ -44,6 +45,8 @@ fs.readdirSync(routesPath).forEach((file) => {
         });
     }
 });
+
+app.use(userRouter);
 
 //connectDB();
 

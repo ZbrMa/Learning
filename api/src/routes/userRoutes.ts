@@ -10,7 +10,7 @@ declare global {
     }
 }
 
-const router = express.Router();
+const userRouter = express.Router();
 
 
 const upload = multer({
@@ -35,16 +35,16 @@ const upload = multer({
   });
 
 
-router.get('/users', getUsers);
-router.post('/newUser', createNewUser);
-router.post('/login', loginUser);
-router.post('/editUser',editUser);
-router.post('/changePassword',changePassword);
-router.post('/forgotPassword',forgotPassword);
-router.post('/checkEmail', checkEmail);
-router.post('/checkNick',checkNick);
-router.post('/checkUser',checkUser);
-router.post('/getUser',getUser);
-router.post('/:id/upload-image', upload.single('image'), uploadUserImage);
+userRouter.get('/users', getUsers);
+userRouter.post('/newUser', createNewUser);
+userRouter.post('/login', loginUser);
+userRouter.post('/editUser',editUser);
+userRouter.post('/changePassword',changePassword);
+userRouter.post('/forgotPassword',forgotPassword);
+userRouter.post('/checkEmail', checkEmail);
+userRouter.post('/checkNick',checkNick);
+userRouter.post('/checkUser',checkUser);
+userRouter.post('/getUser',getUser);
+userRouter.post('/:id/upload-image', upload.single('image'), uploadUserImage);
 
-export default router;
+export default userRouter;
