@@ -14,7 +14,7 @@ exports.db = mysql2_1.default.createPool({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     waitForConnections: true,
-    queueLimit: 10,
+    queueLimit: 20,
     connectionLimit: 5,
     port: Number(process.env.DB_PORT),
     ssl: {
