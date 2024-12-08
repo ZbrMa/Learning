@@ -46,6 +46,12 @@ app.get('/', (req, res) => {
     console.log('API běží!');
 });
 
+app.use('/api', (req, res, next) => {
+    console.log(`Přijatý požadavek na: ${req.url}`);
+    next();
+});
+
+
 app.listen(PORT,"0.0.0.0", () => {
     console.log(`Server běží na ${PORT}`);
 });
