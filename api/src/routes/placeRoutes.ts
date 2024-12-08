@@ -1,11 +1,11 @@
 import express from 'express';
 import { createPlace, deletePlace, getAllPlaces, updatePlace } from '../controllers/placeController';
 
-const router = express.Router();
+const placeRouter = express.Router();
 
-router.get('/getAdminPlaces',getAllPlaces);
-router.post('/createPlace',createPlace);
-router.post('/updatePlace',updatePlace);
-router.post('/deletePlace',deletePlace);
+placeRouter.get('/getAdminPlaces',getAllPlaces);
+placeRouter.post('/createPlace',createPlace);
+placeRouter.post('/updatePlace',updatePlace);
+placeRouter.post('/deletePlace',deletePlace);
 
-export default router;
+export default placeRouter;

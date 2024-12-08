@@ -1,10 +1,10 @@
 import express from 'express';
 import { getPlaces, getArts, getCountries } from '../controllers/filterController';
 
-const router = express.Router();
+const filterRouter = express.Router();
 
-router.get('/places', getPlaces);
-router.get('/arts', getArts);
-router.get('/countries', getCountries);
+filterRouter.get('/places', getPlaces);
+filterRouter.get('/arts', getArts);
+filterRouter.get('/countries', getCountries);
 
-export default router;
+export default filterRouter;

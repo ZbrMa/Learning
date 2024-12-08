@@ -1,20 +1,20 @@
 import express from 'express';
 import { deleteEevnt, getAdminEvents, getEventDates, getEventDetil, getUpcomingEvents, postEditEvent, postFilteredEvents,postLoginEvent,postNewEvent, postRepeatEvent, postSignOutEvent, postUserEvents, userCalendarEvents } from '../controllers/eventController';
 
-const router = express.Router();
+const eventRouter = express.Router();
 
-router.get('/up_events', getUpcomingEvents);
-router.post('/filter_events', postFilteredEvents);
-router.get('/adminEvents',getAdminEvents);
-router.post('/newEvent',postNewEvent);
-router.post('/repeatEvent',postRepeatEvent);
-router.post('/deleteEvent',deleteEevnt);
-router.post('/eventDetail',getEventDetil);
-router.post('/eventDates',getEventDates);
-router.post('/loginEvent',postLoginEvent);
-router.post('/signOutEvent',postSignOutEvent);
-router.post('/userEvents',postUserEvents);
-router.post('/userCalendarEvents',userCalendarEvents);
-router.post('/editEvent',postEditEvent);
+eventRouter.get('/up_events', getUpcomingEvents);
+eventRouter.post('/filter_events', postFilteredEvents);
+eventRouter.get('/adminEvents',getAdminEvents);
+eventRouter.post('/newEvent',postNewEvent);
+eventRouter.post('/repeatEvent',postRepeatEvent);
+eventRouter.post('/deleteEvent',deleteEevnt);
+eventRouter.post('/eventDetail',getEventDetil);
+eventRouter.post('/eventDates',getEventDates);
+eventRouter.post('/loginEvent',postLoginEvent);
+eventRouter.post('/signOutEvent',postSignOutEvent);
+eventRouter.post('/userEvents',postUserEvents);
+eventRouter.post('/userCalendarEvents',userCalendarEvents);
+eventRouter.post('/editEvent',postEditEvent);
 
-export default router;
+export default eventRouter;
