@@ -39,7 +39,6 @@ const routesPath = path_1.default.join(__dirname, 'routes');
 exports.app.use(express_1.default.json());
 exports.app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, 'uploads')));
 exports.app.use((0, cors_1.default)({
-    origin: 'http://localhost:3000',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -65,6 +64,6 @@ fs_1.default.readdirSync(routesPath).forEach((file) => {
 exports.app.get('/', (req, res) => {
     console.log('API běží!');
 });
-exports.app.listen(PORT, () => {
-    console.log(`Server běží na http://localhost:${PORT}`);
+exports.app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server běží na ${PORT}`);
 });
