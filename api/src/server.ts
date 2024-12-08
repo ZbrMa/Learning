@@ -8,6 +8,7 @@ import cors from 'cors';
 export const app = express();
 const PORT = 5000;
 const routesPath = path.join(__dirname, 'routes');
+const NODE_ENV = 'production';
 
 app.use(express.json());
 
@@ -31,11 +32,12 @@ export const userStorage = multer.diskStorage({
     },
 });
 
-const fileExtension = process.env.NODE_ENV === 'production' ? '.js' : '.ts';
+const fileExtension = NODE_ENV === 'production' ? '.js' : '.ts';
 
 fs.readdirSync(routesPath).forEach((file) => {
     if (file.endsWith(fileExtension)) {
         import(path.join(routesPath, file)).then((module) => {
+            console.log(module.default);
             app.use('/api', module.default);
         }).catch(err => {
             console.error(`Chyba při načítání souboru ${file}:`, err);
