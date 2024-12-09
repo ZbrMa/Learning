@@ -1,59 +1,76 @@
-.cities__block {
-    display: grid;
-    grid-template-columns: 45% 55%;
-    height: calc(100vh - 64px);
-    position: relative;
-}
-
-.city--img {
-    width: 100%;
-    height: 100%;
-    max-height: calc(100vh - 64px);
-    -webkit-box-shadow: 0px 0px 20px -10px rgba(47,47,47,1);
-    -moz-box-shadow: 0px 0px 20px -10px rgba(47,47,47,1);
-    box-shadow: 0px 0px 20px -10px rgba(47,47,47,1);
-    border-top-left-radius: var(--radius);
-    border-bottom-left-radius: var(--radius);
-}
-
-.cities__text {
-    padding-left: 16%;
-    padding-right: 64px;
-}
-
 .cities--header {
     text-transform: uppercase;
-    color: var(--darkGray);
 }
 
-.city__content {
-    background-color: var(--black);
-    padding: 64px;
-    -webkit-box-shadow: 0px 0px 20px -10px rgba(47,47,47,1);
-    -moz-box-shadow: 0px 0px 20px -10px rgba(47,47,47,1);
-    box-shadow: 0px 0px 20px -10px rgba(47,47,47,1);
-    
-    transform: translateX(10%);
+.cities__block .cities--header {
+    font-size: 6rem;
     width: 100%;
 }
 
-.cities__text {
+.cities__block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cities__top {
+    display: flex;
+    gap: 64px;
+}
+
+.slider {
+    height: fit-content;
+    margin: auto;
+    overflow: hidden;
     position: relative;
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    width: 100%;
 }
 
-.city__content.animated > * {
-    opacity: 0;
-    animation: 1s ease-in-out animate forwards;
+.slider::before,
+.slider::after {
+    content: "";
+    height: 100px;
+    position: absolute;
+    width: 200px;
+    z-index: 2;
+    background: linear-gradient(to right, rgba(245, 245, 245, 1) 0%, rgba(245, 245, 245, 0) 100%);
 }
 
-@keyframes animate {
+.slider::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg);
+}
+
+.slider::before {
+    left: 0;
+    top: 0;
+}
+
+.slide-track {
+    display: flex;
+    animation: scroll 40s linear infinite;
+    width: max-content;
+    gap: 64px;
+}
+
+.slide {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+}
+
+@keyframes scroll {
     0% {
-        opacity: 0;
-        transform: translateX(20%);
-    } 
-    100% {
-        opacity: 1;
         transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
     }
 }

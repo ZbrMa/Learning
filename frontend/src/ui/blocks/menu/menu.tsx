@@ -65,7 +65,7 @@ export function Menu({ variant = "def" }: MenuProps) {
               <Link to="/about">O projektu</Link>
             </li>
             <li className="nav--link">
-              <Link to="/kontakt">Kontakt</Link>
+              <Link to="/contact">Kontakt</Link>
             </li>
           </ul>
         </div>

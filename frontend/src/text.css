@@ -10,6 +10,10 @@
   color: var(--grayText);
 }
 
+.tx-bright {
+  color: vaR(--lightGrayHover);
+}
+
 .tx-lightGray {
   color: var(--darkGray);
 }

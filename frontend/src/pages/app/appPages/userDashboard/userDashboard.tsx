@@ -40,10 +40,6 @@ export function UserDashboard({ children }: UserDashBoardProps) {
             <HiOutlineNewspaper />
             Zprávy
           </DashboardMeuItem>
-          <DashboardMeuItem path="/app/places">
-            <PiMapPin />
-            Místa
-          </DashboardMeuItem>
         </DashboardMenu>
 
         <Link to="/"  style={{ marginTop: "auto" }}>

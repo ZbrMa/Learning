@@ -1,0 +1,41 @@
+.event__form .grselect__container {
+    width: 100%;
+    position: relative;
+    color: var(--black);
+    background-color: var(--white);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    color: var(--black);
+}
+
+.event__form .grselect__container label {
+    font-size: 0.9rem;
+}
+
+.event__form .grselect {
+    padding: 1rem;
+    box-sizing: border-box;
+    position: relative;
+    border: 2px solid var(--lightGrayHover);
+    border-radius: var(--radius);
+}
+
+.event__form .grselect-inner {
+    padding: 0;
+}
+
+.event__form .grselect-head {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    z-index: 2;
+    gap: 8px;
+    font-weight: 400;
+    font-size: 1rem;
+    color: vaR(--black);
+}
+
+.event__form .grselect-chevron {
+    font-size: inherit;
+}

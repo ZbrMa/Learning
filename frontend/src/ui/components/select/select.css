@@ -176,6 +176,7 @@ option:hover {
     overflow-y: auto;
     color: var(--black);
     text-align: left;
+    border-radius: var(--radius);
 }
 
 .option {

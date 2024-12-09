@@ -18,6 +18,7 @@
     -webkit-box-shadow: 4px 13px 20px 0px rgba(0,0,0,0.1);
     -moz-box-shadow: 4px 13px 20px 0px rgba(0,0,0,0.1);
     box-shadow: 4px 13px 20px 0px rgba(0,0,0,0.1);
+    border-radius: var(--radius);
 }
 
 .dropdown__menu__options.opened {

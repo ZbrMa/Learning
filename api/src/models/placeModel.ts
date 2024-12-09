@@ -20,12 +20,20 @@ export const getPlacesModel = (callback:(err:Error | null, places:IPlace[] | nul
 
 export const deletePlaceModel = (id:number,callback:(err:Error | null, response:IMessageResponse)=>void) => {
   const sql = 'DELETE * FROM places WHERE id = ?';
+  const sqlPlaceEvents = 'DELETE * FROM events WHERE place_id = ?'
 
   db.query(sql,id,(err,res)=>{
       if(err){
           return callback(err,{success:false,message:'Nepodařilo se odstranit místo'});
       }
-      return callback(null,{success:true,message:'Místo bylo úspěšně odstraněno.'});
+
+      db.query(sqlPlaceEvents,id,(evErr,evRes)=>{
+        if(evErr){
+          return callback(err,{success:false,message:'Nepodařilo se odstranit místo'});
+      }
+        return callback(null,{success:true,message:'Místo bylo úspěšně odstraněno.'});
+      });
+      
   });
 };
 

@@ -1,11 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+const PRODUCTION_SERVER_URL = 'http://142.93.173.254/api';
+const DEV_SERVER_URL = 'http://localhost:5000';
+
 const apiSlice = createApi({
     reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://142.93.173.254:5000' }),
+    baseQuery: fetchBaseQuery({ baseUrl: DEV_SERVER_URL }),
     endpoints: builder => ({}),
     tagTypes:['events', 'userEvents','notificationOut','notificationIn','places'],
-    keepUnusedDataFor: 5,
+    keepUnusedDataFor: 120,
 });
 
 export default apiSlice;

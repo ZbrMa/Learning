@@ -1,3 +1,4 @@
+import './eventForms.css';
 import { useContext, useState } from "react";
 import { useGetPlacesQuery } from "../../../api/filtersApiSlice";
 import { GroupedDropdown } from "../../components/groupedDropdown/groupedDropdown";
@@ -9,13 +10,15 @@ import { useAlert } from "../../../context/alertContext";
 import { Alert } from "../../components/alert/alert";
 import { ModalContext } from "../../../context/modalContext";
 import { format,addDays } from "date-fns";
+import { GroupedSelect } from "../../components/groupedSelect/groupedSelect";
+import { Spinner } from "../../components/spinner/spinner";
 
 
 
 export function NewEventForm() {
     const {data:places} = useGetPlacesQuery();
     const [newEvent,setNewEvent] = useState<INewEvent>({day:'',start:'',end:'',place:-1});
-    const [createEvent] = useCreateNewEventMutation();
+    const [createEvent,{isLoading}] = useCreateNewEventMutation();
     const {showAlert} = useAlert();
     const {setModal} = useContext(ModalContext);
 
@@ -39,12 +42,13 @@ export function NewEventForm() {
     };
 
     return(
-        <form className="grid-2 g-16" onSubmit={(e)=>handleSubmit(e)}>
+        <form className="grid-2 g-16 event__form" onSubmit={(e)=>handleSubmit(e)}>
+            {isLoading && <Spinner/>}
                 {places && 
-                    <GroupedDropdown
+                    <GroupedSelect
                         options={places}
                         groupKey='city'
-                        returnSelected={(e)=>handleSetNewEvent('place',e[0]?.id)}
+                        returnSelected={(e)=>handleSetNewEvent('place',e.id)}
                         placeholder="Místo"
                         optionLabel='spot'
                         multiSelect={false}

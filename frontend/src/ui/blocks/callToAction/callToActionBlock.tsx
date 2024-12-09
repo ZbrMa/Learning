@@ -37,8 +37,8 @@ export function CallToActionBlock() {
             <h2 className="cities--header h-top thick cities--title">Staň se součástí našeho světa!</h2>
             <div className="flex g-32">
             <InfoCard name="míst"><CountUp max={5} duration={1000} step={1}/></InfoCard>
-            <InfoCard name="umělců"><CountUp max={200} duration={2000} step={2}/></InfoCard>
-            <InfoCard name="akcí měsíčně"><CountUp max={150} duration={1500} step={2}/></InfoCard>
+            <InfoCard name="umělců"><CountUp max={200} duration={1500} step={5}/></InfoCard>
+            <InfoCard name="akcí měsíčně"><CountUp max={150} duration={1500} step={5}/></InfoCard>
             </div>
             
           </div>

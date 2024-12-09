@@ -14,6 +14,8 @@ import { ProfileInfoBlock,ProfileInfoLine } from "../../userPage/userPage";
 import { useAlert } from "../../../../context/alertContext";
 import { Alert } from "../../../components/alert/alert";
 import { ExtendedUser } from "../../../../api/authSlice";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../../../api/authSlice";
 import './editProfileForm.css';
 
 type EditProfileFormProps = {
@@ -27,6 +29,7 @@ export const EditProfileForm = forwardRef(function EditProfileForm({ user,editab
   const [formUser, setFormUser] = useState(user);
   const { showAlert } = useAlert();
   const [triggerEdit] = useEditUserMutation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setFormUser(user);
@@ -39,6 +42,7 @@ export const EditProfileForm = forwardRef(function EditProfileForm({ user,editab
   useImperativeHandle(ref, () => ({
     async handleSave() {
       const response = await triggerEdit(formUser);
+      response && dispatch(loginSuccess(formUser))
       return response;
     },
     updateField(key: string, value: string) {

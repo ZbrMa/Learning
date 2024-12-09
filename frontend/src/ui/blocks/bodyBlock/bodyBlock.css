@@ -12,6 +12,7 @@
 .body__section.pad .section__inner {
     margin: 0 auto;
     max-width: 1400px;
+    width: 100%;
 }
 
 .body__section.grey {

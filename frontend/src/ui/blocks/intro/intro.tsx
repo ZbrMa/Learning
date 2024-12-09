@@ -13,7 +13,7 @@ export function IntroBlock() {
             <p>Naším cílem je podpořit pouliční umělce a propojit je s diváky. Díky našemu projektu mohou umělci snadno najít místa pro svá vystoupení, zatímco návštěvníci mohou objevovat nové talenty a užít si kulturu přímo na ulicích.</p>
           </div>
           <div className="flex-col g-32">
-            <p className="h-xl xbold tx-gray">Poznejte <Highlight>živé umění</Highlight> v pulzujících <Highlight>ulicích města</Highlight>. Podpořte umělce a staňte se součástí <Highlight>komunity</Highlight>.</p>
+            <p className="h-xl xbold tx-lightGray">Poznej <Highlight>živé umění</Highlight> v pulzujících <Highlight>ulicích města</Highlight>. Podpoř umělce nebo se staň součástí <Highlight>komunity</Highlight>.</p>
             <Button variant='ternary' style={{marginTop:'64px'}}>Více o projektu</Button>
           </div>
         </div>

@@ -144,6 +144,7 @@ option:hover {
     gap: 4px;
     max-height: calc(8px + 2.5rem);
     overflow-y: auto;
+    border-radius: vaR(--radius);
 }
 
 .selected-item {

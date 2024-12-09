@@ -43,6 +43,6 @@ app.get('/', (req, res) => {
     console.log('API běží!');
 });
 
-app.listen(PORT,"0.0.0.0", () => {
+app.listen(PORT, () => {
     console.log(`Server běží na ${PORT}`);
 });

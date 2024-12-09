@@ -15,8 +15,9 @@ export function Register(){
   if (token) {
     return(
       <VisitorLayout>
-        <BodyBlock style={{paddingTop:'32px'}}>
-              <p>Již je někdo přihlášen</p>
+        <BodyBlock style={{paddingTop:'32px',alignContent:'center', minHeight:'calc(100vh - 64px)'}}>
+              <div className="m-auto w-fit h-full flex-col items-center content-center">
+              <p className="mb-32">Již je někdo přihlášen</p>
               <Button
                 variant="secondary"
                 className="xbold tx-sm"
@@ -24,6 +25,8 @@ export function Register(){
               >
                 Odhlásit se
               </Button>
+              </div>
+              
         </BodyBlock>
       </VisitorLayout>
     );

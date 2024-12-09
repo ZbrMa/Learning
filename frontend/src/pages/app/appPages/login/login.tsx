@@ -67,7 +67,6 @@ export function Login() {
         const expiryTime = new Date().getTime() + 30 * 60 * 1000;
         localStorage.setItem("authToken", token);
         localStorage.setItem("tokenExpiry", expiryTime.toString());
-        localStorage.setItem("userData", JSON.stringify(data.user));
         dispatch(loginSuccess({ ...data.user, token,authChecked:true }));
         navigate(`/`);
       }

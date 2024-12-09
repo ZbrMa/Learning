@@ -17,7 +17,6 @@ const SERVER_NAME = "http://localhost:5000";
 export const getAllUsers = (
   callback: (err: Error | null, results?: IUser[]) => void
 ) => {
-  console.log(db);
   db.query<IUser[] & RowDataPacket[]>(`SELECT 
     u.id ,
     u.name,

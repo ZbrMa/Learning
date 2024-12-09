@@ -61,7 +61,7 @@ export function ProfileBlock() {
     }
   };
 
-  const handleSave = async () => {
+  const handleSaveUser = async () => {
     if (formRef.current) {
       const response = await formRef.current.handleSave();
       if (response) {
@@ -71,6 +71,7 @@ export function ProfileBlock() {
           </Alert>
         );
         setEditable(false);
+        
       } else {
         showAlert(
           <Alert type="negative" title="Chyba serveru">
@@ -111,7 +112,7 @@ export function ProfileBlock() {
                 </p>
                 <div className="flex g-16 profile__btns">
                   {editable ? (
-                    <Button onClick={handleSave}>
+                    <Button onClick={handleSaveUser}>
                       <IoCheckmarkDoneOutline />
                       Uložit
                     </Button>

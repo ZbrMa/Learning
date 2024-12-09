@@ -2,6 +2,14 @@
   box-sizing: border-box;
 }
 
+.w-fit {
+  width: fit-content;
+}
+
+.h-full {
+  height: 100%;
+}
+
 .p-0 {
   padding: 0;
 }
@@ -10,6 +18,9 @@
   margin: 0;
 }
 
+.m-auto {
+  margin: auto;
+}
 
 .py-8 {
   padding-block: 8px;
@@ -130,6 +141,10 @@
     margin-bottom: 64px;
   }
 
+  .mt-auto {
+    margin-top: auto;
+  }
+  
   .mt-8 {
     margin-top: 8px;
   }

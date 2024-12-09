@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser,IEditableUser } from '../types/users';
 import { format } from "date-fns";
 import { useNavigate } from 'react-router';
+import { stringify } from 'querystring';
 
 export interface ExtendedUser extends Omit<IUser,'inserted'> {
     token: string | undefined,
@@ -38,7 +39,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         loginSuccess: (state, action: PayloadAction<ExtendedUser>) => {
-
+            localStorage.setItem("userData", JSON.stringify(action.payload));
             return { ...state, ...action.payload, authChecked:true };
         },
         logout: () => {
