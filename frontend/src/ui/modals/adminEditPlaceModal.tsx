@@ -1,6 +1,6 @@
 import { IPlace } from "../../types/places";
 import { Modal } from "../../ui/components/modal/modal";
-import { EditPlaceForm } from "../blocks/adminPlaces/editPlaceForm";
+import { EditPlaceForm } from "../blocks/adminPage/adminPlaces/editPlaceForm";
 import "./eventModal.css";
 
 type EditPlaceProps = {

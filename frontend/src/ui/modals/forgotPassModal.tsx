@@ -1,8 +1,6 @@
-import { useSelector } from "react-redux";
 import { useForgotPasswordMutation } from "../../api/userApiSlice";
 import { IFieldConfig, IFormConfig } from "../../types/form";
 import { Form } from "../components/form/form";
-import { RootState } from "../../store/userStore";
 import { Modal } from "../components/modal/modal";
 import { useAlert } from "../../context/alertContext";
 import { Alert } from "../components/alert/alert";

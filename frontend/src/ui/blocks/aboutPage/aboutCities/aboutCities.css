@@ -1,0 +1,36 @@
+.city__container:nth-child(odd) .city--img {
+    order:2
+}
+
+.city--img img {
+    border-radius: var(--radius);
+    height: 60vh;
+}
+
+.city__container span {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.city__container {
+    padding-bottom: 64px;
+    border-bottom: 1px solid var(--darkGray);
+}
+
+@media only screen and (max-width:600px) {
+    .city--img img {
+        height: 40vh;
+        position: relative;
+        transform: none !important;
+        
+    }
+
+    .city__container .main--header {
+        font-size: 2.4rem;
+        word-wrap: break-word;
+    }
+
+    .city--img {
+        order: 1 !important;
+    }
+ }

@@ -4,7 +4,7 @@ import { IoAddOutline } from "react-icons/io5";
 import { useContext } from "react";
 import { ModalContext } from "../../../../context/modalContext";
 import { AdminNewPlaceModal } from "../../../../ui/modals/adminPlaceModal";
-import { AdminPlacesTable } from "../../../../ui/blocks/adminPlaces/adminPlacesTable";
+import { AdminPlacesTable } from "../../../../ui/blocks/adminPage/adminPlaces/adminPlacesTable";
 
 export function AdminPlaces() {
   const { setModal } = useContext(ModalContext);

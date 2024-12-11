@@ -1,5 +1,5 @@
-import { Menu } from "../../ui/blocks/menu/menu";
-import { Footer } from "../../ui/blocks/footer/footer";
+import { Menu } from "../../ui/blocks/common/menu/menu";
+import { Footer } from "../../ui/blocks/common/footer/footer";
 
 type LayoutProps = {
     children: React.ReactNode,

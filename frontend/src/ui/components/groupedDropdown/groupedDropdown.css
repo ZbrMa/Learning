@@ -144,7 +144,6 @@ option:hover {
     gap: 4px;
     max-height: calc(8px + 2.5rem);
     overflow-y: auto;
-    border-radius: vaR(--radius);
 }
 
 .selected-item {
@@ -153,6 +152,7 @@ option:hover {
     padding: 2px 2px 2px 8px;
     margin-right: 4px;
     cursor: pointer;
+    border-radius: 2px;
 }
 
 .selected-item:hover {

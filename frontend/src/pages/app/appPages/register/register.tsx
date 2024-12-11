@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../../../store/userStore";
 import { logout } from "../../../../api/authSlice";
 import { useSelector } from "react-redux";
-import { BodyBlock } from "../../../../ui/blocks/bodyBlock/bodyBlock";
+import { BodyBlock } from "../../../../ui/blocks/common/bodyBlock/bodyBlock";
 import { NewUser } from "./ui/newUser";
 
 export function Register(){

@@ -15,7 +15,7 @@ import { AppDispatch, RootState } from "../../../../store/userStore";
 import { loginSuccess, logout } from "../../../../api/authSlice";
 import { useSelector } from "react-redux";
 import { Alert } from "../../../../ui/components/alert/alert";
-import { BodyBlock } from "../../../../ui/blocks/bodyBlock/bodyBlock";
+import { BodyBlock } from "../../../../ui/blocks/common/bodyBlock/bodyBlock";
 import { useAlert } from "../../../../context/alertContext";
 import { useContext } from "react";
 import { ModalContext } from "../../../../context/modalContext";

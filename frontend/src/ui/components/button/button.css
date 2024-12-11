@@ -111,11 +111,11 @@
     cursor: pointer;
 }
 
-.icon--button.primary {
+.icon--button.primary:is(:active,:focus) {
     color: var(--black);
 }
 
-.icon--button.secondary{
+.icon--button.secondary:is(:active,:focus){
     color: var(--white);
 }
 
@@ -128,12 +128,22 @@
     background-color: var(--black);
 }
 
-.icon--button.ternary {
+.icon--button.ternary:is(:active,:focus) {
     background-color: var(--black);
     color: var(--white);
 }
 
 .icon--button.ternary:hover {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.icon--button.red:is(:active,:focus) {
+    color: var(--white);
+    background-color: var(--red);
+}
+
+.icon--button.red:hover {
     background-color: var(--white);
     color: var(--black);
 }
@@ -147,4 +157,15 @@
 
 .button:disabled {
     cursor: no-drop;
+}
+
+@media only screen and (max-width:600px) {
+    .button {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .icon--button {
+        height: 42px;
+        width: 42px;
+    }
 }

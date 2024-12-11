@@ -1,4 +1,4 @@
-import { NewPlaceForm } from "../blocks/adminPlaces/createPlaceForm";
+import { NewPlaceForm } from "../blocks/adminPage/adminPlaces/createPlaceForm";
 import { Modal } from "../components/modal/modal";
 
 export function AdminNewPlaceModal(){

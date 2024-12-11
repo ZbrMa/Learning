@@ -1,4 +1,4 @@
-import { AdminUsersTable } from "../../../../ui/blocks/adminUsers/adminUsers";
+import { AdminUsersTable } from "../../../../ui/blocks/adminPage/adminUsers/adminUsers";
 import { AdminDashboard } from "./adminDashboard";
 
 export function AdminUsers() {

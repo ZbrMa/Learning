@@ -18,7 +18,7 @@ export function Button({children,img,variant='primary',className, size,...props}
 //ikonkové tlačítko
 interface IconBtnProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     children:React.ReactNode,
-    variant?:'primary'|'secondary' | 'ternary',
+    variant?:'primary'|'secondary' | 'ternary' | 'red',
 };
 
 export function IconButton({children,variant='primary',...props}:IconBtnProps){

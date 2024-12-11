@@ -29,7 +29,7 @@ export const SmallEventCard = memo(function SmallEventCard({event,square=false}:
             <img src={event.image} alt={event.nick+event.image} className='card--img'/>
             <div className="event__date p-8 box">
                 <div className="event--day tx-white h-lg xbold">{formatDate(event.day,'dd')}.</div>
-                <div className="event__my grid-2 g-8">
+                <div className="event__my flex g-8">
                     <span className="event--month tx-white">{format(event.day,"MMM" ,{ locale: cs })}</span>
                     <span className="event--year tx-white">{formatDate(event.day,'yy')}</span>
                 </div>

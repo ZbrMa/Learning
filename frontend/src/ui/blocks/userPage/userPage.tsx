@@ -1,6 +1,6 @@
 import { useGetUserQuery } from "../../../api/userApiSlice";
 import { Spinner } from "../../components/spinner/spinner";
-import { BodyBlock } from "../bodyBlock/bodyBlock";
+import { BodyBlock } from "../common/bodyBlock/bodyBlock";
 import { UserEvents } from "../profile/ui/userEvents";
 import { Badge } from "../../components/badge/badge";
 import {

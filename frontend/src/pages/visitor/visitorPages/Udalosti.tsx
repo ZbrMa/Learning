@@ -1,5 +1,5 @@
-import { Banner } from "../../../ui/blocks/banner/banner";
-import { EventSearchBlock } from "../../../ui/blocks/eventSearch/eventSearch";
+import { Banner } from "../../../ui/blocks/common/banner/banner";
+import { EventSearchBlock } from "../../../ui/blocks/eventPage/eventSearch/eventSearch";
 import { VisitorLayout } from "../visitorLayout";
 
 

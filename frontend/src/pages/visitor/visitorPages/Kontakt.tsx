@@ -1,5 +1,5 @@
 import { IoLogoInstagram, IoMailOutline } from "react-icons/io5";
-import { BodyBlock } from "../../../ui/blocks/bodyBlock/bodyBlock";
+import { BodyBlock } from "../../../ui/blocks/common/bodyBlock/bodyBlock";
 import { ProfileInfoLine } from "../../../ui/blocks/userPage/userPage";
 import { InfoLine } from "../../../ui/components/infoLine/infoLine";
 import { VisitorLayout } from "../visitorLayout";

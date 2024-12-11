@@ -1,5 +1,5 @@
-import { NewEventForm } from "../../ui/blocks/adminEvents/newEventForm";
-import { NewEventRepeatForm } from "../../ui/blocks/adminEvents/newEventRepeatForm";
+import { NewEventForm } from "../blocks/adminPage/adminEvents/newEventForm";
+import { NewEventRepeatForm } from "../blocks/adminPage/adminEvents/newEventRepeatForm";
 import { Modal } from "../../ui/components/modal/modal";
 import {
   Tabs,

@@ -1,3 +1,4 @@
+import './countUp.css';
 import { useEffect, useState, useRef } from "react";
 
 type CountUpProps = {
@@ -52,5 +53,5 @@ export function CountUp({ min = 0, max, step, duration }: CountUpProps) {
         return () => clearInterval(counterInterval);
     }, [isInViewport, min, max, step, duration]);
 
-    return <span ref={countUpRef} className="inherit">{current}</span>;
+    return <span ref={countUpRef} className="inherit counter">{current}</span>;
 }

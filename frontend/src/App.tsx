@@ -20,6 +20,7 @@ import { UserProfile } from "./pages/app/appPages/userDashboard/userProfile";
 import { UserFindSpot } from "./pages/app/appPages/userDashboard/userFindSpot";
 import { UserNotifications } from "./pages/app/appPages/userDashboard/userNotifications";
 import { KontaktPage } from "./pages/visitor/visitorPages/Kontakt";
+import { AboutPage } from "./pages/visitor/visitorPages/About";
 
 const events = [
   "mousedown",
@@ -63,6 +64,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(initializeAuth());
+    window.scrollTo(0,0);
   }, [location]);
 
   return (
@@ -71,6 +73,7 @@ const App: React.FC = () => {
       <Route path="/" element={<Domu />} />
       <Route path="/events" element={<UdalostiPage />} />
       <Route path="/contact" element={<KontaktPage />} />
+      <Route path="/about" element={<AboutPage />} />
       <Route path="/user/:userId" element={<UserPage />} />
 
       {/* části aplikace*/}

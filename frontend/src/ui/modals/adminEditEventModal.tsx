@@ -1,6 +1,6 @@
 import { IEditableEvent } from "../../types/events";
 import { Modal } from "../../ui/components/modal/modal";
-import { EditEventForm } from "../blocks/adminEvents/editEventForm";
+import { EditEventForm } from "../blocks/adminPage/adminEvents/editEventForm";
 import "./eventModal.css";
 
 type EditEventProps = {

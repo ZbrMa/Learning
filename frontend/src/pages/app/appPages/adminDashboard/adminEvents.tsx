@@ -1,4 +1,4 @@
-import { AdminEventsTable } from "../../../../ui/blocks/adminEvents/adminEventsTable";
+import { AdminEventsTable } from "../../../../ui/blocks/adminPage/adminEvents/adminEventsTable";
 import { AdminDashboard } from "./adminDashboard";
 import { Button } from "../../../../ui/components/button/button";
 import { IoAddOutline } from "react-icons/io5";
