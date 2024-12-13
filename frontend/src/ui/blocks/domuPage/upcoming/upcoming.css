@@ -3,9 +3,14 @@
     grid-template-columns: 1fr 4fr;
 }*/
 
+#upcom-events {
+    overflow-x: hidden;
+}
+
 .upcom__events p {
     border-bottom: 1px solid var(--lightGray);
     margin-top: auto;
+    
 }
 
 .upcom__events .event__card__sm {
@@ -14,7 +19,7 @@
     box-shadow: none;
 }
 
-@media only screen and (max-width:600px) { 
+@media only screen and (max-width:768px) { 
 
     .upcom__events .button {
         display: none;

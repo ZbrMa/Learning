@@ -10,6 +10,7 @@ import { FaMicrophone } from "react-icons/fa";
 export interface ICoordinates {
     clong:number,
     clat:number,
+    name:string,
 }
 
 function getAverage (array:Array<ICoordinates>):LatLngExpression {
@@ -55,7 +56,9 @@ export default function Map({points}:MapProps) {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {points.map((point)=>(
-                    <Marker position={[point.clong, point.clat]} key={point.clong+point.clat} icon={customIcon}></Marker>
+                    <Marker position={[point.clong, point.clat]} key={point.clong+point.clat} icon={customIcon}>
+                        <Popup>{point.name}</Popup>
+                    </Marker>
                 ))}
                 
             </MapContainer>

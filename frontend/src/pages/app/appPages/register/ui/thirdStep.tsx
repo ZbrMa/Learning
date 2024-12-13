@@ -26,10 +26,8 @@ const bandOptions: IOption[] = [
 export function RegisterThirdStep() {
   const [next, setNext] = useState(false);
 
-  const { user, setUser } = useContext(NewUserContext);
-  const { data: arts } = useGetArtsQuery();
+  const { user, setUser,arts,countries,country,art } = useContext(NewUserContext);
   const [checkNick] = useCheckNickMutation();
-  const {data:countries} = useGetCountriesQuery();
   const {showAlert} = useAlert();
   const {setActive} = useContext(StepsContext);
 
@@ -46,9 +44,10 @@ export function RegisterThirdStep() {
     console.log(updatedUser);
     const isBandValid = updatedUser.band.trim().length > 1;
     const isNickValid = updatedUser.nick.trim().length > 1;
-    const isCountryValid = updatedUser.country !== 0;
+    const isCountryValid = !!country;
+    const isArtValid = !!art;
 
-    setNext(isBandValid && isNickValid && isCountryValid);
+    setNext(isBandValid && isNickValid && isCountryValid && isArtValid);
   };
 
   useEffect(()=>{
@@ -86,6 +85,7 @@ export function RegisterThirdStep() {
               hasSearchBar
               label="Národnost"
               returnSelected={(e) => handleInputChange("country", e)}
+              defaultValue={user.country}
               required
             />
       <Input
@@ -108,7 +108,7 @@ export function RegisterThirdStep() {
       </div>
       <div className="flex g-16 register__btns">
         <StepMove direction={-1}/>
-        <StepMove direction={1} disabled={!next}/>
+        <StepMove direction={1} disabled={!next} onMove={handleMoveForward}/>
       </div>
     </div>
   );

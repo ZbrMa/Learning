@@ -11,3 +11,19 @@
 .register__bottom > * {
     width: 100%;
 }
+
+#login-block {
+    align-content: center;
+    min-height: calc(100vh - 64px);
+    padding-inline: 8% !important;
+}
+
+@media only screen and (max-width:768px) { 
+    .register__bottom > div:first-child {
+        margin-bottom: 8px;
+    }
+
+    .register__bottom {
+        padding-top: 16px;
+    }
+}

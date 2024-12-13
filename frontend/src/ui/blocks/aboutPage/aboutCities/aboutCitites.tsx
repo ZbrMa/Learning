@@ -68,7 +68,6 @@ function CityContainer({ place, index }: CityCOntainerProps) {
             className="w-full absolute"
             style={{
               ...styles,
-              height:'60vh'
             }}
           />
         </div>

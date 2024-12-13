@@ -27,7 +27,7 @@ export function UpcomingBlock() {
   });
 
   return (
-    <BodyBlock>
+    <BodyBlock id="upcom-events">
       <div className="flex content-space mb-64 upcom__events" ref={ref}>
         {trails.map((props) => (
           <animated.div style={props}>

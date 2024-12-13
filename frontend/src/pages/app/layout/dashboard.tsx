@@ -1,16 +1,16 @@
-import React, { ReactNode } from 'react';
+import React, { HTMLAttributes, ReactNode } from 'react';
 import './dashboard.css';
 import { Link } from 'react-router-dom';
 import { Button } from '../../../ui/components/button/button';
 
-type DashboardProps = {
-    children:ReactNode
+interface DashboardProps extends HTMLAttributes<HTMLElement> {
+    children:ReactNode,
 }
 
-export function Dashboard({children}:DashboardProps){
+export function Dashboard({children,...props}:DashboardProps){
 
     return(
-        <div className="dashboard">
+        <div className="dashboard" {...props}>
             {children}
         </div>
     );
@@ -40,15 +40,15 @@ export function DashboardMenu({children}:DashBoardMenuProps){
     );
 };
 
-type DashboardMeuItemProps = {
+interface DashboardMeuItemProps extends HTMLAttributes<HTMLElement> {
     children:ReactNode,
     path:string,
 };
 
-export function DashboardMeuItem({children,path}:DashboardMeuItemProps){
+export function DashboardMeuItem({children,path, ...props}:DashboardMeuItemProps){
 
     return(
-        <Link to={path} className='dash--menu--item'><Button variant='ternary' size='small'>{children}</Button></Link>
+        <Link to={path} className='dash--menu--item' {...props}><Button variant='ternary' size='small'>{children}</Button></Link>
     );
 };
 
@@ -58,6 +58,6 @@ type DashboardRightProps = {
 
 export function DashboardRight({children}:DashboardRightProps){
     return(
-        <div className='p-32 box'>{children}</div>
+        <div className='p-32 box dash__right'>{children}</div>
     );
 };

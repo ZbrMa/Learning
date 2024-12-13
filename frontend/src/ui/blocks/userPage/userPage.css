@@ -42,3 +42,14 @@
 .profile__infoline--title {
     min-width: 100px;
 }
+
+@media only screen and (max-width:768px) {
+    .profile__infoline {
+        padding-block: 4px;
+    }
+
+    .user__info__block:not(:last-child) {
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+    }
+ }

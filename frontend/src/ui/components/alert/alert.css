@@ -139,3 +139,10 @@
     cursor: pointer;
     margin-bottom: auto;
 }
+
+@media only screen and (max-width:768px) { 
+    .alert__container {
+        max-width: 92%;
+    }
+    
+}

@@ -26,6 +26,7 @@ export function AboutPage() {
                 points={places?.map((place) => ({
                   clong: place.longitude,
                   clat: place.latitude,
+                  name:place.city + ', ' + place.spot
                 }))}
               />
               

@@ -12,7 +12,7 @@ import { StepMove } from "../../../../../ui/components/steps/steps";
 
 export function RegisterFourthStep() {
   const [canSumbit, setCanSubmit] = useState(false);
-  const { user } = useContext(NewUserContext);
+  const { user,art,country } = useContext(NewUserContext);
   const navigate = useNavigate();
   const {showAlert} = useAlert();
 
@@ -44,11 +44,11 @@ export function RegisterFourthStep() {
           </InfoLine>
         </div>
         <div>
-          <InfoLine title="Národnost">{user.country}</InfoLine>
+          <InfoLine title="Národnost">{country?.name}</InfoLine>
           <InfoLine title="Město">{user.city}</InfoLine>
           <InfoLine title="Adresa">{user.address}</InfoLine>
           <InfoLine title="Skupina/ jednotlivec">{user.band}</InfoLine>
-          <InfoLine title="Oblast zájmu">{user.art}</InfoLine>
+          <InfoLine title="Oblast zájmu">{art?.name}</InfoLine>
           <InfoLine title="Umělecké jméno">{user.nick}</InfoLine>
         </div>
         <div className="agreement">

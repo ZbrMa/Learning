@@ -120,3 +120,70 @@
 .agreement input {
     width: fit-content;
 }
+
+@media only screen and (max-width:768px) { 
+    .register__background {
+        display: none;
+    }
+
+    .register__layout {
+        padding-block: 0;
+        min-height: calc(100vh - 58px);
+    }
+
+    .register__inner {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 58px);
+    }
+
+    .register__left {
+        background-color: var(--black);
+        gap: 16px;
+        padding: 16px 2%;
+    }
+
+    .register__nav {
+        height: fit-content;
+        background-color: var(--black);
+        padding-block: 8px;
+        align-items: center;
+    }
+
+    .register--logo {
+        height: 32px;
+    }
+
+    .register__left h1 {
+        display: none;
+    }
+
+    .register__left .steps__header {
+        flex-direction: row !important;
+        justify-content: space-between;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .register__left .steps__header--item {
+        font-size: 0.8rem;
+        flex-direction: column;
+        display: flex;
+        flex-basis: 0;
+        align-items: center;
+        text-align: center;
+    }
+
+    .register__left .steps__header--item svg {
+        font-size: 1rem;
+    }
+
+    .register__right {
+        margin-block: auto;
+        padding-block: 32px;
+    }
+
+    .register__btns .button:nth-child(2) {
+        margin-left: auto;
+    }
+}

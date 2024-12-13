@@ -90,3 +90,11 @@ input:disabled:hover {
     border: none;
     outline: none;
 }
+
+@media only screen and (max-width:768px) { 
+    input {
+        padding: 0.6rem 0.8rem;
+        font-size: 1rem;
+    }
+    
+}

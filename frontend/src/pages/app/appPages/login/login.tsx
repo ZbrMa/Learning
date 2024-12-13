@@ -75,7 +75,7 @@ export function Login() {
 
   return (
     <VisitorLayout>
-      <BodyBlock style={{alignContent:'center',minHeight:'calc(100vh - 64px)'}}>
+      <BodyBlock id="login-block">
       {token ? (
         <div>
           <p>Již je někdo přihlášen</p>

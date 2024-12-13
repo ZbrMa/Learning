@@ -159,3 +159,17 @@
     box-shadow: 0px 0px 20px -15px rgba(0,0,0,0.6);
     border: none;
 }
+
+@media only screen and (max-width:768px) { 
+
+    .notifications__header .tabs__header .tabs__header--item {
+        font-size: 1.2rem;
+        padding: 0;
+        padding-block: 0;
+        background-color: var(--white);
+        color: var(--darkGray);
+        font-weight: 600;
+        align-content: center;
+    }
+
+}

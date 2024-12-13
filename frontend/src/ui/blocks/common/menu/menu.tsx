@@ -1,4 +1,9 @@
-import { IoClose, IoLogOutOutline, IoMailOutline, IoPersonOutline } from "react-icons/io5";
+import {
+  IoClose,
+  IoLogOutOutline,
+  IoMailOutline,
+  IoPersonOutline,
+} from "react-icons/io5";
 import { Button, IconButton } from "../../../components/button/button";
 import { DropdownMenu } from "../../../components/dropdownMenu/dropdownMenu";
 import "./menu.css";
@@ -16,10 +21,10 @@ type MenuProps = {
 };
 
 export function Menu({ variant = "def" }: MenuProps) {
-  const {token,role,id} = useSelector((root: RootState) => root.auth);
+  const { token, role, id } = useSelector((root: RootState) => root.auth);
   const dispatch = useDispatch();
   const [scroll, setScroll] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);  // Stav pro ovládání otevření/zavření menu na mobilu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Stav pro ovládání otevření/zavření menu na mobilu
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -55,17 +60,20 @@ export function Menu({ variant = "def" }: MenuProps) {
 
   return (
     <header
-      className={`${scroll ? "scrolled" : ""} ${variant} ${isMobileMenuOpen ? "mobile" : ""}`}
+      className={`${scroll ? "scrolled" : ""} ${variant} ${
+        isMobileMenuOpen ? "mobile" : ""
+      }`}
     >
       <img src="/images/logo.png" className="logo" />
-      
+
       {/* Tlačítko hamburger, zobrazuje se pouze na mobilu */}
-      <IconButton onClick={toggleMobileMenu} variant='red' style={{marginTop:`${isMobileMenuOpen? '32px':''}`}}>
-        {isMobileMenuOpen ? (
-          <IoClose/>
-          ):(
-          <GiHamburgerMenu/>
-          )}
+      <IconButton
+        onClick={toggleMobileMenu}
+        variant={`${isMobileMenuOpen ? "ternary" : "red"}`}
+        style={{ marginTop: `${isMobileMenuOpen ? "32px" : ""}` }}
+        className="ham--menu"
+      >
+        {isMobileMenuOpen ? <IoClose /> : <GiHamburgerMenu />}
       </IconButton>
 
       <nav className={`nav ${isMobileMenuOpen ? "open" : ""}`}>
@@ -91,20 +99,38 @@ export function Menu({ variant = "def" }: MenuProps) {
         <DropdownMenu
           options={[{ label: "cz" }, { label: "en" }, { label: "de" }]}
         >
-          <IconButton variant="secondary" style={{fontSize: '1.2rem', fontWeight: '500'}}>
+          <IconButton
+            variant="secondary"
+            style={{ fontSize: "1.2rem", fontWeight: "500" }}
+          >
             cz
           </IconButton>
         </DropdownMenu>
-        
         <DropdownMenu
           options={
             token
               ? role === 2
                 ? [
-                    { label: "Profil", link: `/app/profil/${id}`, optionIcon: <IoPersonOutline /> },
-                    { label: "Upozornění", link: `/app/mail`, optionIcon: <IoMailOutline /> },
-                    { label: "Můj kalendář", link: `/app/calendar`, optionIcon: <IoCalendarOutline /> },
-                    { label: "Odhlásit se", onClick: handleLogout, optionIcon: <IoLogOutOutline /> },
+                    {
+                      label: "Profil",
+                      link: `/app/profile/${id}`,
+                      optionIcon: <IoPersonOutline />,
+                    },
+                    {
+                      label: "Upozornění",
+                      link: `/app/mail`,
+                      optionIcon: <IoMailOutline />,
+                    },
+                    {
+                      label: "Můj kalendář",
+                      link: `/app/calendar`,
+                      optionIcon: <IoCalendarOutline />,
+                    },
+                    {
+                      label: "Odhlásit se",
+                      onClick: handleLogout,
+                      optionIcon: <IoLogOutOutline />,
+                    },
                   ]
                 : [{ label: "Odhlásit se", onClick: handleLogout }]
               : [

@@ -21,8 +21,8 @@ interface IconBtnProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     variant?:'primary'|'secondary' | 'ternary' | 'red',
 };
 
-export function IconButton({children,variant='primary',...props}:IconBtnProps){
+export function IconButton({children,variant='primary',className, ...props}:IconBtnProps){
     return(
-        <button className={`icon--button ${variant}`} {...props}>{children}</button>
+        <button className={`icon--button ${variant} ${className}`} {...props}>{children}</button>
     );      
 };

@@ -23,3 +23,10 @@ export interface IEventDateRangeFilter {
     from:string,
     to:string,
 };
+
+export interface IDropdownMenuOption {
+    label: string;
+    link?: string;
+    onClick?: React.MouseEventHandler;
+    optionIcon?:React.ReactNode;
+};

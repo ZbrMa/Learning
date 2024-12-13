@@ -2,11 +2,29 @@
     display: flex;
     flex-direction: column;
   }
-  
+
+  .top-days__sched {
+    width: 100%;
+  }
+
+  .default__sched
   .schedule__grid-header,
-  .schedule__row {
+  .default__sched
+  .schedule__row
+    {
     display: grid;
-    grid-template-columns: 100px repeat(11, calc(100% / 12));
+    grid-template-columns: auto repeat(11, calc(100% / 12));
+    align-items: center;
+    min-height: 48px;
+  }
+
+  .top-days__sched
+  .schedule__grid-header,
+  .top-days__sched
+  .schedule__row
+    {
+    display: grid;
+    grid-template-columns: 60px repeat(7,auto);
     align-items: center;
     min-height: 48px;
   }
@@ -23,12 +41,18 @@
     align-content: center;
   }
   
+
+
   .schedule__hour,
   .schedule__cell {
     text-align: center;
     border-left: 1px solid var(--darkGray);
     height: 100%;
     align-content: center;
+  }
+
+  .top-days__sched .schedule__hour {
+    width: 60px;
   }
 
     /*.schedule__hour{
@@ -84,5 +108,7 @@
     height: 100%;
     align-content: center;
     text-align: center;
+    width: fit-content;
+    margin: 0 auto;
   }
   

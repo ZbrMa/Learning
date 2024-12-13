@@ -24,8 +24,10 @@ export function RegisterSecondStep() {
     const isSurnameValid = updatedUser.surname.trim().length > 1;
     const isPhoneValid = updatedUser.phone.trim().length > 1;
     const isDateValid = differenceInYears(new Date(), updatedUser.birth) >= 18;
+    const isTownValid = updatedUser.city.trim().length > 1;
+    const isAddressValid = updatedUser.address.trim().length > 1;
 
-    setNext(isNameValid && isSurnameValid && isPhoneValid && isDateValid);
+    setNext(isNameValid && isSurnameValid && isPhoneValid && isDateValid && isTownValid && isAddressValid);
   };
 
   useEffect(() => {
