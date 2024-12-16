@@ -12,7 +12,8 @@ import path from "path";
 import fs from 'fs';
 
 const JWT_SECRET = "tajne_heslo";
-const SERVER_NAME = "http://localhost:5000";
+//const SERVER_NAME = "http://localhost:5000";
+const SERVER_NAME = "http://142.93.173.254/api";
 
 export const getAllUsers = (
   callback: (err: Error | null, results?: IUser[]) => void

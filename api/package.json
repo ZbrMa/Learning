@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --exec ts-node api/src/server.ts",
-    "build": "tsc"
+    "build": "npx tsc && npm run copy-uploads",
+    "copy-uploads": "ncp ./src/uploads ./dist/uploads"
   },
   "keywords": [],
   "author": "",
