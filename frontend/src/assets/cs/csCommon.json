@@ -1,0 +1,40 @@
+{
+      "button":{
+            "home": "Domů",
+            "events": "Události",
+            "about": "O projektu",
+            "contact": "Kontakt",
+            "profile": "Profil",
+            "notifications": "Upozornění",
+            "myCalendar": "Můj kalendář",
+            "logout": "Odhlásit se",
+            "login": "Přihlásit se",
+            "register": "Registrace",
+            "findEvent": "Najít událost",
+            "admin": "Správa",
+            "join": "Přidat se",
+            "next": "Další",
+            "prev": "Zpět"
+      },
+      "label":{
+            "address": "Adresa",
+            "nationality": "Národnost",
+            "city": "Město",
+            "contact": "Kontakt",
+            "email": "Email",
+            "phone": "Telefon",
+            "group": "Skupina",
+            "activeSince": "Aktivní od",
+            "about": "Něco o mě/nás",
+            "whereToFindMe": "Kde se uvidíme?" ,
+            "other":"Ostatní"
+      },
+      "errors":{
+            "server":"Chyba server. Zkust to později."
+      },
+      "success":{
+            "header":"Úspěch",
+            "save":"Data byla úspěšně uložena."
+      }
+}
+  

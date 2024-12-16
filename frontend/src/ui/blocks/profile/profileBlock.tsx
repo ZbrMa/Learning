@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/userStore";
+import { RootState } from "../../../store/reduxStore";
 import { ExtendedUser, loginSuccess } from "../../../api/authSlice";
 import "./profileBlock.css";
 import { Button } from "../../components/button/button";

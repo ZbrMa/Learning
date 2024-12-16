@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useChangePasswordMutation } from "../../../../api/userApiSlice";
 import { IFieldConfig, IFormConfig } from "../../../../types/form";
 import { Form } from "../../../components/form/form";
-import { RootState } from "../../../../store/userStore";
+import { RootState } from "../../../../store/reduxStore";
 import { Modal } from "../../../components/modal/modal";
 
 const changePassFields:IFieldConfig[] = [

@@ -1,0 +1,82 @@
+{
+    "login": {
+      "welcomeBack": "Vítej zpět!",
+      "email": "E-mail",
+      "password": "Heslo",
+      "forgotPassword": "Zapomněl jsi heslo?",
+      "resetPassword": "Obnovit",
+      "registerAccount": "Ještě nemáš účet?",
+      "register": "Zaregistrovat",
+      "btnLogin": "Přihlásit",
+      "alreadyLoggedIn": "Již je někdo přihlášen",
+      "logout": "Odhlásit se",
+      "incorrectCredentials": "Nesprávné přihlašovací údaje"
+    },
+    "register": {
+        "alreadyLoggedIn": "Již je někdo přihlášen",
+        "logout": "Odhlásit se",
+        "header": "Nový uživatel",
+        "step1": "Přihlašovací údaje",
+        "step2": "Kontaktní údaje",
+        "step3": "Detaily",
+        "step4": "Obchodní podmínky",
+        "alreadyHaveAccount": "Už máš účet?",
+        "login": "Přihlásit se"
+    },
+    "registerFirstStep": {
+        "infoText": "Tyto údaje budeš používat k přihlašování.",
+        "emailLabel": "E-mail",
+        "emailPlaceholder": "Zadej e-mail...",
+        "passwordLabel": "Heslo",
+        "passwordPlaceholder": "Zadej heslo...",
+        "errorServer": "Chyba serveru. Zkuste to později.",
+        "errorEmailInUse": "Tento e-mail již někdo používá."
+    },
+    "registerSecondStep": {
+        "infoText": "Tvé kontaktní údaje nebo kontaktní osoby.",
+        "nameLabel": "Jméno",
+        "namePlaceholder": "Zadej jméno...",
+        "surnameLabel": "Příjmení",
+        "surnamePlaceholder": "Zadej příjmení...",
+        "birthLabel": "Datum narození",
+        "birthPlaceholder": "Zadej datum narození...",
+        "phoneLabel": "Telefon",
+        "phonePlaceholder": "Zadej telefonní číslo...",
+        "cityLabel": "Město",
+        "cityPlaceholder": "Zadej město...",
+        "addressLabel": "Adresa",
+        "addressPlaceholder": "Zadej adresu..."
+    },
+    "registerThirdStep": {
+        "infoText": "Bonusové údaje",
+        "bandLabel": "Skupina/jedinec",
+        "bandPlaceholder": "Jsi sám nebo je vás víc?",
+        "countryLabel": "Národnost",
+        "countryPlaceholder": "Vyber svou národnost",
+        "nickLabel": "Umělecké jméno",
+        "nickPlaceholder": "Zadej umělecké jméno...",
+        "artLabel": "Druh buskingu",
+        "artPlaceholder": "Vyber, co děláš/děláte",
+        "serverError": "Chyba serveru. Zkuste to později.",
+        "nickTaken": "Toto umělecké jméno již někdo používá."
+    },
+    "registerFourthStep": {
+        "checkInfo": "Vše ještě jednou zkontroluj",
+        "email": "E-mail",
+        "firstName": "Jméno",
+        "lastName": "Příjmení",
+        "phone": "Telefon",
+        "birthDate": "Datum narození",
+        "nationality": "Národnost",
+        "city": "Město",
+        "address": "Adresa",
+        "groupOrIndividual": "Skupina/jednotlivec",
+        "interestArea": "Oblast zájmu",
+        "stageName": "Umělecké jméno",
+        "agreement": "Souhlasím s prodejem své duše",
+        "registrationFailed": "Registrace se nezdařila. Zkuste to později.",
+        "registrationSuccess": "Učet byl vytvořen. Nyní se můžeš přihlásit.",
+        "finish": "Dokončit"
+    }
+  }
+  

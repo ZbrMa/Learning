@@ -8,8 +8,10 @@ import { Link } from "react-router-dom";
 import "./upcoming.css";
 import { useTrail, animated } from "@react-spring/web";
 import { useInView } from "react-intersection-observer";
+import { useTranslation } from "react-i18next";
 
-export function UpcomingBlock() {
+export function UpcomingBlock() { 
+  const { t } = useTranslation('visitor');
   const { data: events, isFetching: eventsLoading } =
     useGetUpcomingEventsQuery();
 
@@ -31,7 +33,7 @@ export function UpcomingBlock() {
       <div className="flex content-space mb-64 upcom__events" ref={ref}>
         {trails.map((props) => (
           <animated.div style={props}>
-            <MainHeader>Co se chystá?</MainHeader>
+            <MainHeader>{t('homePage.upcomingBlock.header')}</MainHeader>
           </animated.div>
         ))}
         <Button
@@ -39,7 +41,7 @@ export function UpcomingBlock() {
           style={{ height: "fit-content", marginBlock: "auto" }}
         >
           <Link to={"/events"} className="flex items-center g-8">
-            Události <MdArrowForward />
+          {t('homePage.upcomingBlock.button')} <MdArrowForward />
           </Link>
         </Button>
       </div>

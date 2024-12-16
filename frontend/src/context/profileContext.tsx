@@ -2,7 +2,7 @@ import { createContext, useEffect, useState,Dispatch,SetStateAction } from "reac
 import { INotification } from "../types/notifications";
 import { ExtendedUser } from "../api/authSlice";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/userStore";
+import { RootState } from "../store/reduxStore";
 
 const ProfileContext = createContext<{
   userState: ExtendedUser | null,

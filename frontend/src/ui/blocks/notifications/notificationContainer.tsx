@@ -24,7 +24,7 @@ import { Alert } from "../../components/alert/alert";
 import { Button, IconButton } from "../../components/button/button";
 import { TabsHeader,TabsHeaderItem } from "../../components/tabs/tabs";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/userStore";
+import { RootState } from "../../../store/reduxStore";
 
 type NotificationContainerProps = {
   notifications: INotification[] | undefined;

@@ -1,0 +1,51 @@
+{   
+    "banner": {
+      "title": "Busking.",
+      "description": "Entdecke Straßenkunst – Werde Teil der pulsierenden Gemeinschaft!",
+      "followUs": "Folge uns"
+    },
+    "contactPage": {
+      "hasQuestion": "Hast du eine Frage?",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "instagram": "Instagram",
+      "contactForm": "Kontaktformular"
+    },
+    "homePage": {
+      "citiesIntro": {
+        "header": "Die ganze Stadt wird zur Bühne",
+        "text": "Wir verwalten derzeit <1>{{number}} Orte</1> und es kommen ständig neue hinzu."
+      },
+      "intro": {
+        "header": "Erlebe die Stadt anders",
+        "text": "Genieße <1>lebende Kunst</1> in den pulsierenden <2>Stadtstraßen</2>. Unterstütze Künstler und werde Teil der <3>Szene</3>.",
+        "button": "Mehr über das Projekt"
+      },
+      "upcomingBlock": {
+        "header": "Was steht an?",
+        "button": "Veranstaltungen"
+      },
+      "actionCall": {
+        "joinCommunity": {
+          "header": "Werde Teil unserer Welt!",
+          "cards": {
+            "artists": "Künstler",
+            "eventsPerMonth": "Veranstaltungen pro Monat",
+            "places": "Städte"
+          }
+        },
+        "buskerJoin": {
+          "header": "Bist du ein Straßenkünstler?",
+          "text": "Egal, ob du Künstler oder ein Fan von Straßenkunst bist, unsere Plattform ist für dich. Schließe dich uns an und lass uns gemeinsam unvergessliche Erlebnisse schaffen!",
+          "button": "Ich möchte ein Teil davon sein"
+        }
+      }
+    },
+    "eventsPage": {
+      "filters": "Wähle das Interessengebiet",
+      "calendar": "Wähle den Zeitraum, der dich interessiert",
+      "events": "Veranstaltungen",
+      "eventsError": "Keine Veranstaltungen"
+    }
+  }
+  

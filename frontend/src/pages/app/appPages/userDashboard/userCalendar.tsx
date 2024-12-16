@@ -2,7 +2,7 @@ import { UserDashboard } from "./userDashboard";
 import { useSelector } from "react-redux";
 import { useGetUserCalendarEventsQuery } from "../../../../api/eventApiSlice";
 import { Schedule } from "../../../../ui/components/schedule/schedule";
-import { RootState } from "../../../../store/userStore";
+import { RootState } from "../../../../store/reduxStore";
 import { useState } from "react";
 import { useSignOutEventMutation } from "../../../../api/eventApiSlice";
 import { useAlert } from "../../../../context/alertContext";

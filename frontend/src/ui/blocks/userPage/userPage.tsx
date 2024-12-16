@@ -18,6 +18,7 @@ import { BsTelephone } from "react-icons/bs";
 import { format } from "date-fns";
 import "./userPage.css";
 import { HTMLAttributes } from "react";
+import { useTranslation } from "react-i18next";
 
 type UserPageProps = {
   userId: number;
@@ -29,6 +30,8 @@ export function UserProfile({ userId }: UserPageProps) {
     isFetching,
     isLoading,
   } = useGetUserQuery({ userId: userId });
+
+  const { t } = useTranslation("common");
 
   return (
     <>
@@ -74,53 +77,59 @@ export function UserProfile({ userId }: UserPageProps) {
                     </div>
                   </div>
                   <div className="user__info">
-                    <ProfileInfoBlock title="Adresa">
+                    <ProfileInfoBlock title={t("label.address")}>
                       <ProfileInfoLine
-                        title="Národnost"
+                        title={t("label.nationality")}
                         icon={<IoFlagOutline />}
                       >
                         {user.countryName}
                       </ProfileInfoLine>
-                      <ProfileInfoLine title="Město" icon={<PiCity />}>
+                      <ProfileInfoLine
+                        title={t("label.city")}
+                        icon={<PiCity />}
+                      >
                         {user.city}
                       </ProfileInfoLine>
                     </ProfileInfoBlock>
-                    <ProfileInfoBlock title="Kontakt">
+                    <ProfileInfoBlock title={t("label.contact")}>
                       <ProfileInfoLine
-                        title="Email"
+                        title={t("label.email")}
                         icon={<MdOutlineAttachEmail />}
                       >
                         {user.email}
                       </ProfileInfoLine>
-                      <ProfileInfoLine title="Telefon" icon={<BsTelephone />}>
+                      <ProfileInfoLine
+                        title={t("label.phone")}
+                        icon={<BsTelephone />}
+                      >
                         {user.phone}
                       </ProfileInfoLine>
                     </ProfileInfoBlock>
-                    <ProfileInfoBlock title="Ostatní">
+                    <ProfileInfoBlock title={t("label.other")}>
                       <ProfileInfoLine
-                        title="Skupina"
+                        title={t("label.group")}
                         icon={<IoPersonOutline />}
                       >
                         {user.band}
                       </ProfileInfoLine>
                       <ProfileInfoLine
-                        title="Aktivní od"
+                        title={t("label.activeSince")}
                         icon={<IoCalendarOutline />}
                       >
-                        {format(user.inserted, "dd.MM.yyy")}
+                        {format(user.inserted, "dd.MM.yyyy")}
                       </ProfileInfoLine>
                     </ProfileInfoBlock>
                   </div>
                 </div>
               </div>
               <div className="user__right">
-                <ProfileInfoBlock title="Něco o mě/nás">
+                <ProfileInfoBlock title={t("label.about")}>
                   <p className="tx-sm user--desc pt-16 pb-8">
                     {user.description}
                   </p>
                 </ProfileInfoBlock>
                 <ProfileInfoBlock
-                  title="Kde se uvidíme?"
+                  title={t("label.whereToFindMe")}
                   className="flex-col g-16"
                 >
                   <UserEvents action="no action" />
@@ -159,13 +168,17 @@ type ProfileInfoLineProps = {
   icon: React.ReactNode;
 };
 
-export function ProfileInfoLine({ children, title, icon }: ProfileInfoLineProps) {
+export function ProfileInfoLine({
+  children,
+  title,
+  icon,
+}: ProfileInfoLineProps) {
   return (
     <div className="profile__infoline tx-gray tx-sm flex g-8 items-center py-8">
       <div className="flex g-8 items-center profile__infoline--title">
-      {icon}
-      <span>{title}:</span>
-        </div>
+        {icon}
+        <span>{title}:</span>
+      </div>
       <span className="tx-black tx-sm xbold">{children}</span>
     </div>
   );

@@ -5,8 +5,11 @@ import { useGetAdminPlacesQuery } from "../../../../api/placeApiSlice";
 import { Highlight } from "../../../components/highlight/highlight";
 import { useTrail, animated } from "@react-spring/web";
 import { useInView } from "react-intersection-observer";
+import { useTranslation, Trans } from "react-i18next";
+import { Spinner } from "../../../components/spinner/spinner";
 
 export function CitiesBlock() {
+  const { t } = useTranslation('visitor');
   const { data, isLoading } = useGetAdminPlacesQuery();
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -18,28 +21,34 @@ export function CitiesBlock() {
     opacity: inView ? 1 : 0,
     x: inView ? 0 : 100,
     from: { opacity: 0, x: 100 },
-    delay:100,
+    delay: 100,
   });
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
   return (
-    <BodyBlock  className="cities__block">
-      <div className="cities__top flex g-64  mb-64" ref={ref}>
+    <BodyBlock className="cities__block">
+      <div className="cities__top g-64 mb-64" ref={ref}>
         {trails.map((props) => (
           <animated.div style={props}>
-            <MainHeader>
-              Jevištěm se stává celé město
-            </MainHeader>
+            <MainHeader>{t("homePage.citiesIntro.header")}</MainHeader>
           </animated.div>
         ))}
-
-        <p className="tx-xl tx-lightGray mt-auto mb-16">
-          Momentálně spravujeme <Highlight>{data?.length} míst</Highlight> a
-          další neustále přibývají.
+        {isLoading ? (
+          <Spinner fixed={false} />
+        ): (
+          <p className="tx-xl tx-lightGray mt-auto">
+          <Trans
+          i18nKey="homePage.citiesIntro.text"
+          ns="visitor"
+          values={{ number: data?.length }}
+          components={{
+            1: <Highlight>{data?.length}</Highlight>
+          }}
+        >
+        </Trans>
         </p>
+        )}
+        
+        
       </div>
 
       <div className="slider">

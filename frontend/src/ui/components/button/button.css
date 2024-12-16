@@ -119,6 +119,10 @@
     color: var(--white);
 }
 
+.icon--button.secondary:is(:active,:focus){ 
+    background-color: var(--black);
+}
+
 .icon--button.primary:hover {
     color: var(--white);
     background-color: var(--black);

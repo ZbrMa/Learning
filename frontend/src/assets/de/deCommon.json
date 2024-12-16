@@ -1,0 +1,40 @@
+{
+    "button": {
+      "home": "Startseite",
+      "events": "Veranstaltungen",
+      "about": "Das Projekt",
+      "contact": "Kontakt",
+      "profile": "Profil",
+      "notifications": "Benachrichtigungen",
+      "myCalendar": "Mein Kalender",
+      "logout": "Abmelden",
+      "login": "Anmelden",
+      "register": "Registrieren",
+      "findEvent": "Veranstaltung suchen",
+      "admin": "Verwaltung",
+      "join": "Beitreten",
+      "next": "Weiter",
+      "prev": "Zurück"
+    },
+    "label":{
+            "address": "Adresa",
+            "nationality": "Národnost",
+            "city": "Město",
+            "contact": "Kontakt",
+            "email": "Email",
+            "phone": "Telefon",
+            "group": "Skupina",
+            "activeSince": "Aktivní od",
+            "about": "Něco o mě/nás",
+            "whereToFindMe": "Kde se uvidíme?" ,
+            "other":"Ostatní"
+      },
+    "errors": {
+      "server": "Serverfehler. Bitte versuchen Sie es später erneut."
+    },
+    "success": {
+      "header": "Erfolg",
+      "save": "Daten wurden erfolgreich gespeichert."
+    }
+  }
+  

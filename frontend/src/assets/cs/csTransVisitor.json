@@ -1,0 +1,51 @@
+{   
+    "banner": {
+      "title": "Busking.",
+      "description": "Objev umění ulice – Přidej se k pulzující komunitě!",
+      "followUs": "Sleduj nás"
+    },
+    "contactPage": {
+      "hasQuestion": "Máš dotaz?",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "instagram": "Instagram",
+      "contactForm": "Kontaktní formulář"
+    },
+    "homePage": {
+      "citiesIntro": {
+        "header": "Jevištěm se stává celé město",
+        "text": "Momentálně spravujeme <1>{{number}} míst</1> a další neustále přibývají."
+      },
+      "intro": {
+        "header": "Poznej město jinak",
+        "text": "Užij si <1>živé umění</1> v pulzujících <2>ulicích města</2>. Podpoř umělce a staň se součástí <3>scény</3>.",
+        "button": "Více o projektu"
+      },
+      "upcomingBlock": {
+        "header": "Co se chystá?",
+        "button": "Události"
+      },
+      "actionCall": {
+        "joinCommunity": {
+          "header": "Staň se součástí našeho světa!",
+          "cards": {
+            "artists": "umělců",
+            "eventsPerMonth": "akcí měsíčně",
+            "places": "míst"
+          }
+        },
+        "buskerJoin": {
+          "header": "Jsi busker?",
+          "text": "Ať už jsi umělec, nebo fanoušek pouličního umění, naše platforma je tu pro tebe. Přidej se k nám a vytvářejme společně nezapomenutelné zážitky!",
+          "button": "Chci být součástí"
+        }
+      }
+    },
+    "eventsPage": {
+      "filters": "Vyber oblast zájmu",
+      "calendar": "Vyber období, které tě zajímá",
+      "events": "Události",
+      "eventsError": "Žádné události"
+    }
+  }
+  

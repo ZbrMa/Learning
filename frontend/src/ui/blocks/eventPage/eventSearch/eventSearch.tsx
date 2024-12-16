@@ -17,6 +17,7 @@ import './eventSearch.css';
 import { IEvent } from "../../../../types/events";
 import { SmallEventCard } from "../../../components/smallEventCard/smallEventCard";
 import { Spinner } from "../../../components/spinner/spinner";
+import { useTranslation } from "react-i18next";
 
 
 export function EventSearchBlock() {
@@ -30,6 +31,8 @@ export function EventSearchBlock() {
   const { data: places } = useGetPlacesQuery();
   const { data: arts } = useGetArtsQuery();
 
+  const { t } = useTranslation('visitor');
+
   const handleSelect = (type: keyof IEventFilter, values: number[]) => {
     setFilters({
       ...filters,
@@ -42,7 +45,7 @@ export function EventSearchBlock() {
     <BodyBlock style={{marginTop:'0'}}>
       <div className="event__search grid-2 g-128">
         <div className="flex-col g-32">
-            <h2 className="h-md xbold">Vyber oblast zájmu</h2>
+            <h2 className="h-md xbold">{t('eventsPage.filters')}</h2>
             <Input label="Hledej..."/>
           {places && (
             <GroupedDropdown
@@ -65,7 +68,7 @@ export function EventSearchBlock() {
           )}
         </div>
         <div className="flex-col g-32">
-            <h2 className="h-md xbold">Vyber obobí, které tě zajímá</h2>
+            <h2 className="h-md xbold">{t('eventsPage.calendar')}</h2>
             <Calendar returnRange={setRange} events={eventDates} /> 
         </div>
       </div>
@@ -81,8 +84,10 @@ type EventGridProps = {
 };
 
 export function EventsGridBlock({ events, loading }: EventGridProps) {
+  const { t } = useTranslation('visitor');
+
   return (
-    <BodyBlock title="Události">
+    <BodyBlock title={t('eventsPage.events')}>
       <div className="grid-3 g-64 relative">
         {loading ? (
           <Spinner fixed={false}/>
@@ -96,7 +101,7 @@ export function EventsGridBlock({ events, loading }: EventGridProps) {
               />
             ))
           ):(
-            <span>Žádné události...</span>
+            <span>{t('eventsPage.eventsError')}</span>
           )
           
         )}

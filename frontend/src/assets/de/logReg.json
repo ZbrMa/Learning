@@ -1,0 +1,82 @@
+{
+    "login": {
+      "welcomeBack": "Willkommen zurück!",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "forgotPassword": "Hast du dein Passwort vergessen?",
+      "resetPassword": "Zurücksetzen",
+      "registerAccount": "Hast du noch kein Konto?",
+      "register": "Registrieren",
+      "btnLogin": "Anmelden",
+      "alreadyLoggedIn": "Jemand ist bereits angemeldet",
+      "logout": "Abmelden",
+      "incorrectCredentials": "Falsche Anmeldedaten"
+    },
+    "register": {
+        "alreadyLoggedIn": "Jemand ist bereits angemeldet",
+        "logout": "Abmelden",
+        "header": "Neuer Benutzer",
+        "step1": "Anmeldedaten",
+        "step2": "Kontaktdaten",
+        "step3": "Details",
+        "step4": "Geschäftsbedingungen",
+        "alreadyHaveAccount": "Hast du schon ein Konto?",
+        "login": "Einloggen"
+    },
+    "registerFirstStep": {
+        "infoText": "Diese Daten wirst du für die Anmeldung verwenden.",
+        "emailLabel": "E-Mail",
+        "emailPlaceholder": "Gib deine E-Mail ein...",
+        "passwordLabel": "Passwort",
+        "passwordPlaceholder": "Gib dein Passwort ein...",
+        "errorServer": "Serverfehler. Bitte versuche es später noch einmal.",
+        "errorEmailInUse": "Diese E-Mail wird bereits verwendet."
+    },
+    "registerSecondStep": {
+        "infoText": "Deine Kontaktdaten oder Kontaktdaten einer anderen Person.",
+        "nameLabel": "Vorname",
+        "namePlaceholder": "Gib deinen Vornamen ein...",
+        "surnameLabel": "Nachname",
+        "surnamePlaceholder": "Gib deinen Nachnamen ein...",
+        "birthLabel": "Geburtsdatum",
+        "birthPlaceholder": "Gib dein Geburtsdatum ein...",
+        "phoneLabel": "Telefon",
+        "phonePlaceholder": "Gib deine Telefonnummer ein...",
+        "cityLabel": "Stadt",
+        "cityPlaceholder": "Gib deine Stadt ein...",
+        "addressLabel": "Adresse",
+        "addressPlaceholder": "Gib deine Adresse ein..."
+    },
+    "registerThirdStep": {
+        "infoText": "Bonusinformationen",
+        "bandLabel": "Gruppe/Einzelperson",
+        "bandPlaceholder": "Bist du allein oder in einer Gruppe?",
+        "countryLabel": "Nationalität",
+        "countryPlaceholder": "Wähle deine Nationalität",
+        "nickLabel": "Bühnenname",
+        "nickPlaceholder": "Gib deinen Bühnenname ein...",
+        "artLabel": "Art des Busking",
+        "artPlaceholder": "Wähle deine Art von Busking",
+        "serverError": "Serverfehler. Bitte versuche es später noch einmal.",
+        "nickTaken": "Dieser Bühnenname wird bereits verwendet."
+    },
+    "registerFourthStep": {
+        "checkInfo": "Bitte überprüfen Sie Ihre Informationen",
+        "email": "E-Mail",
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "phone": "Telefon",
+        "birthDate": "Geburtsdatum",
+        "nationality": "Nationalität",
+        "city": "Stadt",
+        "address": "Adresse",
+        "groupOrIndividual": "Gruppe/Einzelperson",
+        "interestArea": "Interessensbereich",
+        "stageName": "Bühnenname",
+        "agreement": "Ich stimme dem Verkauf meiner Seele zu",
+        "registrationFailed": "Die Registrierung ist fehlgeschlagen. Bitte versuchen Sie es später erneut.",
+        "registrationSuccess": "Das Konto wurde erstellt. Sie können sich jetzt anmelden.",
+        "finish": "Fertig"
+    }
+  }
+  

@@ -1,0 +1,82 @@
+{
+    "login": {
+      "welcomeBack": "Welcome back!",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot your password?",
+      "resetPassword": "Reset",
+      "registerAccount": "Don't have an account?",
+      "register": "Register",
+      "btnLogin": "Log In",
+      "alreadyLoggedIn": "Someone is already logged in",
+      "logout": "Log Out",
+      "incorrectCredentials": "Incorrect login credentials"
+    },
+    "register": {
+        "alreadyLoggedIn": "Someone is already logged in",
+        "logout": "Log Out",
+        "header": "New User",
+        "step1": "Login Details",
+        "step2": "Contact Details",
+        "step3": "Details",
+        "step4": "Terms and Conditions",
+        "alreadyHaveAccount": "Already have an account?",
+        "login": "Log In"
+    },
+    "registerFirstStep": {
+        "infoText": "These details will be used for login.",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Enter email...",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "Enter password...",
+        "errorServer": "Server error. Please try again later.",
+        "errorEmailInUse": "This email is already in use."
+    },
+    "registerSecondStep": {
+        "infoText": "Your contact details or contact person.",
+        "nameLabel": "First Name",
+        "namePlaceholder": "Enter first name...",
+        "surnameLabel": "Last Name",
+        "surnamePlaceholder": "Enter last name...",
+        "birthLabel": "Date of Birth",
+        "birthPlaceholder": "Enter your date of birth...",
+        "phoneLabel": "Phone",
+        "phonePlaceholder": "Enter phone number...",
+        "cityLabel": "City",
+        "cityPlaceholder": "Enter city...",
+        "addressLabel": "Address",
+        "addressPlaceholder": "Enter address..."
+    },
+    "registerThirdStep": {
+        "infoText": "Bonus information",
+        "bandLabel": "Group/Individual",
+        "bandPlaceholder": "Are you alone or in a group?",
+        "countryLabel": "Nationality",
+        "countryPlaceholder": "Select your nationality",
+        "nickLabel": "Stage Name",
+        "nickPlaceholder": "Enter your stage name...",
+        "artLabel": "Type of Busking",
+        "artPlaceholder": "Select your type of busking",
+        "serverError": "Server error. Please try again later.",
+        "nickTaken": "This stage name is already in use."
+    },
+    "registerFourthStep": {
+        "checkInfo": "Please check your information again",
+        "email": "Email",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phone": "Phone",
+        "birthDate": "Birth Date",
+        "nationality": "Nationality",
+        "city": "City",
+        "address": "Address",
+        "groupOrIndividual": "Group/Individual",
+        "interestArea": "Area of Interest",
+        "stageName": "Stage Name",
+        "agreement": "I agree to the sale of my soul",
+        "registrationFailed": "Registration failed. Please try again later.",
+        "registrationSuccess": "Account has been created. You can now log in.",
+        "finish": "Finish"
+    }
+  }
+  

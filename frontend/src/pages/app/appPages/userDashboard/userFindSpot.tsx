@@ -12,7 +12,7 @@ import { GroupedDropdown } from "../../../../ui/components/groupedDropdown/group
 import { useSearchParams } from "react-router-dom";
 import { Schedule } from "../../../../ui/components/schedule/schedule";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/userStore";
+import { RootState } from "../../../../store/reduxStore";
 import { useAlert } from "../../../../context/alertContext";
 import { Alert } from "../../../../ui/components/alert/alert";
 import { cs } from "date-fns/locale";

@@ -7,7 +7,7 @@ import {
   useSignOutEventMutation,
 } from "../../../api/eventApiSlice";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/userStore";
+import { RootState } from "../../../store/reduxStore";
 import { useAlert } from "../../../context/alertContext";
 import { Alert } from "../alert/alert";
 import { Button } from "../button/button";

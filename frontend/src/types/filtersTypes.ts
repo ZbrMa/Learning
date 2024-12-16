@@ -1,3 +1,5 @@
+import { DOMAttributes, MouseEventHandler } from "react";
+
 export interface IPlace {
     id:number,
     city:string,
@@ -27,6 +29,6 @@ export interface IEventDateRangeFilter {
 export interface IDropdownMenuOption {
     label: string;
     link?: string;
-    onClick?: React.MouseEventHandler;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
     optionIcon?:React.ReactNode;
 };

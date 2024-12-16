@@ -12,7 +12,7 @@ import { IoAdd, IoAddOutline, IoCalendarOutline, IoHomeOutline } from "react-ico
 import { HiOutlineUser } from "react-icons/hi2";
 import { HiOutlineNewspaper } from "react-icons/hi2";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/userStore";
+import { RootState } from "../../../../store/reduxStore";
 import { PiMapPin } from "react-icons/pi";
 import { IoMdAdd } from "react-icons/io";
 

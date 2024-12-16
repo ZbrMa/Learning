@@ -118,7 +118,7 @@ header.scrolled .icon--button {
     color: var(--black);
 }
 
-header.scrolled .icon--button:hover {
+header.scrolled .icon--button:is(:hover,:active,:focus), header.def .icon--button:is(:hover,:active,:focus){
     color: var(--white);
 }
 

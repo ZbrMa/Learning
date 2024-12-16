@@ -1,0 +1,51 @@
+{ 
+    "banner": {
+      "title": "Busking.",
+      "description": "Discover street art – Join the pulsating community!",
+      "followUs": "Follow us"
+    },  
+    "contactPage": {
+      "hasQuestion": "Do you have a question?",
+      "email": "Email",
+      "phone": "Phone",
+      "instagram": "Instagram",
+      "contactForm": "Contact form"
+    },
+    "homePage": {
+      "citiesIntro": {
+        "header": "The whole city becomes the stage",
+        "text": "We are currently managing <1>{{number}} places</1> and more are constantly being added."
+      },
+      "intro": {
+        "header": "See the city differently",
+        "text": "Enjoy <1>live art</1> in the pulsating <2>streets of the city</2>. Support artists and become part of the <3>scene</3>.",
+        "button": "More about the project"
+      },
+      "upcomingBlock": {
+        "header": "What's coming up?",
+        "button": "Events"
+      },
+      "actionCall": {
+        "joinCommunity": {
+          "header": "Become part of our world!",
+          "cards": {
+            "artists": "artists",
+            "eventsPerMonth": "events per month",
+            "places": "cities"
+          }
+        },
+        "buskerJoin": {
+          "header": "Are you a busker?",
+          "text": "Whether you're an artist or a fan of street art, our platform is here for you. Join us and let's create unforgettable experiences together!",
+          "button": "I want to be part of it"
+        }
+      }
+    },
+    "eventsPage": {
+      "filters": "Select the area of interest",
+      "calendar": "Select the period you're interested in",
+      "events": "Events",
+      "eventsError": "No events"
+    }
+  }
+  

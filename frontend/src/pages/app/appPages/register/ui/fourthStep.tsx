@@ -9,53 +9,55 @@ import { Alert } from "../../../../../ui/components/alert/alert";
 import { useNavigate } from "react-router";
 import { useAlert } from "../../../../../context/alertContext";
 import { StepMove } from "../../../../../ui/components/steps/steps";
+import { useTranslation } from "react-i18next";
 
 export function RegisterFourthStep() {
+  const { t } = useTranslation('logReg');
   const [canSumbit, setCanSubmit] = useState(false);
-  const { user,art,country } = useContext(NewUserContext);
+  const { user, art, country } = useContext(NewUserContext);
   const navigate = useNavigate();
-  const {showAlert} = useAlert();
+  const { showAlert } = useAlert();
 
   const [createUser] = useCreateUserMutation();
 
-  const handleCreateUser = async() => {
-    const response = await(createUser(user));
-    if(response.error){
-      showAlert(<Alert type="negative">Registrace se nezdařila. Zkuste to později.</Alert>);
-    } else if (typeof response.data === 'string'){
+  const handleCreateUser = async () => {
+    const response = await createUser(user);
+    if (response.error) {
+      showAlert(<Alert type="negative">{t('registerFourthStep.registrationFailed')}</Alert>);
+    } else if (typeof response.data === 'string') {
       showAlert(<Alert type="negative">{response.data}</Alert>);
     } else {
-      showAlert(<Alert type="positive">Učet byl vytvořen. Nyní se můžeš přihlásit.</Alert>);
+      showAlert(<Alert type="positive">{t('registerFourthStep.registrationSuccess')}</Alert>);
       navigate("/app/login");
     }
   };
 
   return (
     <div className="register__step">
-      <p className="text-center tx-grey mb-32 tx-sm">Vše ještě jednou zkontroluj</p>
+      <p className="text-center tx-grey mb-32 tx-sm">{t('registerFourthStep.checkInfo')}</p>
       <div className="grid-2 g-32">
         <div>
-          <InfoLine title="E-mail">{user.email}</InfoLine>
-          <InfoLine title="Jméno">{user.name}</InfoLine>
-          <InfoLine title="Příjmení">{user.surname}</InfoLine>
-          <InfoLine title="Telefon">{user.phone}</InfoLine>
-          <InfoLine title="Datum narození">
+          <InfoLine title={t('registerFourthStep.email')}>{user.email}</InfoLine>
+          <InfoLine title={t('registerFourthStep.firstName')}>{user.name}</InfoLine>
+          <InfoLine title={t('registerFourthStep.lastName')}>{user.surname}</InfoLine>
+          <InfoLine title={t('registerFourthStep.phone')}>{user.phone}</InfoLine>
+          <InfoLine title={t('registerFourthStep.birthDate')}>
             {format(user.birth, "dd.MM.yyyy")}
           </InfoLine>
         </div>
         <div>
-          <InfoLine title="Národnost">{country?.name}</InfoLine>
-          <InfoLine title="Město">{user.city}</InfoLine>
-          <InfoLine title="Adresa">{user.address}</InfoLine>
-          <InfoLine title="Skupina/ jednotlivec">{user.band}</InfoLine>
-          <InfoLine title="Oblast zájmu">{art?.name}</InfoLine>
-          <InfoLine title="Umělecké jméno">{user.nick}</InfoLine>
+          <InfoLine title={t('registerFourthStep.nationality')}>{country?.name}</InfoLine>
+          <InfoLine title={t('registerFourthStep.city')}>{user.city}</InfoLine>
+          <InfoLine title={t('registerFourthStep.address')}>{user.address}</InfoLine>
+          <InfoLine title={t('registerFourthStep.groupOrIndividual')}>{user.band}</InfoLine>
+          <InfoLine title={t('registerFourthStep.interestArea')}>{art?.name}</InfoLine>
+          <InfoLine title={t('registerFourthStep.stageName')}>{user.nick}</InfoLine>
         </div>
         <div className="agreement">
           <Input
             type="checkbox"
             labelPosition="out"
-            label="Souhlasím s prodejem své duše"
+            label={t('registerFourthStep.agreement')}
             className="flex g-16"
             onChange={(e) => setCanSubmit(e.target.checked)}
           />
@@ -63,8 +65,8 @@ export function RegisterFourthStep() {
       </div>
 
       <div className="flex g-16 register__btns">
-        <StepMove direction={-1}/>
-        <Button disabled={!canSumbit} onClick={handleCreateUser}>Dokončit</Button>
+        <StepMove direction={-1} />
+        <Button disabled={!canSumbit} onClick={handleCreateUser}>{t('registerFourthStep.finish')}</Button>
       </div>
     </div>
   );

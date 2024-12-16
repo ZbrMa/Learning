@@ -6,7 +6,7 @@ import { UdalostiPage } from "./pages/visitor/visitorPages/Udalosti";
 import { UserPage } from "./pages/visitor/visitorPages/User";
 import { ProtectedRoute } from "./ui/components/protectedRoute";
 import { useSelector } from "react-redux";
-import { RootState } from "./store/userStore";
+import { RootState } from "./store/reduxStore";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { initializeAuth } from "./api/authSlice";

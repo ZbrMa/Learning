@@ -4,15 +4,17 @@ import { INewUser } from "../../../../../types/users";
 import { Input } from "../../../../../ui/components/input/input";
 import { addYears, differenceInYears, format } from "date-fns";
 import { StepMove } from "../../../../../ui/components/steps/steps";
+import { useTranslation } from "react-i18next";
 
 export function RegisterSecondStep() {
+  const { t } = useTranslation('logReg');
   const [next, setNext] = useState(false);
 
   const { user, setUser } = useContext(NewUserContext);
 
   const handleInputChange = (key: keyof INewUser, value: string | number) => {
     const updatedUser: INewUser = {
-    ...user,
+      ...user,
       [key]: value,
     };
     setUser(updatedUser);
@@ -36,23 +38,23 @@ export function RegisterSecondStep() {
 
   return (
     <div className="register__step ">
-      <p className="text-center tx-gray mb-32 tx-md">Tvé kontaktní údaje nebo kontakní osoby.</p>
+      <p className="text-center tx-gray mb-32 tx-md">{t('registerSecondStep.infoText')}</p>
       <div className="grid-2 g-32">
         <Input
           labelPosition="out"
           onChange={(e) => handleInputChange("name", e.target.value)}
-          label="Jméno"
+          label={t('registerSecondStep.nameLabel')}
           type="text"
-          placeholder="Zadej jméno..."
+          placeholder={t('registerSecondStep.namePlaceholder')}
           required
           defaultValue={user.name}
         />
         <Input
           labelPosition="out"
           onChange={(e) => handleInputChange("surname", e.target.value)}
-          label="Příjmení"
+          label={t('registerSecondStep.surnameLabel')}
           type="text"
-          placeholder="Zadej příjmení..."
+          placeholder={t('registerSecondStep.surnamePlaceholder')}
           required
           defaultValue={user.surname}
         />
@@ -61,28 +63,28 @@ export function RegisterSecondStep() {
           onChange={(e) =>
             handleInputChange("birth", format(e.target.value, "yyyy-MM-dd"))
           }
-          label="Datum narození"
+          label={t('registerSecondStep.birthLabel')}
           type="date"
-          placeholder="Zadej datum narození..."
+          placeholder={t('registerSecondStep.birthPlaceholder')}
           required
-          defaultValue={format(addYears(new Date,-18),'yyyy-MM-dd')}
-          max={format(addYears(new Date,-18),'yyyy-MM-dd')}
+          defaultValue={format(addYears(new Date, -18), 'yyyy-MM-dd')}
+          max={format(addYears(new Date, -18), 'yyyy-MM-dd')}
         />
         <Input
           labelPosition="out"
           onChange={(e) => handleInputChange("phone", e.target.value)}
-          label="Telefon"
+          label={t('registerSecondStep.phoneLabel')}
           type="phone"
-          placeholder="Zadej telefonní číslo..."
+          placeholder={t('registerSecondStep.phonePlaceholder')}
           required
           defaultValue={user.phone}
         />
         <Input
           labelPosition="out"
           onChange={(e) => handleInputChange("city", e.target.value)}
-          label="Město"
+          label={t('registerSecondStep.cityLabel')}
           type="text"
-          placeholder="Zadej město..."
+          placeholder={t('registerSecondStep.cityPlaceholder')}
           required
           defaultValue={user.city}
         />
@@ -90,16 +92,16 @@ export function RegisterSecondStep() {
         <Input
           labelPosition="out"
           onChange={(e) => handleInputChange("address", e.target.value)}
-          label="Adresa"
+          label={t('registerSecondStep.addressLabel')}
           type="text"
-          placeholder="Zadej adresu..."
+          placeholder={t('registerSecondStep.addressPlaceholder')}
           required
           defaultValue={user.address}
         />
       </div>
       <div className="flex g-16 register__btns">
-        <StepMove direction={-1}/>
-        <StepMove direction={1} disabled={!next}/>
+        <StepMove direction={-1} />
+        <StepMove direction={1} disabled={!next} />
       </div>
     </div>
   );

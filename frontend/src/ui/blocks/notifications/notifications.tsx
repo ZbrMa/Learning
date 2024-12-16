@@ -6,7 +6,7 @@ import {
   useGetSentNotificationsQuery,
 } from "../../../api/notificationApiSlice";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/userStore";
+import { RootState } from "../../../store/reduxStore";
 import {
   TabBody,
   TabItem,

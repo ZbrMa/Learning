@@ -4,6 +4,7 @@ import { StepsContext } from "./stepsContext";
 import './steps.css';
 import { Button } from "../button/button";
 import { IoArrowForwardOutline,IoArrowBackOutline } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
 
 interface StepItemProps extends HTMLAttributes<HTMLElement> {
     children:React.ReactNode,
@@ -74,6 +75,8 @@ type StepMoveProps = {
 export function StepMove({direction,disabled,onMove}:StepMoveProps){
     const {active,setActive} = useContext(StepsContext);
 
+    const { t } = useTranslation('common');
+
     const handleMove = () => {
         if (onMove){
             onMove();
@@ -84,11 +87,11 @@ export function StepMove({direction,disabled,onMove}:StepMoveProps){
 
     if (direction === -1){
         return (
-            <Button variant="secondary" size="small" onClick={handleMove} disabled={disabled}><IoArrowBackOutline/>Zpět</Button>
+            <Button variant="secondary" size="small" onClick={handleMove} disabled={disabled}><IoArrowBackOutline/>{t('button.prev')}</Button>
         );
     };
 
     return (
-        <Button size="small" onClick={handleMove} disabled={disabled}>Další<IoArrowForwardOutline/></Button>
+        <Button size="small" onClick={handleMove} disabled={disabled}>{t('button.next')}<IoArrowForwardOutline/></Button>
     );
 };

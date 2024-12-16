@@ -1,0 +1,40 @@
+{
+    "button": {
+      "home": "Home",
+      "events": "Events",
+      "about": "About",
+      "contact": "Contact",
+      "profile": "Profile",
+      "notifications": "Notifications",
+      "myCalendar": "My Calendar",
+      "logout": "Log Out",
+      "login": "Log In",
+      "register": "Register",
+      "findEvent": "Find Event",
+      "admin": "Administration",
+      "join": "Join",
+      "next": "Next",
+      "prev": "Prev"
+    },
+    "label":{
+            "address": "Address",
+            "nationality": "Nationality",
+            "city": "City",
+            "contact": "Contact",
+            "email": "Email",
+            "phone": "Phone",
+            "group": "Group",
+            "activeSince": "Active since",
+            "about": "About",
+            "whereToFindMe": "Where to find me/us?",
+            "other":"Other" 
+      },
+    "errors": {
+      "server": "Server error. Please try again later."
+    },
+    "success": {
+      "header": "Success",
+      "save": "Data has been successfully saved."
+    }
+  }
+  

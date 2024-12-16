@@ -7,6 +7,7 @@ import { Alert } from "../../../../../ui/components/alert/alert";
 import { useAlert } from "../../../../../context/alertContext";
 import { StepMove } from "../../../../../ui/components/steps/steps";
 import { StepsContext } from "../../../../../ui/components/steps/stepsContext";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   moveForward: () => void;
@@ -29,6 +30,8 @@ export function RegisterFirstStep() {
     validateInputs(updatedUser);
   };
 
+  const { t } = useTranslation('logReg');
+
   const validateInputs = (updatedUser: INewUser) => {
     const isEmailValid =
       updatedUser.email.trim() !== "" &&
@@ -44,25 +47,25 @@ export function RegisterFirstStep() {
     validateInputs(user);
   },[]);
 
-  const handleMoveForward = async() => {
-    const response = await checkEmail({email:user.email});
+  const handleMoveForward = async () => {
+    const response = await checkEmail({ email: user.email });
     if (response.error) {
-      showAlert(<Alert type='negative'>Chyba serveru. Zkuste to později.</Alert>);
+      showAlert(<Alert type="negative">{t('registerFirstStep.errorServer')}</Alert>);
     } else if (response.data === false) {
-      showAlert(<Alert type='negative'>Tento e-mail již někdo používá.</Alert>);
+      showAlert(<Alert type="negative">{t('registerFirstStep.errorEmailInUse')}</Alert>);
     } else {
-      setActive(prevActive => prevActive + 1);
+      setActive((prevActive) => prevActive + 1);
     }
   };
 
   return (
     <div className="register__step flex-col g-16">
-      <p className="text-center tx-gray mb-32 tx-md">Tyto údaje budeš používat k přihlašování.</p>
+      <p className="text-center tx-gray mb-32 tx-md">{t('registerFirstStep.infoText')}</p>
       <Input
         onChange={(e) => handleInputChange("email", e.target.value)}
-        label="E-mail"
+        label={t('registerFirstStep.emailLabel')}
         labelPosition="out"
-        placeholder="Zadej e-mail..."
+        placeholder={t('registerFirstStep.emailPlaceholder')}
         type="email"
         required
         defaultValue={user.email}
@@ -70,16 +73,16 @@ export function RegisterFirstStep() {
       />
       <Input
         onChange={(e) => handleInputChange("password", e.target.value)}
-        label="Heslo"
+        label={t('registerFirstStep.passwordLabel')}
         labelPosition="out"
-        placeholder="Zadej heslo..."
+        placeholder={t('registerFirstStep.passwordPlaceholder')}
         type="password"
         required
         defaultValue={user.password}
         autoComplete="new-password"
       />
       <div className="register__btns flex g-16">
-        <StepMove direction={1} disabled={!next} onMove={handleMoveForward}/>
+        <StepMove direction={1} disabled={!next} onMove={handleMoveForward} />
       </div>
     </div>
   );

@@ -16,8 +16,9 @@
 }
 
 .cities__top {
-    display: flex;
+    display: grid;
     gap: 64px;
+    grid-template-columns: 7fr 3fr;
 }
 
 .slider {

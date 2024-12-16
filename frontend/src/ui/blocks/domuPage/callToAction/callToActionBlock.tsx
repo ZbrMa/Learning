@@ -4,6 +4,7 @@ import "./callToActionBlock.css";
 import { Link } from "react-router-dom";
 import { InfoCard } from "../../../components/infoCard/infoCard";
 import { CountUp } from "../../../components/countUp/countUp";
+import { useTranslation } from "react-i18next";
 
 const images = [
   '/images/praha.jpg',
@@ -13,6 +14,7 @@ const images = [
 ]
 
 export function CallToActionBlock() {
+  const { t } = useTranslation('visitor');
 
   return (
     <>
@@ -32,11 +34,11 @@ export function CallToActionBlock() {
             ))}
           </div>
           <div className="flex-col g-32 content-center">
-            <h2 className="action--header h-top thick cities--title">Staň se součástí našeho světa!</h2>
+            <h2 className="action--header h-top thick cities--title">{t('homePage.actionCall.joinCommunity.header')}</h2>
             <div className="flex g-32">
-            <InfoCard name="míst"><CountUp max={5} duration={1000} step={1}/></InfoCard>
-            <InfoCard name="umělců"><CountUp max={200} duration={1500} step={5}/></InfoCard>
-            <InfoCard name="akcí měsíčně"><CountUp max={150} duration={1500} step={5}/></InfoCard>
+            <InfoCard name={t('homePage.actionCall.joinCommunity.cards.places')}><CountUp max={5} duration={1000} step={1}/></InfoCard>
+            <InfoCard name={t('homePage.actionCall.joinCommunity.cards.artists')}><CountUp max={200} duration={1500} step={5}/></InfoCard>
+            <InfoCard name={t('homePage.actionCall.joinCommunity.cards.eventsPerMonth')}><CountUp max={150} duration={1500} step={5}/></InfoCard>
             </div>
             
           </div>
@@ -45,11 +47,11 @@ export function CallToActionBlock() {
       </BodyBlock>
       <BodyBlock color="black" id="action-call">
         <div className="call__action flex-col items-center">
-          <h1 className="cap h-top thick tx-white">Jsi busker?</h1>
+          <h1 className="cap h-top thick tx-white">{t('homePage.actionCall.buskerJoin.header')}</h1>
           <p className="text-center tx-lightGray">
-          Ať už jsi umělec, nebo fanoušek pouličního umění, naše platforma je tu pro tebe. Přidej se k nám a vytvářejme společně nezapomenutelné zážitky!
+          {t('homePage.actionCall.buskerJoin.text')}
           </p>
-          <Button className="bold xbold fit"><Link to={'/app/register'}>Chci být součástí</Link></Button>
+          <Button className="bold xbold fit"><Link to={'/app/register'}>{t('homePage.actionCall.buskerJoin.button')}</Link></Button>
         </div>
       </BodyBlock>
     </>

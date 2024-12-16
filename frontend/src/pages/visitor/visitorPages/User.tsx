@@ -10,7 +10,7 @@ export function UserPage() {
             {userId ? (   
                 <UserProfile userId={parseInt(userId)}/>
             ):( 
-                <div>Neznámý hrdina</div>
+                <div className="pt-128">Neznámý hrdina</div>
             )}
         </VisitorLayout>
     );

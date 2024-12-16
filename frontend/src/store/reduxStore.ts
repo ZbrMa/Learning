@@ -4,24 +4,22 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { userApi } from '../api/userApiSlice';
 import authReducer from '../api/authSlice';
-import { eventApi } from '../api/eventApiSlice';
-import { filtersApi } from '../api/filtersApiSlice';
-import { placeApi } from '../api/placeApiSlice';
-import { notificationsApi } from '../api/notificationApiSlice';
 import apiSlice from '../api/apiSlice';
+import langReducer from '../redux/languageSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
+  whitelist: ['auth','lang'],
 };
 
 const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
   auth: persistReducer(persistConfig, authReducer),
+  lang: persistReducer(persistConfig,langReducer),
 });
 
-export const userStore = configureStore({
+export const reduxStore = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -29,7 +27,7 @@ export const userStore = configureStore({
     }).concat(apiSlice.middleware,userApi.middleware),
 });
 
-export const persistor = persistStore(userStore);
+export const persistor = persistStore(reduxStore);
 
-export type RootState = ReturnType<typeof userStore.getState>;
-export type AppDispatch = typeof userStore.dispatch;
+export type RootState = ReturnType<typeof reduxStore.getState>;
+export type AppDispatch = typeof reduxStore.dispatch;

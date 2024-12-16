@@ -15,8 +15,11 @@ import { NewUserContextProvider } from "../../../../../context/registerContext";
 import { RegisterSecondStep } from "./secondStep";
 import { RegisterThirdStep } from "./thirdStep";
 import { RegisterFourthStep } from "./fourthStep";
+import { useTranslation } from "react-i18next";
 
 export function NewUser() {
+  const { t } = useTranslation('logReg');
+
   return (
     <NewUserContextProvider>
       <div className="register__page">
@@ -36,30 +39,30 @@ export function NewUser() {
           <div className="register__inner box">
             <StepsContextProvider>
               <div className="register__left flex-col content-space items-center tx-white">
-                <h1 className="tx-white h-lg bold">Nový uživatel</h1>
+                <h1 className="tx-white h-lg bold">{t('register.header')}</h1>
                 <StepsHeader direction="vertical">
                   <StepsHeaderItem value={0}>
-                    <RiNumber1 /> Přihlašovací údaje
+                    <RiNumber1 /> {t('register.step1')}
                   </StepsHeaderItem>
                   <StepsHeaderItem value={1}>
-                    <RiNumber2 /> Kontaktní údaje
+                    <RiNumber2 /> {t('register.step2')}
                   </StepsHeaderItem>
                   <StepsHeaderItem value={2}>
-                    <RiNumber3 /> Detaily
+                    <RiNumber3 /> {t('register.step3')}
                   </StepsHeaderItem>
                   <StepsHeaderItem value={3}>
-                    <RiNumber4 /> Obchodní podmínky
+                    <RiNumber4 /> {t('register.step4')}
                   </StepsHeaderItem>
                 </StepsHeader>
                 <div className="flex g-32 pt-16 items-center register__bottom">
-                  <span className="tx-gray">Už máš účet?</span>
+                  <span className="tx-gray">{t('register.alreadyHaveAccount')}</span>
                   <Link to={"/app/login"}>
                     <Button
                       variant="link"
                       className="xbold"
                       style={{ color: "var(--white)", padding:'0' }}
                     >
-                      Přihlásit se
+                      {t('register.login')}
                     </Button>
                   </Link>
                 </div>
