@@ -60,8 +60,13 @@
 }
 
 @media only screen and (min-width:992px) {
-    .dash__menu a:last-child {
+    /*.dash__menu a:nth-child(6) {
         margin-top:auto;
+    }*/
+
+    .dashboard .dropdown__menu {
+        margin-top: auto;
+        width: 100%;
     }
 }
 
@@ -128,6 +133,14 @@
         order: 4;
     }
 
+    .dash__menu > *:nth-child(5) {
+        display: none;
+    }
+
+    .dash__menu > *:nth-child(7) {
+        display: none;
+    }
+
     #user-dash .dash__menu > *:first-child {
         order: 3;
     }
@@ -144,7 +157,7 @@
         order: 4;
     }
 
-    #user-dash .dash__menu > *:nth-child(5) {
+    #user-dash .dash__menu > *:nth-child(6) {
         order: 5;
     }
 

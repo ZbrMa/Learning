@@ -1,0 +1,23 @@
+{
+    "profile": {
+        "edit": "Bearbeiten",
+        "save": "Speichern",
+        "changePassword": "Passwort ändern",
+        "saved": "Änderungen wurden erfolgreich gespeichert.",
+        "saveError": "Änderungen konnten nicht gespeichert werden. Bitte versuchen Sie es später erneut.",
+        "serverError": "Serverfehler",
+        "updateImageError": "Das Bild konnte nicht aktualisiert werden. Bitte versuchen Sie es später erneut.",
+        "updateImageSuccess": "Bild erfolgreich aktualisiert.",
+        "about": "Über mich/uns",
+        "played": "Gespielt",
+        "playedHours": "Gespielte Stunden",
+        "visitedPlaces": "Besuchte Orte"
+    },
+    "dashboard": {
+        "findSpot": "Find Spot",
+        "profile": "Profile",
+        "calendar": "Calendar",
+        "messages": "Messages",
+        "home": "Home"
+    }
+}

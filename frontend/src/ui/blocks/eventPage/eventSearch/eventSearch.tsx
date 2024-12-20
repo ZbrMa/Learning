@@ -31,7 +31,7 @@ export function EventSearchBlock() {
   const { data: places } = useGetPlacesQuery();
   const { data: arts } = useGetArtsQuery();
 
-  const { t } = useTranslation('visitor');
+  const { t } = useTranslation(['visitor','common']);
 
   const handleSelect = (type: keyof IEventFilter, values: number[]) => {
     setFilters({
@@ -46,10 +46,10 @@ export function EventSearchBlock() {
       <div className="event__search grid-2 g-128">
         <div className="flex-col g-32">
             <h2 className="h-md xbold">{t('eventsPage.filters')}</h2>
-            <Input label="Hledej..."/>
+            <Input label={t('common:label.find')}/>
           {places && (
             <GroupedDropdown
-              placeholder="Místo..."
+              placeholder={t('common:label.spot')}
               options={places}
               optionLabel={'spot'}
               groupKey={'city'}
@@ -58,7 +58,7 @@ export function EventSearchBlock() {
           )}
           {arts && (
             <Dropdown
-              placeholder="Druh..."
+              placeholder={t('common:label.art')}
               options={arts?.map((option) => ({
                 value: option.id,
                 label: option.name,
@@ -68,7 +68,7 @@ export function EventSearchBlock() {
           )}
         </div>
         <div className="flex-col g-32">
-            <h2 className="h-md xbold">{t('eventsPage.calendar')}</h2>
+            <h2 className="h-md xbold">{t('visitor:eventsPage.calendar')}</h2>
             <Calendar returnRange={setRange} events={eventDates} /> 
         </div>
       </div>

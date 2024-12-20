@@ -82,6 +82,12 @@
     flex-direction: column;
     gap: 16px;
     margin-bottom: 16px;
+    display: flex;
+}
+
+.slider::before,
+.slider::after {
+    width: 100px;
 }
 
 .cities__top p {

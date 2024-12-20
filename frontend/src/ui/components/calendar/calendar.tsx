@@ -9,50 +9,43 @@ import {
   isEqual,
   addDays,
   endOfISOWeek,
+  startOfWeek,
+  format
 } from "date-fns";
+import { cs, enUS, de } from "date-fns/locale";
 import { useEffect, useState } from "react";
 import { Button, IconButton } from "../button/button";
 import "./calendar.css";
 import { IEventReduced } from "../../../types/events";
 import { ButtonGroup } from "../buttonGroup/buttonGroup";
 import { IoArrowBackOutline, IoArrowForwardOutline } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
 
 const today = new Date();
-const months = [
-  "Leden",
-  "Únor",
-  "Březen",
-  "Duben",
-  "Květen",
-  "Červen",
-  "Červenec",
-  "Srpen",
-  "Září",
-  "Říjen",
-  "Listopad",
-  "Prosinec",
-];
-
-const days = ["Po", "Út", "St", "Čt", "Pá", "So", "Ne"];
-
 const dayNum = [6, 0, 1, 2, 3, 4, 5];
+
+const locales = {
+  cs: cs,
+  de: de,
+  en: enUS,
+}
 
 function getLocaleDay(date: Date) {
   return dayNum[getDay(date)];
-}
+};
 
 function getDaysArray(year: number, month: number): Date[] {
   const start = startOfMonth(new Date(year, month, 1));
   const end = endOfMonth(new Date(year, month, 1));
 
   return eachDayOfInterval({ start, end });
-}
+};
 
 function setToMidnight(date: Date): Date {
   const newDate = new Date(date);
   newDate.setHours(0, 0, 0, 0);
   return newDate;
-}
+};
 
 function isInRange(currDay: Date, { from, to }: DateRange): boolean {
   const normalizedCurrDay = setToMidnight(currDay);
@@ -68,13 +61,13 @@ function isInRange(currDay: Date, { from, to }: DateRange): boolean {
     });
   }
   return false;
-}
+};
 
 function isTerminal(currDay: Date, { from, to }: DateRange): boolean {
   if (from && isEqual(setToMidnight(currDay), setToMidnight(from))) return true;
   if (to && isEqual(setToMidnight(currDay), setToMidnight(to))) return true;
   return false;
-}
+};
 
 type DateRange = {
   from?: Date;
@@ -88,10 +81,24 @@ type CalendarProps = {
 };
 
 export function Calendar({ returnRange, events,defaultRange }: CalendarProps) {
+  const { i18n ,t } = useTranslation('common');
+  const currentLocale = locales[i18n.language as keyof typeof locales];
+
+  const months = Array.from({ length: 12 }, (_, i) =>
+    format(new Date(2023, i, 1), "LLLL", { locale: currentLocale })
+  );
+  const days = Array.from({ length: 7 }, (_, i) =>
+    format(
+      addDays(startOfWeek(new Date(), { weekStartsOn: 1 }), i),
+      "eeeeee",
+      { locale: currentLocale }
+    )
+  );
+
   const [currMonth, setCurrMonth] = useState(defaultRange?.from ? getMonth(defaultRange.from) : getMonth(today));
   const [currYear, setCurrYear] = useState(getYear(today));
   const [currDays, setCurrDays] = useState(getDaysArray(currYear, currMonth));
-  const [dateRange, setDateRange] = useState<DateRange>(defaultRange?? {
+  const [dateRange, setDateRange] = useState<DateRange>(defaultRange ?? {
     from: new Date(),
     to: endOfMonth(new Date()),
   });
@@ -200,7 +207,7 @@ export function Calendar({ returnRange, events,defaultRange }: CalendarProps) {
           variant="ghost"
           onClick={() => updateDateRangeAndMonth(new Date(), new Date())}
         >
-          Dnes
+          {t('calendar.today')}
         </Button>
 
         <Button
@@ -211,7 +218,7 @@ export function Calendar({ returnRange, events,defaultRange }: CalendarProps) {
             updateDateRangeAndMonth(nextDay, nextDay);
           }}
         >
-          Zítra
+          {t('calendar.tomorow')}
         </Button>
 
         <Button
@@ -222,7 +229,7 @@ export function Calendar({ returnRange, events,defaultRange }: CalendarProps) {
             updateDateRangeAndMonth(today, endOfISOWeek(today));
           }}
         >
-          Tento týden
+          {t('calendar.thisWeek')}
         </Button>
 
         <Button
@@ -234,7 +241,7 @@ export function Calendar({ returnRange, events,defaultRange }: CalendarProps) {
             updateDateRangeAndMonth(nextWeekStart, nextWeekEnd);
           }}
         >
-          Příští týden
+          {t('calendar.nextWeek')}
         </Button>
 
         <Button
@@ -245,7 +252,7 @@ export function Calendar({ returnRange, events,defaultRange }: CalendarProps) {
             updateDateRangeAndMonth(today, endOfMonth(today));
           }}
         >
-          Tento měsíc
+          {t('calendar.thisMonth')}
         </Button>
 
         <Button
@@ -257,7 +264,7 @@ export function Calendar({ returnRange, events,defaultRange }: CalendarProps) {
             updateDateRangeAndMonth(nextMonthStart, nextMonthEnd);
           }}
         >
-          Příští měsíc
+          {t('calendar.nextMonth')}
         </Button>
       </ButtonGroup>
     </div>

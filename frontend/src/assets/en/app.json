@@ -1,0 +1,23 @@
+{
+    "profile": {
+        "edit": "Edit",
+        "save": "Save",
+        "changePassword": "Change Password",
+        "saved": "Changes have been saved successfully.",
+        "saveError": "Failed to save changes. Please try again later.",
+        "serverError": "Server Error",
+        "updateImageError": "Failed to update the image. Please try again later.",
+        "updateImageSuccess": "Image updated successfully.",
+        "about": "About me/us",
+        "played": "Played",
+        "playedHours": "Played Hours",
+        "visitedPlaces": "Visited Places"
+        },
+    "dashboard": {
+        "findSpot": "Find Spot",
+        "profile": "Profile",
+        "calendar": "Calendar",
+        "messages": "Messages",
+        "home": "Home"
+    }
+}

@@ -16,25 +16,36 @@
       "next": "Weiter",
       "prev": "Zurück"
     },
-    "label":{
-            "address": "Adresa",
-            "nationality": "Národnost",
-            "city": "Město",
-            "contact": "Kontakt",
-            "email": "Email",
-            "phone": "Telefon",
-            "group": "Skupina",
-            "activeSince": "Aktivní od",
-            "about": "Něco o mě/nás",
-            "whereToFindMe": "Kde se uvidíme?" ,
-            "other":"Ostatní"
-      },
+    "label": {
+      "address": "Adresse",
+      "nationality": "Staatsangehörigkeit",
+      "city": "Stadt",
+      "contact": "Kontakt",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "group": "Gruppe",
+      "activeSince": "Aktiv seit",
+      "about": "Über mich/uns",
+      "whereToFindMe": "Wo kann man mich finden?",
+      "other": "Andere",
+      "spot": "Ort",
+      "art": "Art der Kunst",
+      "find": "Suchen"
+    },
     "errors": {
       "server": "Serverfehler. Bitte versuchen Sie es später erneut."
     },
     "success": {
       "header": "Erfolg",
       "save": "Daten wurden erfolgreich gespeichert."
+    },
+    "calendar": {
+      "today": "Heute",
+      "tomorow": "Morgen",
+      "thisWeek": "Diese Woche",
+      "nextWeek": "Nächste Woche",
+      "thisMonth": "Diesen Monat",
+      "nextMonth": "Nächsten Monat"
     }
   }
   

@@ -1,0 +1,23 @@
+{
+    "profile": {
+        "edit": "Upravit",
+        "save": "Uložit",
+        "changePassword": "Změnit heslo",
+        "saved": "Úpravy byly úspěšně uloženy.",
+        "saveError": "Úpravy se nepodařilo uložit. Zkuste to později.",
+        "serverError": "Chyba serveru",
+        "updateImageError": "Obrázek se nepodařilo aktualizovat. Zkuste to později.",
+        "updateImageSuccess": "Obrázek byl úspěšně aktualizován.",
+        "about": "O mě/nás",
+        "played": "Odehráno",
+        "playedHours": "Odehraných hodin",
+        "visitedPlaces": "Navštívených míst"
+    },
+    "dashboard": {
+        "findSpot": "Najít spot",
+        "profile": "Profil",
+        "calendar": "Kalendář",
+        "messages": "Zprávy",
+        "home": "Domů"
+    }
+}

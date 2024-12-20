@@ -16,25 +16,36 @@
       "next": "Next",
       "prev": "Prev"
     },
-    "label":{
-            "address": "Address",
-            "nationality": "Nationality",
-            "city": "City",
-            "contact": "Contact",
-            "email": "Email",
-            "phone": "Phone",
-            "group": "Group",
-            "activeSince": "Active since",
-            "about": "About",
-            "whereToFindMe": "Where to find me/us?",
-            "other":"Other" 
-      },
+    "label": {
+      "address": "Address",
+      "nationality": "Nationality",
+      "city": "City",
+      "contact": "Contact",
+      "email": "Email",
+      "phone": "Phone",
+      "group": "Group",
+      "activeSince": "Active since",
+      "about": "About me/us",
+      "whereToFindMe": "Where to find me?",
+      "other": "Other",
+      "spot": "Spot",
+      "art": "Type of art",
+      "find": "Search"
+    },
     "errors": {
       "server": "Server error. Please try again later."
     },
     "success": {
       "header": "Success",
       "save": "Data has been successfully saved."
+    },
+    "calendar": {
+      "today": "Today",
+      "tomorow": "Tomorrow",
+      "thisWeek": "This week",
+      "nextWeek": "Next week",
+      "thisMonth": "This month",
+      "nextMonth": "Next month"
     }
   }
   

@@ -27,7 +27,10 @@
             "activeSince": "Aktivní od",
             "about": "Něco o mě/nás",
             "whereToFindMe": "Kde se uvidíme?" ,
-            "other":"Ostatní"
+            "other":"Ostatní",
+            "spot": "Místo",
+            "art" : "Druh umění",
+            "find" : "Hledej"
       },
       "errors":{
             "server":"Chyba server. Zkust to později."
@@ -35,6 +38,14 @@
       "success":{
             "header":"Úspěch",
             "save":"Data byla úspěšně uložena."
+      },
+      "calendar":{
+            "today": "Dnes",
+            "tomorow": "Zítra",
+            "thisWeek": "Tento týden",
+            "nextWeek": "Příští týden",
+            "thisMonth": "Tento měsíc",
+            "nextMonth": "Příští měsíc"
       }
 }
   
