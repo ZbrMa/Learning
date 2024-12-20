@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const PRODUCTION_SERVER_URL = 'http://142.93.173.254/api';
+const PRODUCTION_SERVER_URL = 'https://api.buskup.com';
 const DEV_SERVER_URL = 'http://localhost:5000';
 
 const apiSlice = createApi({

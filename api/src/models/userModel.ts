@@ -13,7 +13,7 @@ import fs from 'fs';
 
 const JWT_SECRET = "tajne_heslo";
 //const SERVER_NAME = "http://localhost:5000";
-const SERVER_NAME = "http://142.93.173.254/api";
+const SERVER_NAME = "https://api.buskup.com";
 
 export const getAllUsers = (
   callback: (err: Error | null, results?: IUser[]) => void
