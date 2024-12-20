@@ -16,13 +16,13 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(cors({
-    origin: '*',
+    origin: 'https://buskup.com/',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   }));
   
 
-app.options('*', cors());
+//app.options('*', cors());
 
 export const userStorage = multer.diskStorage({
     destination: (req, file, cb) => {
