@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { NewUserContext } from "../../../../../context/registerContext";
 import { INewUser } from "../../../../../types/users";
-import { Input } from "../../../../../ui/components/input/input";
+import { Input, MyPhoneInput } from "../../../../../ui/components/input/input";
 import { addYears, differenceInYears, format } from "date-fns";
 import { StepMove } from "../../../../../ui/components/steps/steps";
 import { useTranslation } from "react-i18next";
+import PhoneInput from 'react-phone-input-2'
 
 export function RegisterSecondStep() {
   const { t } = useTranslation('logReg');
@@ -61,21 +62,21 @@ export function RegisterSecondStep() {
         <Input
           labelPosition="out"
           onChange={(e) =>
-            handleInputChange("birth", format(e.target.value, "yyyy-MM-dd"))
+            handleInputChange("birth", e.target.value)
           }
           label={t('registerSecondStep.birthLabel')}
           type="date"
           placeholder={t('registerSecondStep.birthPlaceholder')}
           required
-          defaultValue={format(addYears(new Date, -18), 'yyyy-MM-dd')}
+          defaultValue={format(user.birth, 'yyyy-MM-dd')}
           max={format(addYears(new Date, -18), 'yyyy-MM-dd')}
         />
-        <Input
+        <MyPhoneInput
+          onChange={(e) =>
+            handleInputChange("birth", e)
+          }
           labelPosition="out"
-          onChange={(e) => handleInputChange("phone", e.target.value)}
           label={t('registerSecondStep.phoneLabel')}
-          type="phone"
-          placeholder={t('registerSecondStep.phonePlaceholder')}
           required
           defaultValue={user.phone}
         />

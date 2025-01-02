@@ -6,7 +6,7 @@ import {
   DashboardMeuItem,
   DashboardRight,
 } from "../../layout/dashboard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../../../ui/components/button/button";
 import {
   IoAdd,
@@ -26,6 +26,7 @@ import { DropdownMenu } from "../../../../ui/components/dropdownMenu/dropdownMen
 import { setLang } from "../../../../redux/languageSlice";
 import { IconButton } from "../../../../ui/components/button/button";
 import { useTranslation } from "react-i18next";
+import { logout } from "../../../../api/authSlice";
 
 type UserDashBoardProps = {
   children: ReactNode;
@@ -35,11 +36,17 @@ export function UserDashboard({ children }: UserDashBoardProps) {
   const { id } = useSelector((root: RootState) => root.auth);
   const dispatch = useDispatch();
   const { lang } = useSelector((root: RootState) => root.lang);
+  const navigate = useNavigate();
 
   const { t } = useTranslation("app");
 
   const handleLangChange = (e: string) => {
     dispatch(setLang(e));
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
   };
 
   return (
@@ -87,7 +94,7 @@ export function UserDashboard({ children }: UserDashBoardProps) {
             <IoHomeOutline />
             {t("dashboard.home")}
           </DashboardMeuItem>
-          <Button variant="ternary" size="small"><IoLogOutOutline/>Odhlásit se</Button>
+          <Button variant="ternary" size="small" onClick={handleLogout}><IoLogOutOutline/>Odhlásit se</Button>
         </DashboardMenu>
         
       </DashboardLeft>

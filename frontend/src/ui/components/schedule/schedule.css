@@ -68,6 +68,7 @@
     align-content: center;
     box-sizing: border-box;
     position: relative;
+    z-index: 2;
   }
 
   .schedule__event--back {

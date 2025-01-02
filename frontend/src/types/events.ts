@@ -24,6 +24,7 @@ export interface IEventReduced {
     spot:string,
     start:string,
     end:string,
+    nick:string | undefined,
 };
 
 export interface IAdminEvent {

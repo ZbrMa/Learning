@@ -8,20 +8,35 @@
 }
 
 input {
-    border:none;
-    background-color:var(--lightGray);
+    border: none ;
+    background-color: var(--lightGray) ;
     padding: 0.8rem 1rem;
-    color: var(--black);
-    cursor: pointer;
-    font-size: inherit;
-    width: 100%;
-    box-sizing: border-box;
-    transition: all .2s ease-in-out;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
+    color: var(--black) ;
+    cursor: pointer ;
+    width: 100% ;
+    box-sizing: border-box ;
+    transition: all 0.2s ease-in-out ;
+    font-size: 1.2rem ;
+    display: flex ;
+    align-items: center ;
+    font-family: inherit ;    
    /* border: 2px solid var(--lightGrayHover);
     border-radius: var(--radius);*/
+}
+
+.react-tel-input {
+    border: none !important;
+    background-color: var(--lightGray) !important;
+    padding: 0;
+    color: var(--black) !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease-in-out !important;
+    font-size: 1.2rem !important;
+    display: flex !important;
+    align-items: center !important;
+    font-family: inherit !important;    
 }
 
 input::placeholder {
@@ -89,6 +104,59 @@ input:disabled {
 input:disabled:hover {
     border: none;
     outline: none;
+}
+
+.special-label {
+    display: none;
+}
+
+.flag-dropdown {
+    height: 100%;
+    width: fit-content;
+    border-radius: var(--radius);
+    border: none !important;
+    background-color: inherit !important;
+    height: 100% !important;
+    order: 1 !important;
+    position: relative !important;
+    padding-inline: 1rem !important;
+    height: fit-content !important;
+    margin: auto;
+    
+}
+
+.selected-flag {
+    padding-inline: 1rem !important;
+    width: fit-content !important;
+    height: 100%;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+.selected-flag .arrow {
+    display: none;
+}
+
+.selected-flag .flag {
+    position: relative !important;
+    width: 16px !important;
+    top: 0 !important;
+    margin-top: 0 !important;
+}
+
+.form-control {
+    height: fit-content !important;
+    padding: 0.8rem 1rem 0.8rem 0 !important;
+    order: 2 !important;
+    border: none !important;
+    background-color: inherit !important;
+    font-size: inherit !important;
+    width: 100% !important;
+
+}
+
+.country .flag {
+    width: 16px !important;
 }
 
 @media only screen and (max-width:768px) { 

@@ -10,10 +10,24 @@ import { RowDataPacket } from "mysql2";
 import jwt from "jsonwebtoken";
 import path from "path";
 import fs from 'fs';
+import nodemailer from 'nodemailer';
 
 const JWT_SECRET = "tajne_heslo";
 //const SERVER_NAME = "http://localhost:5000";
 const SERVER_NAME = "https://api.buskup.com";
+
+const mailer = nodemailer.createTransport({
+  service:"gmail",
+  port: 587,
+  secure: false,            
+  auth: {
+    user: 'buskingtest@gmail.com',
+    pass: 'eskdiwboztqmerlm'
+  },
+  tls: {
+    rejectUnauthorized:false
+  }
+});
 
 export const getAllUsers = (
   callback: (err: Error | null, results?: IUser[]) => void
@@ -115,14 +129,29 @@ export const postNewUser = (
       ) VALUES (CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(sql, params, (err, res) => {
+    db.query(sql, params, async (err, res) => {
       if (err) {
         console.error("Database error:", err.message);
-        return callback(
-          err,false
-        );
+        return callback(err, false);
       } else {
-        return callback(null, true);
+        try {
+          const success = await mailer.sendMail({
+            from: '"Busk-up team" <buskingtest@gmail.com>',
+            to: user.email,
+            subject: "Welcome",
+            text: "Vítej mezi námi. Tvůj účet byl úspěšně vytvořen.",
+          });
+  
+          if (success.accepted && success.accepted.length > 0) {
+            return callback(null, true);
+          } else {
+            console.error("E-mail nebyl přijat serverem příjemce.");
+            return callback(null, false);
+          }
+        } catch (mailError) {
+          console.error("Chyba při odesílání e-mailu:", mailError);
+          return callback(null, false);
+        }
       }
     });
 };

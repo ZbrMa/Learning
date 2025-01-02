@@ -8,10 +8,7 @@ import { useAlert } from "../../../../../context/alertContext";
 import { StepMove } from "../../../../../ui/components/steps/steps";
 import { StepsContext } from "../../../../../ui/components/steps/stepsContext";
 import { useTranslation } from "react-i18next";
-
-type Props = {
-  moveForward: () => void;
-};
+import CheckItem, { CheckList , ICheckItem} from "../../../../../ui/components/checkList/checkList";
 
 export function RegisterFirstStep() {
   const [next, setNext] = useState(false);
@@ -47,6 +44,17 @@ export function RegisterFirstStep() {
     validateInputs(user);
   },[]);
 
+  const items: ICheckItem[] = [
+    {
+        checked: user.password.trim().length >= 8,
+        children: "Minimální délka 8 znaků"
+    },
+    {
+        checked: /[!@#$%^&*(),.?":{}|<>]/.test(user.password),
+        children: "Obsahuje speciální znak"
+    }
+];
+
   const handleMoveForward = async () => {
     const response = await checkEmail({ email: user.email });
     if (response.error) {
@@ -81,6 +89,7 @@ export function RegisterFirstStep() {
         defaultValue={user.password}
         autoComplete="new-password"
       />
+      <CheckList items={items}></CheckList>
       <div className="register__btns flex g-16">
         <StepMove direction={1} disabled={!next} onMove={handleMoveForward} />
       </div>

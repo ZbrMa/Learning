@@ -25,6 +25,8 @@ import { Button, IconButton } from "../../components/button/button";
 import { TabsHeader,TabsHeaderItem } from "../../components/tabs/tabs";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/reduxStore";
+import { ModalContext } from "../../../context/modalContext";
+import { MessageModal } from "../../modals/messageModal";
 
 type NotificationContainerProps = {
   notifications: INotification[] | undefined;
@@ -36,6 +38,7 @@ export function NotificationContainer({
   flow,
 }: NotificationContainerProps) {
   return (
+    <>
     <div className="notification__container">
       <NotificationsHeader />
       <div className="notifications__body">
@@ -59,12 +62,14 @@ export function NotificationContainer({
         </div>
       </div>
     </div>
+    <MessageModal/>
+    </>
   );
 }
 
 
 function NotificationsHeader() {
-  const { mode, setMode } = useContext(NotificationContext);
+  const { setModal } = useContext(ModalContext);
 
   return (
     <div className="notifications__header flex content-space mb-16">
@@ -72,12 +77,10 @@ function NotificationsHeader() {
             <TabsHeaderItem value="in">Přijaté zprávy</TabsHeaderItem>
             <TabsHeaderItem value="out">Odeslané zprávy</TabsHeaderItem>
           </TabsHeader>
-      {mode === "read" && (
-        <Button variant="ternary" onClick={() => setMode("write")}>
+        <Button variant="ternary" onClick={() => setModal('msg-modal')}>
           <IoAddOutline />
           Nová zpráva
         </Button>
-      )}
     </div>
   );
 }
@@ -125,7 +128,7 @@ export function NotificationItem({
 export function NotificationDetail({
   flow,
 }: Omit<NotificationItemProps, "notificationInput">) {
-  const { notification, mode } = useContext(NotificationContext);
+  const { notification } = useContext(NotificationContext);
 
   if (notification) {
     return (
@@ -154,10 +157,6 @@ export function NotificationDetail({
     );
   }
 
-  if (mode === "write") {
-    return <NewMessage />;
-  }
-
   return (
     <div className="notification--idle">
       <IoMailOutline />
@@ -170,7 +169,7 @@ export function NewMessage() {
     subject: "",
     content: "",
   });
-  const { setMode } = useContext(NotificationContext);
+  
   const {id} = useSelector((root:RootState)=>root.auth)
 
   const [sendMessage] = usePostNewNotificationMutation();
@@ -224,14 +223,9 @@ export function NewMessage() {
   };
 
   return (
-    <div className="notification__new px-64 flex-col">
-      <div className="notification__header mb-32 p-8 flex content-space">
-        <div className="flex-col g-32 pb-16">
-          <Input
-            labelPosition="out"
-            label="Předmět"
-            onChange={(e) => handleChangeMessage(e.target.value, "subject")}
-          />
+    <div className="notification__new flex-col">
+      <div className="notification__header mb-32 flex content-space">
+        <div className="flex-col g-16">
           {users && (
             <MySelect
               label="Komu"
@@ -243,17 +237,23 @@ export function NewMessage() {
               returnSelected={(e) => handleChangeReciever(e as number)}
             />
           )}
+          <Input
+            labelPosition="out"
+            label="Předmět"
+            onChange={(e) => handleChangeMessage(e.target.value, "subject")}
+          />
         </div>
-        <IconButton onClick={() => setMode("read")} variant="ternary">
+        {/*<IconButton onClick={() => setMode("read")} variant="ternary">
           <IoCloseOutline />
-        </IconButton>
+        </IconButton>*/}
       </div>
       <Textarea
         placeholder="Obsah zprávy..."
-        label="Zpráva"
+        label="Obsah zprávy..."
+        labelPosition="in"
         onChange={(e) => handleChangeMessage(e.target.value, "content")}
       />
-      <Button onClick={handleSendMessage} style={{ marginTop: "auto" }}>
+      <Button onClick={handleSendMessage} size="small" style={{ marginTop: "auto", marginLeft:'auto', fontSize:'1rem' }}>
         Odeslat
         <IoArrowForwardOutline />
       </Button>

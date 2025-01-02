@@ -9,9 +9,10 @@ type ModalProps = {
     title?:string,
     id:string,
     custom?:boolean,
+    color?:'default'|'black',
 };
 
-export function Modal({children,title,id,custom= false}:ModalProps){
+export function Modal({children,title,id,custom= false, color='default'}:ModalProps){
 
     const { modal, setModal } = useContext(ModalContext);
 
@@ -29,7 +30,7 @@ export function Modal({children,title,id,custom= false}:ModalProps){
             <div className="modal__container flex items-center content-center" id={id}>
                 <div className="page--shadow"></div>
                 <div className="modal__content">
-                    <ModalHeader close={() => setModal(null)}>{title}</ModalHeader>
+                    <ModalHeader close={() => setModal(null)} color={color}>{title}</ModalHeader>
                     <ModalBody>{children}</ModalBody>
                 </div>
             </div>,
@@ -58,12 +59,13 @@ function ModalBody({children,...props}:ModalBodyProps){
 type ModalHeaderProps = {
     children:React.ReactNode,
     close:()=>void,
+    color?:'default'|'black',
 };
 
-const ModalHeader = memo(function ModalHeader({children,close}:ModalHeaderProps){
+const ModalHeader = memo(function ModalHeader({children,close,color='default'}:ModalHeaderProps){
 
     return(
-        <div className="modal__header flex g-16 items-center content-space p-16">
+        <div className={`modal__header flex g-16 items-center content-space p-16 ${color === 'black' ? "black" : "def"}`}>
             <h3 className="h-md bold">{children}</h3>
             <IoCloseOutline onClick={close}/>
         </div>

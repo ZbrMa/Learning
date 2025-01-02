@@ -129,24 +129,36 @@ export function Schedule({
                   const eventsInCell = events ? getEventsForCell(day, hour) : [];
 
                   return (
-                    <div key={`${day}-${hour}`} className="schedule__cell box">
+                    <div
+                      key={`${hour}-${day}`}
+                      className="schedule__cell box"
+                      style={{ position: "relative" }}
+                    >
                       {eventsInCell.length > 0 ? (
                         eventsInCell.map((event) => {
-                          const startHour = parseInt(
-                            event.start.split(":")[0],
-                            10
-                          );
-                          const endHour = parseInt(
-                            event.end.split(":")[0],
-                            10
-                          );
-                          const duration = endHour - startHour;
+                          const [startHour, startMinute] = event.start.split(":").map(Number);
+                          const [endHour, endMinute] = event.end.split(":").map(Number);
+                  
+                          const startInMinutes = startHour * 60 + startMinute;
+                          const endInMinutes = endHour * 60 + endMinute;
+                          const durationInMinutes = endInMinutes - startInMinutes;
 
+                          const cellWidthPercent = 100;
+                          const leftOffsetPercent = (startMinute / 60) * cellWidthPercent;
+                          const widthPercent = (durationInMinutes / 60) * cellWidthPercent;
+                  
                           return (
                             <div
                               key={event.id}
-                              className={`schedule__event`}
-                              style={{ width: `calc(100% * ${duration} - 2px * ${duration})`,margin:'auto' }}
+                              className="schedule__event"
+                              style={{
+                                position: "absolute",
+                                left: `${leftOffsetPercent}%`,
+                                top:'0',
+                                width: `${widthPercent}%`,
+                                height: "calc(100% - 2px)",
+                                margin: "auto",
+                              }}
                             >
                               {event.city}, {event.spot}
                               <div className="schedule__event--back">
@@ -194,33 +206,34 @@ export function Schedule({
                   <div
                     key={`${hour}-${day}`}
                     className="schedule__cell box"
-                    style={{ position: "relative" }} // Relativní pozice buňky
+                    style={{ position: "relative" }}
                   >
                     {eventsInCell.length > 0 ? (
                       eventsInCell.map((event) => {
-                        const startHour = parseInt(
-                          event.start.split(":")[0],
-                          10
-                        );
-                        const endHour = parseInt(
-                          event.end.split(":")[0],
-                          10
-                        );
-                        const duration = endHour - startHour;
-                        console.log(endHour, startHour);
+                        const [startHour, startMinute] = event.start.split(":").map(Number);
+                        const [endHour, endMinute] = event.end.split(":").map(Number);
+                
+                        const startInMinutes = startHour * 60 + startMinute;
+                        const endInMinutes = endHour * 60 + endMinute;
+                        const durationInMinutes = endInMinutes - startInMinutes;
+                
+                        const cellHeightPercent = 100;
+                        const topOffsetPercent = (startMinute / 60) * cellHeightPercent;
+                        const heightPercent = (durationInMinutes / 60) * cellHeightPercent;
+                
                         return (
                           <div
                             key={event.id}
                             className="schedule__event"
                             style={{
-                              
-                              padding:'0',
-                              height: `calc(100% * ${duration})`,
-                              width: "calc(100% - 2px)",
-                              margin:'auto'
+                              position: "absolute",
+                              top: `${topOffsetPercent}%`,
+                              height: `${heightPercent}%`,
+                              width: `calc(100% - 2px)`,
+                              margin: "auto",
                             }}
                           >
-                            
+                            {event.city}, {event.spot}
                             <div className="schedule__event--back">
                               <Button onClick={() => eventClick(event.id)}>
                                 {buttonText}
