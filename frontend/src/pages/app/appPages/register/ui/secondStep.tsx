@@ -37,6 +37,10 @@ export function RegisterSecondStep() {
     validateInputs(user);
   }, []);
 
+  useEffect(() => {
+    console.log(user.phone);
+  }, [user.phone]);
+
   return (
     <div className="register__step ">
       <p className="text-center tx-gray mb-32 tx-md">{t('registerSecondStep.infoText')}</p>
@@ -70,10 +74,11 @@ export function RegisterSecondStep() {
           required
           defaultValue={format(user.birth, 'yyyy-MM-dd')}
           max={format(addYears(new Date, -18), 'yyyy-MM-dd')}
+          onKeyDown={(e)=>e.preventDefault()}
         />
         <MyPhoneInput
-          onChange={(e) =>
-            handleInputChange("birth", e)
+          changeEvent={(formattedValue) =>
+            handleInputChange("phone", formattedValue)
           }
           labelPosition="out"
           label={t('registerSecondStep.phoneLabel')}

@@ -6,7 +6,7 @@ export interface IEvent {
     city:string,
     spot:string,
     nick:string,
-    art:string,
+    arts:string[],
     artistId:number,
     about:string,
     country:string,

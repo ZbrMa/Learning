@@ -21,7 +21,6 @@ const initialValues: INewUser = {
   facebook: undefined,
   twitter: undefined,
   description: undefined,
-  art: 0,
 };
 
 const NewUserContext = createContext<{
@@ -51,10 +50,6 @@ export function NewUserContextProvider({ children }: NewUserContextProviderProps
 
   const { data: arts } = useGetArtsQuery();
   const { data: countries } = useGetCountriesQuery();
-
-  useEffect(()=>{
-      if(arts) setArt(arts.find((artItem)=>artItem.id === user.art)?? null);
-  },[user.art]);
 
   useEffect(()=>{
     if(countries) setCountry(countries.find((countryItem)=>countryItem.id === user.country)?? null);

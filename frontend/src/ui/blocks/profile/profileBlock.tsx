@@ -9,7 +9,7 @@ import { Alert } from "../../components/alert/alert";
 import { IoIosLock } from "react-icons/io";
 import { IoPencilOutline, IoCheckmarkDoneOutline } from "react-icons/io5";
 import { ModalContext } from "../../../context/modalContext";
-import { ChnagePasswordForm } from "./ui/changePasswordForm";
+import { ChnagePasswordForm } from "../../modals/changePasswordForm";
 import { ImageInput } from "../../components/imageInput/imageInput";
 import { useChangeImageMutation } from "../../../api/userApiSlice";
 import { Spinner } from "../../components/spinner/spinner";

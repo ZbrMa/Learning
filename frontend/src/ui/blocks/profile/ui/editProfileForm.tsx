@@ -1,11 +1,11 @@
 import { useState, useEffect,forwardRef, useImperativeHandle } from "react";
 import { Input } from "../../../components/input/input";
-import { MySelect } from "../../../components/select/select";
+import { Dropdown, MySelect } from "../../../components/select/select";
 import { useEditUserMutation } from "../../../../api/userApiSlice";
 import { useGetArtsQuery, useGetCountriesQuery } from "../../../../api/filtersApiSlice";
 import { format } from "date-fns";
 import { IoMailOutline, IoLogoFacebook, IoLogoTwitter, IoLogoInstagram } from "react-icons/io5";
-import { MdPhone } from "react-icons/md";
+import { MdPerson, MdPhone } from "react-icons/md";
 import { PiCity, PiHouse } from "react-icons/pi";
 import { LuBaby } from "react-icons/lu";
 import { HiOutlineUserGroup } from "react-icons/hi";
@@ -16,7 +16,13 @@ import { Alert } from "../../../components/alert/alert";
 import { ExtendedUser } from "../../../../api/authSlice";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../../../api/authSlice";
+import { LiaGuitarSolid } from "react-icons/lia";
 import './editProfileForm.css';
+import { IArt } from "../../../../types/filtersTypes";
+
+function matchArts(artsData:IArt[],userArts:string[]){
+  return artsData.filter(artData=> userArts.includes(artData.name))
+};
 
 type EditProfileFormProps = {
   user: ExtendedUser,
@@ -39,9 +45,13 @@ export const EditProfileForm = forwardRef(function EditProfileForm({ user,editab
     setFormUser((prev) => ({ ...prev, [field]: value }));
   };
 
+  const handleArtChange = (value:IArt[]) => {
+    setFormUser((prev) => ({ ...prev, arts: value }));
+  }
+
   useImperativeHandle(ref, () => ({
     async handleSave() {
-      const response = await triggerEdit(formUser);
+      const response = await triggerEdit({user:formUser,arts:formUser.arts.map(art=>art.id)});
       response && dispatch(loginSuccess(formUser))
       return response;
     },
@@ -57,9 +67,28 @@ export const EditProfileForm = forwardRef(function EditProfileForm({ user,editab
   }));
 
 
+
   return (
     <div className="flex-col mt-16 profile__form">
       <ProfileInfoBlock title="Kontaktní údaje">
+        {editable && 
+          <>
+            <ProfileInfoLine title="Jméno" icon={<MdPerson />}>
+              <Input
+                disabled={!editable}
+                defaultValue={formUser.name}
+                onChange={(e) => handleInputChange("name", e.target.value)}
+              />
+            </ProfileInfoLine>
+            <ProfileInfoLine title="Příjmení" icon={<MdPerson />}>
+              <Input
+                disabled={!editable}
+                defaultValue={formUser.surname}
+                onChange={(e) => handleInputChange("surname", e.target.value)}
+              />
+            </ProfileInfoLine>
+          </>
+        }
         <ProfileInfoLine title="E-mail" icon={<IoMailOutline />}>
           {user.email}
         </ProfileInfoLine>
@@ -117,7 +146,7 @@ export const EditProfileForm = forwardRef(function EditProfileForm({ user,editab
         </ProfileInfoLine>
       </ProfileInfoBlock>
 
-      <ProfileInfoBlock title="Osobní údaje">
+      <ProfileInfoBlock title="Ostatní">
         <ProfileInfoLine title="Datum narození" icon={<LuBaby />}>
             {format(new Date(formUser.birth), "dd.MM.yyyy")}
         </ProfileInfoLine>
@@ -139,6 +168,15 @@ export const EditProfileForm = forwardRef(function EditProfileForm({ user,editab
             ]}
             returnSelected={(e) => handleInputChange("band", e)}
           />
+        </ProfileInfoLine>
+        <ProfileInfoLine title="Žánr" icon={<LiaGuitarSolid />}>
+          {arts && <Dropdown
+            placeholder="Žánr"
+            disabled={!editable}
+            defaultValues={arts.filter(artData=> formUser.arts.includes(artData)).map((art)=>({value:art.id,label:art.name}))}
+            options={arts.map((art)=>({value:art.id,label:art.name}))}
+            returnSelected={(e) => handleArtChange(arts.filter(art=>e.includes(art.id)))}
+          />}
         </ProfileInfoLine>
       </ProfileInfoBlock>
     </div>

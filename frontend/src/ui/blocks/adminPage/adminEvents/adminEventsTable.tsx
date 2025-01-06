@@ -1,6 +1,6 @@
 import Table from "../../../components/table/table";
 import { Spinner } from "../../../components/spinner/spinner";
-import { IAdminEvent, IEditableEvent } from "../../../../types/events";
+import { IAdminEvent, IEditableEvent, IEventReduced } from "../../../../types/events";
 import { IColumn } from "../../../components/table/table";
 import {
   useDeleteEventMutation,
@@ -14,7 +14,7 @@ import { Alert } from "../../../components/alert/alert";
 import { ModalContext } from "../../../../context/modalContext";
 import { AdminEditEventModal } from "../../../modals/adminEditEventModal";
 
-export const AdminEventsTable = forwardRef(function AdminEventsTable(_, ref) {
+/*export const AdminEventsTable = forwardRef(function AdminEventsTable(_, ref) {
   const { data, isLoading, isFetching } = useGetAdminEventsQuery();
   const [editableEvent,setEditableEvent] = useState<IEditableEvent>();
 
@@ -22,7 +22,7 @@ export const AdminEventsTable = forwardRef(function AdminEventsTable(_, ref) {
   const { showAlert } = useAlert();
   const { setModal } = useContext(ModalContext);
 
-  const deleteClick = useCallback((event: IAdminEvent) => {
+  const deleteClick = useCallback((event: IEventReduced) => {
     showAlert(
       <Alert type="neutral" title="Opravdu si přejete smazat záznam?">
         <div className="flex-col g-8">
@@ -125,10 +125,11 @@ export const AdminEventsTable = forwardRef(function AdminEventsTable(_, ref) {
     <Spinner fixed={false} />
   ) : data ? (
     <>
-    <Table<IAdminEvent> columns={columns} data={data} />
+    <Table<IEventReduced> columns={columns} data={data} />
     <AdminEditEventModal event={editableEvent}/>
     </>
   ) : (
     <span>Data nenalezena</span>
   );
 });
+*/

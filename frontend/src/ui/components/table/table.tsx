@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, memo, useState } from "react";
+import React, { CSSProperties, HTMLAttributes, memo, useState } from "react";
 import "./table.css";
 import { ScrollArea } from "../scrollarea/scrollArea";
 
@@ -9,6 +9,7 @@ export interface IColumn<T> {
   accessor?: keyof T;
   placeholder?:string,
   render: (row: T) => React.ReactNode;
+  style?:CSSProperties;
 }
 
 interface TableProps<T> {
@@ -37,21 +38,28 @@ const Table = memo(function Table<T>({
 
   const sortedData = React.useMemo(() => {
     let sortableData = [...data];
-
+  
     if (sortConfig !== null) {
       sortableData.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
+        const aValue = a[sortConfig.key];
+        const bValue = b[sortConfig.key];
+  
+        const normalizedA = typeof aValue === "string" ? aValue.toLowerCase() : aValue;
+        const normalizedB = typeof bValue === "string" ? bValue.toLowerCase() : bValue;
+  
+        if (normalizedA < normalizedB) {
           return sortConfig.direction === "ascending" ? -1 : 1;
         }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
+        if (normalizedA > normalizedB) {
           return sortConfig.direction === "ascending" ? 1 : -1;
         }
         return 0;
       });
     }
-
+  
     return sortableData;
   }, [data, sortConfig]);
+  
 
   const requestSort = (key: keyof T) => {
     let direction: "ascending" | "descending" = "ascending";

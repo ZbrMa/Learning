@@ -38,7 +38,11 @@ export function EventModal({ event }: EventModalProps) {
           <div className="event__head flex content-space items-center pb-16">
             <div className="event__name">
               <h1 className="h-xl xbold mb-8">{event.nick}</h1>
-              <Badge>{event.art}</Badge>
+              <div className="flex g-8">
+              {event.arts.map((art)=>(
+                <Badge>{art}</Badge>
+              ))}
+                </div>
             </div>
             <div className="event__detail__date p-8 box">
               <div className="event--day tx-white h-lg xbold">

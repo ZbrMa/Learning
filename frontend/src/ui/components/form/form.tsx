@@ -13,11 +13,11 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
     config:IFormConfig,
     btnText:string,
-    chekList?:boolean,
+    checkList?:boolean,
     checkField?:string,
 };
 
-export function Form({config,btnText,chekList,checkField = "password",...props}:FormProps){
+export function Form({config,btnText,checkList = false,checkField = "password",...props}:FormProps){
 const { register, handleSubmit, control, watch } = useForm();
 const [checkItems, setCheckItems] = useState<ICheckItem[]>([]);
 
@@ -28,15 +28,11 @@ const password = useWatch({ control, name: checkField });
     };
 
     useEffect(() => {
-        if (password !== undefined && chekList) {
+        if (password !== undefined && checkList) {
             const items: ICheckItem[] = [
                 {
                     checked: password.length >= 8,
                     children: "Minimální délka 8 znaků"
-                },
-                {
-                    checked: /[0-9]/.test(password),
-                    children: "Obsahuje číslo"
                 },
                 {
                     checked: /[!@#$%^&*(),.?":{}|<>]/.test(password),
@@ -45,13 +41,13 @@ const password = useWatch({ control, name: checkField });
             ];
             setCheckItems(items);
         }
-    }, [password, chekList]);
+    }, [password, checkList]);
 
     const newPass = watch('newPass');
     const newPassRepeat = watch('newPassRepeat');
     const passwordsMatch = newPass === newPassRepeat;
 
-      const renderField = (field: IFieldConfig, key: number) => {
+    const renderField = (field: IFieldConfig, key: number) => {
         const { name, label, type, placeholder, options, validation } = field;
         const validationRules: IValidationRules = {};
     
@@ -108,9 +104,9 @@ const password = useWatch({ control, name: checkField });
                 {config.fields.map((field,index)=>(
                     renderField(field,index)
                 ))}
-                <Button type="submit" style={{width:'100%',fontSize:'1rem'}} className="xbold mt-32">{btnText}</Button>
+                <Button type="submit" style={{width:'100%',fontSize:'1rem'}} className="xbold mt-32" disabled={checkList && (!passwordsMatch || checkItems.every(item=> !item.checked))}>{btnText}</Button>
             </form>
-            {chekList && 
+            {checkList && 
                 <CheckList 
                     items={checkItems}
                     

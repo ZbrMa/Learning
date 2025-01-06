@@ -40,8 +40,12 @@ export const eventApi = apiSlice.injectEndpoints({
       }),
       providesTags: ['events','userEvents'],      
     }),
-    getAdminEvents:builder.query<IAdminEvent[],void>({
-      query:()=>'/adminEvents',
+    getAdminEvents:builder.query<IEventReduced[],{from:string,places:number[]}>({
+      query:(payload)=>({
+        url:'/adminEvents',
+        body:payload,
+        method:'POST'
+      }),
       providesTags:['events'],
     }),
     createNewEvent:builder.mutation<MessageResponse,INewEvent>({

@@ -2,7 +2,7 @@ import { useLazyGetUsersQuery } from "../../../../api/userApiSlice";
 import Table, { IColumn } from "../../../components/table/table";
 import { Spinner } from "../../../components/spinner/spinner";
 import { Button } from "../../../components/button/button";
-import { IUser } from "../../../../types/users";
+import { GetUserResponse, IUser } from "../../../../types/users";
 import { format } from "date-fns";
 import { useCheckUserMutation } from "../../../../api/userApiSlice";
 import { useAlert } from "../../../../context/alertContext";
@@ -19,7 +19,7 @@ export function AdminUsersTable() {
   },[])
   
 
-  const columns: IColumn<IUser>[] = [
+  const columns: IColumn<GetUserResponse>[] = [
     {
       header: "ID",
       accessor: "id",
@@ -98,8 +98,9 @@ export function AdminUsersTable() {
     },
     {
       header: "Umění",
-      accessor: "art",
-      render: (row) => <>{row.art}</>,
+      accessor: "arts",
+      render: (row) => <div style={{maxWidth:'100px',gap:"4px", flexWrap:'wrap'}} className="flex">{row.arts.map((art,index)=>(
+        <p style={{fontSize:'0.6rem'}}>{art.name}{index<row.arts.length && ", "}</p>))}</div>,
     },
     {
       header: "Role",
@@ -125,7 +126,7 @@ export function AdminUsersTable() {
   return isFetching || isLoading ? (
     <Spinner fixed={false} />
   ) : data ? (
-    <Table<IUser> columns={columns} data={data} />
+    <Table<GetUserResponse> columns={columns} data={data} />
   ) : (
     <span>Data nenalezena</span>
   );

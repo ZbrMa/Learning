@@ -3,10 +3,12 @@ import { IUser,IEditableUser } from '../types/users';
 import { format } from "date-fns";
 import { useNavigate } from 'react-router';
 import { stringify } from 'querystring';
+import { IArt } from '../types/filtersTypes';
 
 export interface ExtendedUser extends Omit<IUser,'inserted'> {
     token: string | undefined,
     authChecked:boolean,
+    arts:IArt[],
 }
 
 const initialState: ExtendedUser = {
@@ -27,11 +29,11 @@ const initialState: ExtendedUser = {
     twitter: undefined,
     checked: 0,
     description: undefined,
-    art: 0,
     image: '',
     token: undefined,
     role:2,
     authChecked: false,
+    arts:[],
 };
 
 const authSlice = createSlice({

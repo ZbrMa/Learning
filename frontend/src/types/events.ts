@@ -6,7 +6,7 @@ export interface IEvent {
     city:string,
     spot:string,
     nick:string,
-    art:string,
+    arts:string[],
     artistId:number,
     about:string | undefined,
     country:string,
@@ -25,6 +25,7 @@ export interface IEventReduced {
     start:string,
     end:string,
     nick:string | undefined,
+    arts:string[],
 };
 
 export interface IAdminEvent {

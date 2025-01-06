@@ -51,7 +51,11 @@ export function UserProfile({ userId }: UserPageProps) {
                     />
                     <div className="user__name flex-col g-8">
                       <h3 className="h-lg xbold">{user.nick}</h3>
-                      <Badge>{user.art}</Badge>
+                      <div className="flex g-8">
+                      {user.arts.map((art) => 
+                        <Badge>{art.name}</Badge>
+                      )}
+                      </div>
                       <div className="user__socials tx-black tx-md flex g-16 items-center">
                         {user.website && (
                           <a href={user.website} target="_blank">

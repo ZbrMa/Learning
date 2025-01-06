@@ -1,3 +1,5 @@
+import { IArt } from "./filtersTypes";
+
 export interface IUser {
     id:number,
     inserted:Date,
@@ -18,9 +20,12 @@ export interface IUser {
     twitter?:string | undefined, 
     checked:number,
     description?:string | undefined,
-    art:number,
     image:string,
     role:number,
+};
+
+export interface GetUserResponse extends IUser {
+    arts:IArt[],
 };
 
 export type INewUser = Omit<IUser, 'role' | 'id' | 'checked' | 'image' | 'inserted'> & {password:string};

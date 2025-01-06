@@ -3,17 +3,16 @@ import {
   login,
   postEditUser,
   postNewUser,
-  postNewPassword,
-  forgotPasswordModel,
+  newPassModel,
+  resetPassModel,
   saveUserImage,
   checkEmailModel,
   checkNickModel,
   checkUserModel,
   getUserModel,
 } from "../models/userModel";
-import { Request, Response,NextFunction , RequestHandler} from "express";
-import { IChangePassword, IEditableUser, IForgotPassword, INewUser } from "../types/userTypes";
-import multer from "multer";
+import { Request, Response , RequestHandler} from "express";
+import { IChangePassword, IEditableUser, IForgotPassword, INewUser, IUser } from "../types/userTypes";
 
 export const getUsers = (req:Request,res: Response) => {
   getAllUsers((err, users) => {
@@ -40,7 +39,6 @@ export const createNewUser = (req: Request, res: Response) => {
     password: req.body.password,
     email: req.body.email,
     address: req.body.address,
-    art: req.body.art,
     band: req.body.band,
     birth: req.body.birth,
     city: req.body.city,
@@ -48,7 +46,10 @@ export const createNewUser = (req: Request, res: Response) => {
     phone: req.body.phone,
     nick: req.body.nick,
   };
-  postNewUser(newUser, (err, result) => {
+
+  const lang = (req.headers['language'] || 'en') as 'en' | 'de' | 'cs';
+
+  postNewUser(newUser, lang, (err, result) => {
     if (err) {
       console.log("registrace", err);
       return res.status(500).json(result);
@@ -74,23 +75,37 @@ export const loginUser = (req: Request, res: Response) => {
   });
 };
 
+export const resetPassword = (req:Request,res:Response) => {
+  const lang = (req.headers['language'] || 'en') as 'en' | 'de' | 'cs';
+
+  resetPassModel(req.body.email,lang,(err,result)=>{
+    if (err) {
+      console.error("reset password error:", err);
+      return res.status(500).json(result);
+    } else if (result) {
+      res.status(200).json(result);
+    } else {
+      return res.status(500).json(result);
+    }
+  })
+};
+
 export const editUser = (req: Request, res: Response) => {
   const editUser: Omit<IEditableUser,'image' | 'inserted'> = {
-    id: req.body.id,
-    phone: req.body.phone,
-    country: req.body.country,
-    city:req.body.city,
-    address:req.body.address,
-    facebook: req.body.facebook,
-    instagram: req.body.instagram,
-    twitter: req.body.twitter,
-    website: req.body.website,
-    band: req.body.band,
-    art: req.body.art,
-    description: req.body.description,
-    nick: req.body.nick,
+    id: req.body.user.id,
+    phone: req.body.user.phone,
+    country: req.body.user.country,
+    city:req.body.user.city,
+    address:req.body.user.address,
+    facebook: req.body.user.facebook,
+    instagram: req.body.user.instagram,
+    twitter: req.body.user.twitter,
+    website: req.body.user.website,
+    band: req.body.user.band,
+    description: req.body.user.description,
+    nick: req.body.user.nick,
   };
-  postEditUser(editUser, (err, result) => {
+  postEditUser(editUser,req.body.arts as number[] ,(err, result) => {
     if (err) {
       console.log("uprava usera", err);
       return res.status(500).json(result);
@@ -109,25 +124,9 @@ export const changePassword = (req:Request,res:Response) =>{
     old:req.body.old,
     new:req.body.new,
   };
-  postNewPassword(newPass,(err,result)=>{
+  newPassModel(newPass,(err,result)=>{
     if (err) {
       console.log("uprava hesla", err);
-      return res.status(500).json(result);
-    } else if (result) {
-      res.status(200).json(result);
-    } else {
-      return res.status(500).json(result);
-    }
-  });
-};
-
-export const forgotPassword = (req:Request,res:Response) =>{
-  const newPass:IForgotPassword = {
-    email:req.body.email,
-  };
-  forgotPasswordModel(newPass,(err,result)=>{
-    if (err) {
-      console.log("zapomenute heslo", err);
       return res.status(500).json(result);
     } else if (result) {
       res.status(200).json(result);

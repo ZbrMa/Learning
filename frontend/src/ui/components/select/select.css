@@ -154,8 +154,17 @@ option:hover {
     cursor: pointer;
 }
 
-.selected-item:hover {
+.dropdown.disabled .selected-item {
+    padding: 2px;
+    cursor:default;
+}
+
+.dropdown .selected-item:hover {
     background-color:var(--black);
+}
+
+.dropdown.disabled .selected-item:hover {
+    background-color:var(--red);
 }
 
 .selected-text {

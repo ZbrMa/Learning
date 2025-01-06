@@ -26,7 +26,7 @@ export function RegisterThirdStep() {
   const { t } = useTranslation('logReg');
   const [next, setNext] = useState(false);
 
-  const { user, setUser, arts, countries, country, art } = useContext(NewUserContext);
+  const { user, setUser, countries, country } = useContext(NewUserContext);
   const [checkNick] = useCheckNickMutation();
   const { showAlert } = useAlert();
   const { setActive } = useContext(StepsContext);
@@ -44,9 +44,8 @@ export function RegisterThirdStep() {
     const isBandValid = updatedUser.band.trim().length > 1;
     const isNickValid = updatedUser.nick.trim().length > 1;
     const isCountryValid = !!country;
-    const isArtValid = !!art;
 
-    setNext(isBandValid && isNickValid && isCountryValid && isArtValid);
+    setNext(isBandValid && isNickValid && isCountryValid);
   };
 
   useEffect(() => {
@@ -86,6 +85,7 @@ export function RegisterThirdStep() {
           returnSelected={(e) => handleInputChange("country", e)}
           defaultValue={user.country}
           required
+          optionsStyle={{maxHeight:300}}
         />
         <Input
           onChange={(e) => handleInputChange("nick", e.target.value)}
@@ -95,14 +95,6 @@ export function RegisterThirdStep() {
           defaultValue={user.nick}
           placeholder={t('registerThirdStep.nickPlaceholder')}
           labelPosition="out"
-        />
-        <MySelect
-          placeholder={t('registerThirdStep.artPlaceholder')}
-          label={t('registerThirdStep.artLabel')}
-          defaultValue={user.art}
-          returnSelected={(e) => handleInputChange("art", e)}
-          options={arts?.map((art) => ({ value: art.id, label: art.name })) || []}
-          required
         />
       </div>
       <div className="flex g-16 register__btns">

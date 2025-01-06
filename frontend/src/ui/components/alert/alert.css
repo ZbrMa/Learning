@@ -15,6 +15,8 @@
     -webkit-box-shadow: 4px 13px 20px 0px rgba(0,0,0,0.1);
     -moz-box-shadow: 4px 13px 20px 0px rgba(0,0,0,0.1);
     box-shadow: 4px 13px 20px 0px rgba(0,0,0,0.1);
+    border-radius: calc(var(--radius) / 2);
+    overflow: hidden;
 }
 
 .alert__container svg {
@@ -35,6 +37,7 @@
     position: absolute;
     left: 0;
     top: 0;
+    
 }
 
 .alert--title {

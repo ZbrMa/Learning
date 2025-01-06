@@ -35,7 +35,9 @@ export const SmallEventCard = memo(function SmallEventCard({event,square=false}:
                 </div>
             </div>
             <div className="event__content p-32">
-                <Badge>{event.art}</Badge>
+            {event.arts.map((art)=>(
+                <Badge>{art}</Badge>
+              ))}
                 <h2 className='h-md xbold tx-white'>{event.nick}</h2>
                 <div className="event__place tx-white tx-sm">
                     <IoLocationOutline/>

@@ -50,8 +50,7 @@ export const getUpcomingEvents = (req: Request, res: Response) => {
   };
 
   export const getAdminEvents = (req:Request,res:Response) => {
-
-    adminEventsModel((err,response)=>{
+    adminEventsModel(req.body.from,req.body.places as number[],(err,response)=>{
       if(err) {
         return res.status(500).json({message: 'Chyba při získávání eventů.'})
       }

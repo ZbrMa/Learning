@@ -91,7 +91,7 @@ export function Login() {
           <div className="register__container">
             <h2 className="h-lg xbold mb-32">{t("login.welcomeBack")}</h2>
             {isLoading && <Spinner />}
-            <Form config={loginConfig} btnText={t("login.btnLogin")} className="mb-32" />
+            <Form config={loginConfig} btnText={t("login.btnLogin")} className="mb-32" checkList={false}/>
             <div className="register__bottom pt-32">
               <div className="mb-16 flex content-space items-center">
                 <p className="tx-sm">{t("login.forgotPassword")}</p>

@@ -2,12 +2,13 @@ export interface IPlace {
     id:number,
     city:string,
     spot:string,
-}
+};
 
 export interface IArt {
     id:number,
     name:string,
-}
+    userId?:number,
+};
 
 export interface ICountry {
     id:number,

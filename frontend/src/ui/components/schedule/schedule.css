@@ -112,4 +112,14 @@
     width: fit-content;
     margin: 0 auto;
   }
+
+  .schedule__event.admin.occupied {
+    background-color: var(--lightGreen);
+    color: var(--darkGreen);
+  }
+
+  .schedule__event.admin {
+    background-color: var(--lightRed);
+    color: var(--red);
+  }
   

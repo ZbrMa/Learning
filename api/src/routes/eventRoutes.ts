@@ -5,7 +5,7 @@ const eventRouter = express.Router();
 
 eventRouter.get('/up_events', getUpcomingEvents);
 eventRouter.post('/filter_events', postFilteredEvents);
-eventRouter.get('/adminEvents',getAdminEvents);
+eventRouter.post('/adminEvents',getAdminEvents);
 eventRouter.post('/newEvent',postNewEvent);
 eventRouter.post('/repeatEvent',postRepeatEvent);
 eventRouter.post('/deleteEvent',deleteEevnt);

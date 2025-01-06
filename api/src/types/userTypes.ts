@@ -1,3 +1,5 @@
+import { IArt } from "./filterTypes";
+
 export interface IUser {
     id:number,
     password:string,
@@ -18,13 +20,16 @@ export interface IUser {
     twitter?:string | undefined, 
     checked:number,
     description?:string | undefined,
-    art:number,
     image:string,
     role:number,
     inserted:Date,
 };
 
-export type INewUser = Pick<IUser, 'name' | 'surname' | 'email' | 'password' | 'nick' | 'birth' | 'country' | 'city' | 'address' | 'band' | 'phone' | 'art'>;
+export interface GetUserResponse extends IUser {
+    arts:IArt[]
+};
+
+export type INewUser = Pick<IUser, 'name' | 'surname' | 'email' | 'password' | 'nick' | 'birth' | 'country' | 'city' | 'address' | 'band' | 'phone'>;
 export type IEditableUser = Omit<IUser, |'name'| 'surname' | 'email' | 'birth' | 'checked' | 'role' | 'password'>;
 
 export interface IChangePassword {

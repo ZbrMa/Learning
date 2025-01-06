@@ -25,21 +25,21 @@ export function DropdownMenu({ options, children }: DropdownMenuProps) {
             const triggerRect = triggerRef.current.offsetWidth;
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
-    
+            
+            if (rect.bottom > windowHeight - 160) {
+                optionsRef.current.style.top = `-${rect.height + triggerRef.current.getBoundingClientRect().height}px`;
+            } else {
+                optionsRef.current.style.top = "";
+            }
+
             if (rect.right > windowWidth) {
                 optionsRef.current.style.left = `-${rect.right - rect.left - triggerRect}px`;
             } else {
                 optionsRef.current.style.left = "0";
             }
-    
+
             if (rect.left < 0) {
                 optionsRef.current.style.left = `${-rect.left}px`;
-            }
-    
-            if (rect.bottom > windowHeight) {
-                optionsRef.current.style.top = `-${rect.height}px`;
-            } else {
-                optionsRef.current.style.top = "";
             }
     
             if (rect.top < 0) {

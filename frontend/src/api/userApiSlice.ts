@@ -5,18 +5,20 @@ import {
   INewUser,
   IUser,
   IChangePassword,
-  INewPassword,
+  GetUserResponse,
 } from "../types/users";
 import { MessageResponse } from "./eventApiSlice";
 import apiSlice from "./apiSlice";
+import { IArt } from "../types/filtersTypes";
+import { ExtendedUser } from "./authSlice";
 
 interface ChangeImageReponse extends MessageResponse {
   imagePath?:string,
-}
+};
 
 export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUsers: builder.query<IUser[], void>({
+    getUsers: builder.query<GetUserResponse[], void>({
       //prvni je návratový typ, druhý je payload (void znamená, že se nic neočekává)
       query: () => "/users",
     }),
@@ -27,21 +29,21 @@ export const userApi = apiSlice.injectEndpoints({
         body: newUser,
       }),
     }),
-    getUser: builder.query<IUser, { userId: number }>({
-      query: (newUser) => ({
+    getUser: builder.query<GetUserResponse, { userId: number }>({
+      query: (user) => ({
         url: "/getUser",
         method: "POST",
-        body: newUser,
+        body: user,
       }),
     }),
-    login: builder.mutation<{ user: IUser; token: string },{email:string,password:string}>({
+    login: builder.mutation<{ user: GetUserResponse; token: string },{email:string,password:string}>({
       query: (loginUser) => ({
         url: "/login",
         method: "POST",
         body: loginUser,
       }),
     }),
-    editUser: builder.mutation<boolean, Omit<IEditableUser, "image">>({
+    editUser: builder.mutation<boolean, {user:Omit<IEditableUser, "image">,arts:number[]}>({
       query: (editUser) => ({
         url: "/editUser",
         method: "POST",
@@ -66,9 +68,9 @@ export const userApi = apiSlice.injectEndpoints({
         body: newPass,
       }),
     }),
-    forgotPassword: builder.mutation<{ success: boolean; message: string },INewPassword>({
+    resetPassword: builder.mutation<{ success: boolean; message: string },{email:string}>({
       query: (newPass) => ({
-        url: "/forgotPassword",
+        url: "/resetPassword",
         method: "POST",
         body: newPass,
       }),
@@ -103,7 +105,7 @@ export const {
   useLoginMutation,
   useEditUserMutation,
   useChangePasswordMutation,
-  useForgotPasswordMutation,
+  useResetPasswordMutation,
   useChangeImageMutation,
   useCheckEmailMutation,
   useCheckNickMutation,

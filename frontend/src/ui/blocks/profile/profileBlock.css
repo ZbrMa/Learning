@@ -21,9 +21,6 @@
     max-height: 150px;
 }
 
-
-
-
 .profile__check {
     color: var(--black);
     display: flex;
@@ -46,17 +43,18 @@
 }
 
 .profile__right textarea {
-    outline: 1px solid var(--darkGray);
+    background-color: var(--lightGray);
+    border-radius: var(--radius);
+}
+
+.profile__right textarea {
     background-color: transparent;
 }
 
-.profile__right textarea:hover {
-    outline: 1px solid var(--black);
-}
-
-.profile__right textarea:disabled {
-    outline: none;
-
+.profile__right textarea:not(:disabled):hover,
+.profile__right textarea:not(:disabled):focus,
+.profile__right textarea:not(:disabled):active {
+    background-color: var(--lightGrayHover);
 }
 
 .profile__header .image__input {

@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { getUsers,createNewUser, loginUser, editUser, changePassword, uploadUserImage, checkEmail, checkUser, checkNick, getUser, forgotPassword } from '../controllers/userController';
+import { getUsers,createNewUser, loginUser, editUser, changePassword, uploadUserImage, checkEmail, checkUser, checkNick, getUser, resetPassword } from '../controllers/userController';
 
 declare global {
     namespace Express {
@@ -40,7 +40,7 @@ userRouter.post('/newUser', createNewUser);
 userRouter.post('/login', loginUser);
 userRouter.post('/editUser',editUser);
 userRouter.post('/changePassword',changePassword);
-userRouter.post('/forgotPassword',forgotPassword);
+userRouter.post('/resetPassword',resetPassword);
 userRouter.post('/checkEmail', checkEmail);
 userRouter.post('/checkNick',checkNick);
 userRouter.post('/checkUser',checkUser);

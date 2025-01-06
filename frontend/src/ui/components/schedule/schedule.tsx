@@ -7,12 +7,13 @@ import {
   addDays,
   isSameDay,
   getWeek,
+  compareDesc,
 } from "date-fns";
 import { cs } from "date-fns/locale";
 import "./schedule.css";
 import { Button, IconButton } from "../button/button";
 import { IoArrowBackOutline, IoArrowForwardOutline } from "react-icons/io5";
-import { IEventReduced } from "../../../types/events";
+import { IAdminEvent, IEventReduced } from "../../../types/events";
 
 const hours = Array.from({ length: 11 }, (_, i) => `${10 + i}:00`); // Hodiny od 10:00 do 20:00
 const daysOfWeek = [
@@ -31,6 +32,7 @@ type ScheduleProps = {
   buttonText: string;
   eventClick: (id: number) => void;
   variant?: "default" | "daysOnTop"; // Nový prop pro variantu
+  isAdmin?:boolean;
 };
 
 export function Schedule({
@@ -39,6 +41,7 @@ export function Schedule({
   buttonText,
   eventClick,
   variant = "default",
+  isAdmin=false,
 }: ScheduleProps) {
   const [currentWeekStart, setCurrentWeekStart] = useState(
     startOfWeek(new Date(), { weekStartsOn: 1 })
@@ -150,7 +153,7 @@ export function Schedule({
                           return (
                             <div
                               key={event.id}
-                              className="schedule__event"
+                              className={`schedule__event ${isAdmin? 'admin':''} ${event.nick? 'occupied' : ''}`}
                               style={{
                                 position: "absolute",
                                 left: `${leftOffsetPercent}%`,
@@ -159,13 +162,16 @@ export function Schedule({
                                 height: "calc(100% - 2px)",
                                 margin: "auto",
                               }}
-                            >
-                              {event.city}, {event.spot}
-                              <div className="schedule__event--back">
+                            > 
+                              {isAdmin && event.nick && <>{event.nick}</>}
+                              {isAdmin && !event.nick && <>?</>}
+                              {!isAdmin && <>{event.city}, {event.spot}</>}
+                              {compareDesc(event.day,new Date) !==0 && endHour >= (new Date).getHours() &&
+                                <div className="schedule__event--back">
                                 <Button onClick={() => eventClick(event.id)}>
                                   {buttonText}
                                 </Button>
-                              </div>
+                              </div>}
                             </div>
                           );
                         })
@@ -224,7 +230,7 @@ export function Schedule({
                         return (
                           <div
                             key={event.id}
-                            className="schedule__event"
+                            className={`schedule__event ${isAdmin? 'admin':''} ${event.nick? 'occupied' : ''}`}
                             style={{
                               position: "absolute",
                               top: `${topOffsetPercent}%`,
@@ -233,12 +239,13 @@ export function Schedule({
                               margin: "auto",
                             }}
                           >
-                            {event.city}, {event.spot}
+                            {isAdmin ? (<>{event.nick}</>):(<>{event.city}, {event.spot}</>)}
+                            {compareDesc(event.day,new Date) !==0 && endHour >= (new Date).getHours() &&
                             <div className="schedule__event--back">
                               <Button onClick={() => eventClick(event.id)}>
                                 {buttonText}
                               </Button>
-                            </div>
+                            </div>}
                           </div>
                         );
                       })
