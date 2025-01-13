@@ -205,4 +205,33 @@
         max-width: 100%;
         min-width: 100%;
     }
+
+
+    
+}
+
+@media only screen and (max-width:992px) { 
+    .notification__container {
+        height: fit-content;
+    }
+    .notifications__body {
+        display: block;
+        height: fit-content;
+    }
+
+    .notification__right {
+        display: none;
+    }
+
+    .notification__left {
+        padding-right: 0;
+        border-right: none;
+        height: fit-content;
+    }
+
+    .notification__list {
+        height: fit-content;
+        min-height: fit-content;
+    }
+    
 }

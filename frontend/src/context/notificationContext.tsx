@@ -5,7 +5,7 @@ type modeType = 'write' | 'read';
 
 const NotificationContext = createContext<{
   notification: INotification | null,
-  setNotification: (notification:INotification) => void;
+  setNotification: (notification:INotification | null) => void;
 }>({
   notification: null,
   setNotification: () => {},
@@ -23,6 +23,10 @@ function NotificationContextProvider({ children }: NotificationContextProps) {
       setNotification(null);
     };
   },[window.location.pathname]);
+
+  useEffect(()=>{
+    console.log(notification);
+  },[notification]);
 
   return (
     <NotificationContext.Provider value={{ notification, setNotification }}>

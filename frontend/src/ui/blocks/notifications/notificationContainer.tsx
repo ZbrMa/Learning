@@ -75,8 +75,8 @@ function NotificationsHeader() {
   return (
     <div className="notifications__header flex content-space mb-16">
         <TabsHeader>
-            <TabsHeaderItem value="in">Přijaté zprávy</TabsHeaderItem>
-            <TabsHeaderItem value="out">Odeslané zprávy</TabsHeaderItem>
+            <TabsHeaderItem value="in">Přijaté</TabsHeaderItem>
+            <TabsHeaderItem value="out">Odeslané</TabsHeaderItem>
           </TabsHeader>
         <Button variant="ternary" onClick={() => setModal('msg-modal')}>
           <IoAddOutline />
@@ -99,22 +99,45 @@ export function NotificationItem({
 }: NotificationItemProps) {
   const { notification, setNotification } = useContext(NotificationContext);
     const [readMessage] = useReadNotificationMutation();
+    const [mobile,setMobile] = useState(false);
+    const {setModal} = useContext(ModalContext);
+
+    const checkMobile = () => {
+      window.innerWidth < 992 ? setMobile(true) : setMobile(false);
+    };
+  
+    useEffect(()=>{
+      checkMobile();
+      window.addEventListener('resize',checkMobile);
+  
+      return ()=> window.removeEventListener('resize',checkMobile);
+    },[])
 
     const navigate = useNavigate();
 
-    const handleReadNotification = () => {
+    const handleReadNotification = async() => {
       if(isExternal){
         navigate('/app/mail');
       };
+
       if (!notification || notification.id !== notificationInput.id) {
         if(notificationInput.readAt){
           setNotification(notificationInput);
         }
-        setNotification({...notificationInput,readAt:new Date})
-        readMessage({id:notificationInput.id});
-      }
+        else {
+          await readMessage({id:notificationInput.id});
+          setNotification({...notificationInput,readAt:new Date})
+        }
         
+      }
+      
     };
+
+    useEffect(() => {
+      if (notification && mobile && notification.id === notificationInput.id) {
+        setModal("read-msg-modal");
+      }
+    }, [notification])
 
    /* useEffect(()=>{
       console.log(notification);
@@ -141,6 +164,9 @@ export function NotificationItem({
       ) : (
         <p className="tx-xs">{notificationInput.to_user}</p>
       )}
+      {mobile && notification?.id === notificationInput.id && (
+        <ReadMessageModal flow={flow} />
+      )}
     </div>
   );
 }
@@ -163,7 +189,7 @@ export function NotificationDetail({
   },[])
 
   if (mobile){
-    return <ReadMessageModal flow={flow}/> 
+    return null; 
 
   } else {
   if (notification) {

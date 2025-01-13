@@ -322,4 +322,18 @@
     .schedule__row{
       grid-template-columns: 40px repeat(7,auto);
     }
+
+    .schedule__day span:nth-child(1){
+      font-size: 0.5rem;
+      font-weight: 400;
+    }
+
+    .schedule__day span:nth-child(2){
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .schedule--corner, .schedule--corner > * {
+      font-size: 0.6rem;
+    }
   }

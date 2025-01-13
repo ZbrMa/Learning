@@ -10,9 +10,10 @@ type ModalProps = {
     id:string,
     custom?:boolean,
     color?:'default'|'black',
+    onClose?:()=>void,
 };
 
-export function Modal({children,title,id,custom= false, color='default'}:ModalProps){
+export function Modal({children,title,id,custom= false, color='default',onClose}:ModalProps){
 
     const { modal, setModal } = useContext(ModalContext);
 
@@ -30,7 +31,7 @@ export function Modal({children,title,id,custom= false, color='default'}:ModalPr
             <div className="modal__container flex items-center content-center" id={id}>
                 <div className="page--shadow"></div>
                 <div className="modal__content">
-                    <ModalHeader close={() => setModal(null)} color={color}>{title}</ModalHeader>
+                    <ModalHeader close={onClose ?? (() => setModal(null))} color={color}>{title}</ModalHeader>
                     <ModalBody>{children}</ModalBody>
                 </div>
             </div>,

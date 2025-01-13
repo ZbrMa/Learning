@@ -62,7 +62,7 @@ input[type=number], input[type=text],input[type=email], input[type=password]  {
     background-color:transparent;
     color: var(--black);
     transition: all .2s ease-in-out;
-    width: 100%;
+    
 
 }
 

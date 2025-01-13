@@ -1,0 +1,4 @@
+.modal__message--content {
+    max-height: calc(90vh - 64px);
+    overflow-y: auto;
+}
