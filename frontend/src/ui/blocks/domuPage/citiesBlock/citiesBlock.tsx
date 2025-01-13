@@ -27,15 +27,17 @@ export function CitiesBlock() {
   return (
     <BodyBlock className="cities__block">
       <div className="cities__top g-64 mb-64" ref={ref}>
+        <img src="/images/city2.png" className="city-abs" alt="cityImage"/>
         {trails.map((props) => (
           <animated.div style={props}>
             <MainHeader>{t("homePage.citiesIntro.header")}</MainHeader>
           </animated.div>
         ))}
-        {isLoading ? (
-          <Spinner fixed={false} />
-        ): (
+        
           <p className="tx-xl tx-lightGray mt-auto">
+          {isLoading ? (
+          <Spinner fixed={false}/>
+        ): (
           <Trans
           i18nKey="homePage.citiesIntro.text"
           ns="visitor"
@@ -45,8 +47,9 @@ export function CitiesBlock() {
           }}
         >
         </Trans>
-        </p>
         )}
+        </p>
+        
         
         
       </div>

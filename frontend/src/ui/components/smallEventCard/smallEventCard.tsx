@@ -18,6 +18,8 @@ type SmallEventCardProps = {
 export const SmallEventCard = memo(function SmallEventCard({event,square=false}:SmallEventCardProps){
     const {setModal} = useContext(ModalContext);
 
+    console.log(event);
+
     const handleClick = async() => {
         setModal(`event${event.id}`);
     };
@@ -35,9 +37,11 @@ export const SmallEventCard = memo(function SmallEventCard({event,square=false}:
                 </div>
             </div>
             <div className="event__content p-32">
-            {event.arts.map((art)=>(
+                <div className='flex g-8'>
+            {event.arts && event.arts.map((art)=>(
                 <Badge>{art}</Badge>
               ))}
+              </div>
                 <h2 className='h-md xbold tx-white'>{event.nick}</h2>
                 <div className="event__place tx-white tx-sm">
                     <IoLocationOutline/>

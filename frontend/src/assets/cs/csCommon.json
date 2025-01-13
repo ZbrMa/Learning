@@ -14,7 +14,9 @@
             "admin": "Správa",
             "join": "Přidat se",
             "next": "Další",
-            "prev": "Zpět"
+            "prev": "Zpět",
+            "cancel": "Zrušit",
+            "booking": "Přidat"
       },
       "label":{
             "address": "Adresa",
@@ -33,7 +35,7 @@
             "find" : "Hledej"
       },
       "errors":{
-            "server":"Chyba server. Zkust to později."
+            "server":"Chyba serveru. Zkust to později."
       },
       "success":{
             "header":"Úspěch",

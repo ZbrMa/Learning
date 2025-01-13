@@ -1,6 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { INewNotification, INotification } from "../types/notifications";
-import { url } from "inspector";
 import { MessageResponse } from "./eventApiSlice";
 import apiSlice from "./apiSlice";
 

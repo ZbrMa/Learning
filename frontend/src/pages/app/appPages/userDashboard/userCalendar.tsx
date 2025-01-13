@@ -12,7 +12,7 @@ export function UserCalendar(){
 
     const {id} = useSelector((root:RootState)=>root.auth);
     const [startDate,setStartDate] = useState(new Date());
-    const {data,isLoading,isFetching,isError,refetch} = useGetUserCalendarEventsQuery({userId:id,startDate:startDate},{refetchOnMountOrArgChange:true});
+    const {data,isLoading,isFetching} = useGetUserCalendarEventsQuery({userId:id,startDate:startDate},{refetchOnMountOrArgChange:true});
     const [signOutEvent] = useSignOutEventMutation();
     const {showAlert} = useAlert();
 
@@ -35,7 +35,7 @@ export function UserCalendar(){
     return(
         <UserDashboard>
             <h3 className="h-xl xbold mb-32 text-center">Můj kalendář</h3>
-            <Schedule events={data} returnInterval={setStartDate} buttonText="Zrušit" eventClick={(handleSignOut)}/>
+            <Schedule events={data} returnInterval={setStartDate} buttonText="Zrušit" eventClick={(handleSignOut)} isLoading = {isLoading || isFetching}/>
         </UserDashboard>
     )
 };

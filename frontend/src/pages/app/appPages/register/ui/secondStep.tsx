@@ -104,6 +104,7 @@ export function RegisterSecondStep() {
           required
           defaultValue={user.address}
         />
+        
       </div>
       <div className="flex g-16 register__btns">
         <StepMove direction={-1} />

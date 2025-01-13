@@ -14,7 +14,9 @@
       "admin": "Verwaltung",
       "join": "Beitreten",
       "next": "Weiter",
-      "prev": "Zurück"
+      "prev": "Zurück",
+      "cancel": "Storno",
+      "booking": "Hinzufügen"
     },
     "label": {
       "address": "Adresse",

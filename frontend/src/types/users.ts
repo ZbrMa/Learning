@@ -22,6 +22,7 @@ export interface IUser {
     description?:string | undefined,
     image:string,
     role:number,
+    lang?:'cs'|'en'|'de' | null,
 };
 
 export interface GetUserResponse extends IUser {
@@ -40,4 +41,11 @@ export interface IChangePassword {
 
 export interface INewPassword {
     email:string,
+};
+
+export interface IUserStatistcs {
+    eventCount:number | null,
+    placeCount:number | null,
+    hourCount:number | null,
+    sixMonthsCount:number | null,
 };

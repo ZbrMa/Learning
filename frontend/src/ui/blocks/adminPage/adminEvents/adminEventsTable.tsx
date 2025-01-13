@@ -2,10 +2,10 @@ import Table from "../../../components/table/table";
 import { Spinner } from "../../../components/spinner/spinner";
 import { IAdminEvent, IEditableEvent, IEventReduced } from "../../../../types/events";
 import { IColumn } from "../../../components/table/table";
-import {
+/*import {
   useDeleteEventMutation,
   useGetAdminEventsQuery,
-} from "../../../../api/eventApiSlice";
+} from "../../../../api/eventApiSlice";*/
 import { forwardRef, useCallback, useContext, useEffect, useImperativeHandle, useState } from "react";
 import { format, parse } from "date-fns";
 import { Button } from "../../../components/button/button";

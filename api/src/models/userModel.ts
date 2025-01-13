@@ -6,13 +6,14 @@ import {
   IForgotPassword,
   INewUser,
   IUser,
+  IUserStatistcs,
 } from "../types/userTypes";
 import { RowDataPacket } from "mysql2";
 import jwt from "jsonwebtoken";
 import path from "path";
 import fs from "fs";
 import nodemailer from "nodemailer";
-import { hashPass, randomPass, verifyPass } from "../utils/passwordUtils";
+import { hashPass, randomPass } from "../utils/passwordUtils";
 import bcrypt from "bcrypt";
 import { IMessageResponse } from "../types/responseTypes";
 import {
@@ -38,10 +39,10 @@ const mailer = nodemailer.createTransport({
   },
 });
 
-export const getAllUsers = async(
+export const getAllUsers = async (
   callback: (err: Error | null, results?: GetUserResponse[]) => void
 ) => {
-  const usersQuery =  `SELECT 
+  const usersQuery = `SELECT 
   u.id ,
   u.name,
   u.surname ,
@@ -65,16 +66,19 @@ export const getAllUsers = async(
   const artsQuery = `SELECT a.id, a.name, ua.user_id as userId FROM user_art ua LEFT JOIN arts a ON ua.art_id = a.id`;
 
   try {
-    const [users] = await db.promise().query<IUser[] & RowDataPacket[]>(usersQuery);
-    const [arts] = await db.promise().query<IArt[] & RowDataPacket[]>(artsQuery);
+    const [users] = await db
+      .promise()
+      .query<IUser[] & RowDataPacket[]>(usersQuery);
+    const [arts] = await db
+      .promise()
+      .query<IArt[] & RowDataPacket[]>(artsQuery);
 
     const response: GetUserResponse[] = users.map((user) => {
       const userArts = arts.filter((art) => art.userId === user.id);
       return { ...user, arts: userArts };
     });
-    return callback(null,response);
-
-  } catch(err) {
+    return callback(null, response);
+  } catch (err) {
     console.error(err);
     return callback(err as Error);
   }
@@ -92,7 +96,7 @@ export const getAllUsers = async(
   );*/
 };
 
-export const getUserModel = async(
+export const getUserModel = async (
   userId: number,
   callback: (err: Error | null, response: GetUserResponse | null) => void
 ) => {
@@ -117,7 +121,8 @@ export const getUserModel = async(
     u.facebook ,
     u.checked ,
     u.role ,
-    u.band
+    u.band,
+    u.lang
     FROM users u
     LEFT JOIN countries c ON u.country = c.id
     WHERE u.id = ? LIMIT 1`;
@@ -125,21 +130,23 @@ export const getUserModel = async(
   const arts_sql = `SELECT a.id, a.name FROM user_art ua LEFT JOIN arts a ON ua.art_id = a.id WHERE ua.user_id = ?`;
 
   try {
-    const [user] = await db.promise().query<IUser[] & RowDataPacket[]>(sql, userId);
+    const [user] = await db
+      .promise()
+      .query<IUser[] & RowDataPacket[]>(sql, userId);
 
-    const [userArts] = await db.promise().query<IArt[] & RowDataPacket[]>(arts_sql,userId);
+    const [userArts] = await db
+      .promise()
+      .query<IArt[] & RowDataPacket[]>(arts_sql, userId);
 
-    return callback(null,{...user[0],arts:userArts});
-  } catch(err) {
+    return callback(null, { ...user[0], arts: userArts });
+  } catch (err) {
     console.error(err);
     return callback(err as Error, null);
   }
-
 };
 
 export const postNewUser = async (
   user: INewUser,
-  lang: "cs" | "en" | "de",
   callback: (err: Error | null, result: boolean | string) => void
 ) => {
   const hashedPass = await hashPass("admin", 10);
@@ -159,12 +166,13 @@ export const postNewUser = async (
     user.address,
     user.band,
     user.phone,
+    user.lang
   ];
 
   const sql = `
       INSERT INTO users (
-       inserted, name, surname, password, email, nick, birth, country, city, address, band, phone
-      ) VALUES (CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+       inserted, name, surname, password, email, nick, birth, country, city, address, band, phone, lang
+      ) VALUES (CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
   db.query(sql, params, async (err, res) => {
@@ -173,7 +181,7 @@ export const postNewUser = async (
       return callback(err, false);
     } else {
       try {
-        const { subject, text } = generateRegisterEmail(lang, user.nick);
+        const { subject, text } = generateRegisterEmail(user.lang ?? 'en', user.nick);
         const success = await mailer.sendMail({
           from: '"Busk-Up team" <buskingtest@gmail.com>',
           to: user.email,
@@ -230,9 +238,14 @@ export const login = async (
         { expiresIn: "30m" }
       );
 
-      const [arts] = await db.promise().query<IArt[] & RowDataPacket[]>(arts_sql,userData.id);
+      const [arts] = await db
+        .promise()
+        .query<IArt[] & RowDataPacket[]>(arts_sql, userData.id);
 
-      return callback(null, { user: {...userData, arts:arts},token:token});
+      return callback(null, {
+        user: { ...userData, arts: arts },
+        token: token,
+      });
     });
   } catch (error) {
     console.error("Unexpected error:", error);
@@ -301,9 +314,9 @@ export const resetPassModel = async (
   }
 };
 
-export const postEditUser = async(
+export const postEditUser = async (
   user: Omit<IEditableUser, "image" | "inserted">,
-  arts:number[],
+  arts: number[],
   callback: (err: Error | null, result: boolean) => void
 ) => {
   const sql = `
@@ -339,37 +352,37 @@ export const postEditUser = async(
 
   const getArtsQuery = `SELECT art_id FROM user_arts WHERE user_id = ?`;
   const deleteArtQuery = `DELETE * FROM user_art WHERE user_id = ?`;
-  const insertArtQuery = `INSERT INTO user_arts (user_id, art_id) VALUES ?;`
+  const insertArtQuery = `INSERT INTO user_arts (user_id, art_id) VALUES ?;`;
 
   const connection = await db.promise().getConnection();
   try {
     await connection.beginTransaction();
-    await connection.query(sql,params);
+    await connection.query(sql, params);
 
-    const [dbArts] = await connection.query<{art_id:number}[] & RowDataPacket[]>(getArtsQuery,[user.id]);
+    const [dbArts] = await connection.query<
+      { art_id: number }[] & RowDataPacket[]
+    >(getArtsQuery, [user.id]);
     const currentArtIds = dbArts.map((row) => row.art_id);
     const artsToAdd = arts.filter((artId) => !currentArtIds.includes(artId));
     const artsToRemove = currentArtIds.filter((artId) => !arts.includes(artId));
 
-
     if (artsToAdd.length > 0) {
       const values = artsToAdd.map((artId) => [user.id, artId]);
       await connection.query(insertArtQuery, [values]);
-    };
+    }
 
     if (artsToRemove.length > 0) {
       await connection.query(deleteArtQuery, [user.id, arts]);
-    };
+    }
 
     await connection.commit();
   } catch (err) {
     await connection.rollback();
     console.error(err);
-    return callback(err as Error,false);
+    return callback(err as Error, false);
   } finally {
     connection.rollback();
-  };
-  
+  }
 };
 
 export const newPassModel = async (
@@ -576,4 +589,35 @@ export const saveUserImage = (
       message: "Chyba při zpracování obrázku.",
     });
   }
+};
+
+export const userStatisticsModel = (
+  userId: number,
+  callback: (err: Error | null, response: IUserStatistcs | null) => void
+) => {
+  const sql = `SELECT 
+                  COUNT(*) AS eventCount,
+                  COUNT(DISTINCT e.place_id) AS placeCount,
+                  SUM(TIME_TO_SEC(TIMEDIFF(e.event_end, e.event_start)) / 3600) AS hourCount,
+                  COUNT(CASE 
+                            WHEN e.event_day >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) THEN 1 
+                            ELSE NULL 
+                        END) AS sixMonthsCount
+              FROM events e
+              WHERE 
+                  e.user_id = ? 
+                  AND CONCAT(e.event_day, ' ', e.event_end) < NOW()
+              GROUP BY e.user_id;
+              `;
+  db.query<IUserStatistcs[] & RowDataPacket[]>(sql, [userId], (err, res) => {
+    if (err) {
+      console.error(err);
+      return callback(err, null);
+    }
+    if (res.length > 0) {
+      return callback(null, res[0]);
+    } else {
+      return callback(null, null);
+    }
+  });
 };

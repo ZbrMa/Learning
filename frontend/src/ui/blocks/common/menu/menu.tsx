@@ -1,5 +1,6 @@
 import {
   IoClose,
+  IoHomeOutline,
   IoLogOutOutline,
   IoMailOutline,
   IoPersonOutline,
@@ -17,6 +18,7 @@ import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { setLang } from "../../../../redux/languageSlice";
 import { useTranslation } from 'react-i18next';
+import { ILang } from "../../../../types/filtersTypes";
 
 type MenuProps = {
   variant?: "def" | "sec";
@@ -61,8 +63,8 @@ export function Menu({ variant = "def" }: MenuProps) {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleLangChange = (e: string) => {
-    dispatch(setLang(e));
+  const handleLangChange = (e: ILang) => {
+    dispatch(setLang(e.lang));
   };
 
   return (
@@ -104,9 +106,9 @@ export function Menu({ variant = "def" }: MenuProps) {
       <div className="nav__right">
         <DropdownMenu
           options={[
-            { label: "cs", onClick: () => handleLangChange('cs') },
-            { label: "en", onClick: () => handleLangChange('en') },
-            { label: "de", onClick: () => handleLangChange('de') }
+            { label: "cs", onClick: () => handleLangChange({lang:'cs'}) },
+            { label: "en", onClick: () => handleLangChange({lang:'en'}) },
+            { label: "de", onClick: () => handleLangChange({lang:'de'}) }
           ]}
         >
           <IconButton
@@ -121,6 +123,11 @@ export function Menu({ variant = "def" }: MenuProps) {
             token
               ? role === 2
                 ? [
+                    {
+                      label: t("button.home"),
+                      link: `/app/home`,
+                      optionIcon: <IoHomeOutline />,
+                    },
                     {
                       label: t("button.profile"),
                       link: `/app/profile/${id}`,

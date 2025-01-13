@@ -18,7 +18,21 @@
 .cities__top {
     display: grid;
     gap: 64px;
-    grid-template-columns: 7fr 3fr;
+    grid-template-columns: 6fr 4fr;
+    position: relative;
+}
+
+.city-abs {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 33.33%;
+    height: 100%;
+    opacity: 0.3;
+}
+
+.cities-top > p {
+    z-index: 2;
 }
 
 .slider {

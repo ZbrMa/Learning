@@ -21,6 +21,11 @@
     max-height: 150px;
 }
 
+.profile--img.small img {
+    height: 128px;
+    width: 128px;
+}
+
 .profile__check {
     color: var(--black);
     display: flex;

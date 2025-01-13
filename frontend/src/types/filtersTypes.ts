@@ -27,8 +27,13 @@ export interface IEventDateRangeFilter {
 };
 
 export interface IDropdownMenuOption {
-    label: string;
+    label?: string;
     link?: string;
-    onClick?: MouseEventHandler<HTMLButtonElement>;
+    onClick?: MouseEventHandler<HTMLSpanElement | MouseEvent>;
     optionIcon?:React.ReactNode;
+    children?:React.ReactNode;
+};
+
+export interface ILang {
+    lang:'cs'|'en'|'de'
 };

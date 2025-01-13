@@ -88,7 +88,7 @@ export const MySelect = memo(function MySelect({
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
     
-            if (rect.bottom > windowHeight - 16) {
+            if (rect.bottom > windowHeight - 10) {
               optionsRef.current.style.top = `-${rect.height}px`;
             } else {
               optionsRef.current.style.top = "";
@@ -241,7 +241,7 @@ export function Dropdown({
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
     
-            if (rect.bottom > windowHeight - 160) {
+            if (rect.bottom > windowHeight - 10) {
               optionsRef.current.style.top = `-${rect.height + triggerRef.current.getBoundingClientRect().height}px`;
             } else {
               optionsRef.current.style.top = "";

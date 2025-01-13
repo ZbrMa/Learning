@@ -5,51 +5,35 @@ import {
   useGetEventDatesQuery,
 } from "../../../../api/eventApiSlice";
 import { useGetPlacesQuery } from "../../../../api/filtersApiSlice";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { IEventFilter } from "../../../../types/filtersTypes";
-import { endOfWeek, format, parseISO, addDays } from "date-fns";
-import { GroupedDropdown } from "../../../../ui/components/groupedDropdown/groupedDropdown";
-import { useSearchParams } from "react-router-dom";
-import { Schedule } from "../../../../ui/components/schedule/schedule";
+import { format, addDays } from "date-fns";
+import {Schedule} from "../../../../ui/components/schedule/schedule";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/reduxStore";
 import { useAlert } from "../../../../context/alertContext";
 import { Alert } from "../../../../ui/components/alert/alert";
-import { cs } from "date-fns/locale";
 import { IPlace } from "../../../../types/filtersTypes";
 import { Spinner } from "../../../../ui/components/spinner/spinner";
 import { GroupedSelect } from "../../../../ui/components/groupedSelect/groupedSelect";
+import { useTranslation } from "react-i18next";
 
 export function UserFindSpot() {
-  const { data: eventDates } = useGetEventDatesQuery({ checked: false });
   const { id: userId } = useSelector((root: RootState) => root.auth);
-  const { data: places, isLoading: placesLoading } = useGetPlacesQuery();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [range, setRange] = useState<{ from: Date; to: Date }>({
-    from: searchParams.get("from")
-      ? parseISO(searchParams.get("from")!)
-      : new Date(),
-    to: searchParams.get("to")
-      ? parseISO(searchParams.get("to")!)
-      : endOfWeek(new Date(), { locale: cs }),
-  });
+  const { data: places, isLoading: placesLoading } = useGetPlacesQuery(undefined,{refetchOnMountOrArgChange:false});
+  const {t} = useTranslation("common");
+  const [startDate,setStartDate] = useState(new Date());
   const [filters, setFilters] = useState<IEventFilter>({
-    places: searchParams.get("places")
-      ? searchParams.get("places")!.split(",").map(Number)
-      : [],
-    arts: searchParams.get("arts")
-      ? searchParams.get("arts")!.split(",").map(Number)
-      : [],
-  });
+    places:[0],
+    arts:[]
+  })
+
   const {
-    data: events,
-    isLoading: eventsLoading,
-    isFetching: eventsFetching,
-  } = useGetFilteredEventsQuery(
+    data: events,isLoading,isFetching} = useGetFilteredEventsQuery(
     {
       range: {
-        from: format(range.from, "yyyy-MM-dd"),
-        to: format(range.to, "yyyy-MM-dd"),
+        from: format(startDate, "yyyy-MM-dd"),
+        to: format(new Date(addDays(startDate,6)), "yyyy-MM-dd"),
       },
       filters,
       checked: false,
@@ -77,42 +61,11 @@ export function UserFindSpot() {
     }
   };
 
-  const handleSelect = (type: keyof IEventFilter, values: number[]) => {
-    setFilters({
-      ...filters,
-      [type]: values,
-    });
-  };
-
-  useEffect(() => {
-    const places = searchParams.get("places")?.split(",").map(Number) || [0];
-    const arts = searchParams.get("arts")?.split(",").map(Number) || [];
-    const from = searchParams.get("from")
-      ? parseISO(searchParams.get("from")!)
-      : new Date();
-    const to = searchParams.get("to")
-      ? parseISO(searchParams.get("to")!)
-      : addDays(endOfWeek(new Date()), 1);
-
-    setFilters({ places, arts });
-    setRange({ from, to });
-  }, [searchParams]);
-
-  useEffect(() => {
-    const params: any = {};
-    if (filters.places.length) params.places = filters.places.join(",");
-    if (filters.arts.length) params.arts = filters.arts.join(",");
-    params.from = format(range.from, "yyyy-MM-dd");
-    params.to = format(range.to, "yyyy-MM-dd");
-
-    setSearchParams(params);
-  }, [filters, range, setSearchParams]);
-
   return (
     <UserDashboard>
       <h3 className="h-xl xbold mb-16 text-center">Registrace místa</h3>
       {placesLoading ? (
-        <Spinner fixed={false} />
+        <Spinner />
       ) : (
         places && (
           <GroupedSelect<IPlace>
@@ -125,21 +78,21 @@ export function UserFindSpot() {
             multiSelect={false}
             defaultValue={places[0]}
             returnSelected={(e) =>
-              handleSelect(
-                "places",
-                [e.id]
-              )
+              setFilters((prevFilters) => ({
+                ...prevFilters,
+                places: [e.id],
+              }))
             }
           />
         )
       )}
+      
       <Schedule
         events={events}
-        returnInterval={(e) =>
-          setRange({ from: e, to: endOfWeek(e, { locale: cs }) })
-        }
+        returnInterval={setStartDate}
         eventClick={handleLoginSpot}
-        buttonText="Booknout"
+        buttonText={t("button.booking")}
+        isLoading = {isLoading || isFetching}
       />
     </UserDashboard>
   );

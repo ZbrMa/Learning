@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   Dashboard,
   DashboardLeft,
@@ -9,24 +9,25 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../../../ui/components/button/button";
 import {
-  IoAdd,
-  IoAddOutline,
+  IoArrowBackOutline,
   IoCalendarOutline,
-  IoFlagOutline,
   IoHomeOutline,
   IoLogOutOutline,
+  IoMenuOutline,
+  IoCloseOutline,
 } from "react-icons/io5";
 import { HiOutlineUser } from "react-icons/hi2";
 import { HiOutlineNewspaper } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/reduxStore";
-import { PiMapPin } from "react-icons/pi";
 import { IoMdAdd } from "react-icons/io";
 import { DropdownMenu } from "../../../../ui/components/dropdownMenu/dropdownMenu";
 import { setLang } from "../../../../redux/languageSlice";
-import { IconButton } from "../../../../ui/components/button/button";
 import { useTranslation } from "react-i18next";
 import { logout } from "../../../../api/authSlice";
+import "./userDashboard.css";
+import { ILang } from "../../../../types/filtersTypes";
+import { checkPrime } from "crypto";
 
 type UserDashBoardProps = {
   children: ReactNode;
@@ -37,31 +38,160 @@ export function UserDashboard({ children }: UserDashBoardProps) {
   const dispatch = useDispatch();
   const { lang } = useSelector((root: RootState) => root.lang);
   const navigate = useNavigate();
-
   const { t } = useTranslation("app");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const handleLangChange = (e: string) => {
-    dispatch(setLang(e));
+  const handleLangChange = (e: ILang) => {
+    dispatch(setLang(e.lang));
   };
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/');
+    navigate("/");
   };
+
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
+  };
+
+  const checkMobile = () => {
+    window.innerWidth <= 992 ? setIsMobile(true) : setIsMobile(false);
+  };
+
+  useEffect(() => {
+    checkMobile();
+
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <Dashboard id="user-dash">
-      <DashboardLeft>
-        <img src="/images/logo.png" className="logo" />
-        
-        <DashboardMenu>
-        
-          <Link to={"/app/findSpot"} id="find-spot-btn">
-            <Button style={{ fontWeight: "600" }}>
+      {/* Horní lišta s hamburger menu */}
+      {isMobile && (
+        <div className="top-bar">
+          <Link to={"/app/home"} className="top-bar__logo">
+            <img src="/images/logo.png" alt="Logo" />
+          </Link>
+          <Button variant="link" style={{ padding: "0" }} onClick={toggleMenu} id="dash-menu-open-btn">
+            <IoMenuOutline />
+          </Button>
+          
+        </div>
+      )}
+
+      {/* Postranní menu (skryté na mobilu) */}
+
+      <div
+        className={`side-menu ${isMobile ? "mobile" : ""} ${
+          menuOpen ? "opened" : ""
+        }`}
+      >
+        <DashboardLeft>
+          {isMobile && (
+            <Button
+              variant="link"
+              style={{ padding: "0", color: "var(--white)" }}
+              id="dash-menu-close-btn"
+              onClick={toggleMenu}
+            >
+              <IoCloseOutline />
+            </Button>
+          )}
+          <Link to={"/app/home"}>
+            <img src="/images/logo.png" className="logo" />
+          </Link>
+          <DashboardMenu>
+            <DropdownMenu
+              options={[
+                {
+                  label: "cs",
+                  onClick: () => handleLangChange({ lang: "cs" }),
+                },
+                {
+                  label: "en",
+                  onClick: () => handleLangChange({ lang: "en" }),
+                },
+                {
+                  label: "de",
+                  onClick: () => handleLangChange({ lang: "de" }),
+                },
+              ]}
+              style={{ marginInline: "auto", width: "fit-content" }}
+            >
+              <Button
+                variant="ternary"
+                size="small"
+                style={{
+                  fontSize: "1.2rem",
+                  fontWeight: "400",
+                  width: "100%",
+                  padding: "1rem",
+                }}
+              >
+                {lang}
+              </Button>
+            </DropdownMenu>
+            <DashboardMeuItem
+              path={"/app/findSpot"}
+              id="find-spot-btn"
+              color="red"
+            >
               <IoMdAdd />
               <span>{t("dashboard.findSpot")}</span>
-            </Button>
-          </Link>
+            </DashboardMeuItem>
+            <DashboardMeuItem path={"/app/home"}>
+              <IoHomeOutline />
+              {t("dashboard.home")}
+            </DashboardMeuItem>
+            <DashboardMeuItem path={`/app/profile/${id}`}>
+              <HiOutlineUser />
+              {t("dashboard.profile")}
+            </DashboardMeuItem>
+            <DashboardMeuItem path="/app/calendar">
+              <IoCalendarOutline />
+              {t("dashboard.calendar")}
+            </DashboardMeuItem>
+            <DashboardMeuItem path="/app/mail">
+              <HiOutlineNewspaper />
+              {t("dashboard.messages")}
+            </DashboardMeuItem>
+            <div
+              style={{
+                marginTop: "auto",
+                paddingTop: "16px",
+                borderTop: "1px solid var(--darkGray)",
+              }}
+            >
+              <DashboardMeuItem path="/">
+                <IoArrowBackOutline />
+                {t("dashboard.back")}
+              </DashboardMeuItem>
+              <Button variant="ternary" size="small" onClick={handleLogout}>
+                <IoLogOutOutline />
+                Odhlásit se
+              </Button>
+            </div>
+          </DashboardMenu>
+        </DashboardLeft>
+      </div>
+
+      {/* Spodní navigační lišta */}
+      {isMobile && (
+        <div className="bottom-bar">
+          <div className="flex-col items-center" id="find-spot-btn">
+            <DashboardMeuItem path={"/app/findSpot"} color="red">
+              <IoMdAdd />
+            </DashboardMeuItem>
+            <span>{t("dashboard.findSpot")}</span>
+          </div>
+
+          <DashboardMeuItem path={"/app/home"}>
+            <IoHomeOutline />
+            {t("dashboard.home")}
+          </DashboardMeuItem>
           <DashboardMeuItem path={`/app/profile/${id}`}>
             <HiOutlineUser />
             {t("dashboard.profile")}
@@ -74,30 +204,10 @@ export function UserDashboard({ children }: UserDashBoardProps) {
             <HiOutlineNewspaper />
             {t("dashboard.messages")}
           </DashboardMeuItem>
-          <DropdownMenu
-            options={[
-              { label: "cs", onClick: () => handleLangChange("cs") },
-              { label: "en", onClick: () => handleLangChange("en") },
-              { label: "de", onClick: () => handleLangChange("de") },
-            ]}
-          >
-            <Button
-              variant="ternary"
-              size="small"
-              style={{ fontSize: "1.2rem", fontWeight: "400",width:'100%'}}
-            >
-              <IoFlagOutline/>
-              {lang}
-            </Button>
-          </DropdownMenu>
-          <DashboardMeuItem path="/">
-            <IoHomeOutline />
-            {t("dashboard.home")}
-          </DashboardMeuItem>
-          <Button variant="ternary" size="small" onClick={handleLogout}><IoLogOutOutline/>Odhlásit se</Button>
-        </DashboardMenu>
-        
-      </DashboardLeft>
+        </div>
+      )}
+
+      {/* Obsah */}
       <DashboardRight>{children}</DashboardRight>
     </Dashboard>
   );

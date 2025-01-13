@@ -104,6 +104,10 @@
 .m-64 {
   margin: 64px;
 }
+
+.my-8{
+  margin-block: 8px;
+}
   
   .my-16{
     margin-block: 16px;
@@ -161,7 +165,10 @@
     margin-top: 64px;
   }
 
-  
+.mr-8 {
+  margin-right: 8px;
+}  
+
 .m-0 {
   margin: 0;
 }

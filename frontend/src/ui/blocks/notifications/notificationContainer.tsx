@@ -26,7 +26,8 @@ import { TabsHeader,TabsHeaderItem } from "../../components/tabs/tabs";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/reduxStore";
 import { ModalContext } from "../../../context/modalContext";
-import { MessageModal } from "../../modals/messageModal";
+import { NewMessageModal, ReadMessageModal } from "../../modals/messageModal";
+import { useNavigate } from "react-router";
 
 type NotificationContainerProps = {
   notifications: INotification[] | undefined;
@@ -62,7 +63,7 @@ export function NotificationContainer({
         </div>
       </div>
     </div>
-    <MessageModal/>
+    <NewMessageModal/>
     </>
   );
 }
@@ -88,21 +89,40 @@ function NotificationsHeader() {
 type NotificationItemProps = {
   notificationInput: INotification;
   flow: "from" | "to";
+  isExternal?:boolean;
 };
 
 export function NotificationItem({
   notificationInput,
   flow,
+  isExternal = false
 }: NotificationItemProps) {
   const { notification, setNotification } = useContext(NotificationContext);
     const [readMessage] = useReadNotificationMutation();
 
+    const navigate = useNavigate();
+
     const handleReadNotification = () => {
-        setNotification(notificationInput);
-        if(notification && !notification.readAt){
-            readMessage({id:notification.id});
+      if(isExternal){
+        navigate('/app/mail');
+      };
+      if (!notification || notification.id !== notificationInput.id) {
+        if(notificationInput.readAt){
+          setNotification(notificationInput);
         }
+        setNotification({...notificationInput,readAt:new Date})
+        readMessage({id:notificationInput.id});
+      }
+        
     };
+
+   /* useEffect(()=>{
+      console.log(notification);
+      if(notification && !notification.readAt){
+        
+        
+    }
+    },[notification]);*/
 
   return (
     <div
@@ -129,7 +149,23 @@ export function NotificationDetail({
   flow,
 }: Omit<NotificationItemProps, "notificationInput">) {
   const { notification } = useContext(NotificationContext);
+  const [mobile,setMobile] = useState(false);
 
+  const checkMobile = () => {
+    window.innerWidth < 992 ? setMobile(true) : setMobile(false);
+  };
+
+  useEffect(()=>{
+    checkMobile();
+    window.addEventListener('resize',checkMobile);
+
+    return ()=> window.removeEventListener('resize',checkMobile);
+  },[])
+
+  if (mobile){
+    return <ReadMessageModal flow={flow}/> 
+
+  } else {
   if (notification) {
     return (
       <div className="notification__detail px-64 pt-16">
@@ -162,6 +198,7 @@ export function NotificationDetail({
       <IoMailOutline />
     </div>
   );
+  }
 }
 
 export function NewMessage() {

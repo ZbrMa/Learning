@@ -21,6 +21,7 @@ import { useContext } from "react";
 import { ModalContext } from "../../../../context/modalContext";
 import { ForgotPassModal } from "../../../../ui/modals/forgotPassModal";
 import { useTranslation } from "react-i18next";
+import { setLang } from "../../../../redux/languageSlice";
 
 export function Login() {
   const [loginTrigger, { data, isLoading, isError }] = useLoginMutation();
@@ -69,6 +70,11 @@ export function Login() {
         localStorage.setItem("authToken", token);
         localStorage.setItem("tokenExpiry", expiryTime.toString());
         dispatch(loginSuccess({ ...data.user, token, authChecked: true }));
+
+        if(data.user.lang) {
+          dispatch(setLang(data.user.lang));
+        };
+        
         navigate(`/`);
       }
     }

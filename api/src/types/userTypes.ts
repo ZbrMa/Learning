@@ -23,13 +23,14 @@ export interface IUser {
     image:string,
     role:number,
     inserted:Date,
+    lang?:'cs'|'en'|'de' | null,
 };
 
 export interface GetUserResponse extends IUser {
     arts:IArt[]
 };
 
-export type INewUser = Pick<IUser, 'name' | 'surname' | 'email' | 'password' | 'nick' | 'birth' | 'country' | 'city' | 'address' | 'band' | 'phone'>;
+export type INewUser = Pick<IUser, 'name' | 'surname' | 'email' | 'password' | 'nick' | 'birth' | 'country' | 'city' | 'address' | 'band' | 'phone' | 'lang'>;
 export type IEditableUser = Omit<IUser, |'name'| 'surname' | 'email' | 'birth' | 'checked' | 'role' | 'password'>;
 
 export interface IChangePassword {
@@ -40,4 +41,11 @@ export interface IChangePassword {
 
 export interface IForgotPassword {
     email:string,
+};
+
+export interface IUserStatistcs {
+    eventCount:number | null,
+    placeCount:number | null,
+    hourCount:number | null,
+    sixMonthsCount:number | null,
 };

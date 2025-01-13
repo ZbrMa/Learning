@@ -24,3 +24,9 @@ export interface IEventDateRangeFilter {
     from:string,
     to:string,
 };
+
+export interface IUserArts {
+    id:number,
+    user_id:number,
+    art_id:number
+}

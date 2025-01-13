@@ -87,7 +87,7 @@ export const eventApi = apiSlice.injectEndpoints({
         body:payload,
         
       }),
-      invalidatesTags:['events'],
+      invalidatesTags:['userEvents'],
     }),
     getUserEvents: builder.mutation<IEventReduced[],{userId:number,startDate:Date}>({
       query:(payload) => ({

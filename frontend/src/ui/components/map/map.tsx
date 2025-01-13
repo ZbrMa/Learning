@@ -6,22 +6,24 @@ import { LatLngExpression } from "leaflet";
 import L from 'leaflet';
 import './map.css';
 import { FaMicrophone } from "react-icons/fa";
+import { IPlace } from "../../../types/places";
+import { SpotPopup } from "./mapPopups";
 
 export interface ICoordinates {
-    clong:number,
-    clat:number,
+    longitude:number,
+    latitude:number,
     name:string,
 }
 
 function getAverage (array:Array<ICoordinates>):LatLngExpression {
-    const latAvg = array.map(item=>item.clat).reduce((acc,curr)=>acc+curr,0)/array.length;
-    const longAvg = array.map(item=>item.clong).reduce((acc,curr)=>acc+curr,0)/array.length;
+    const latAvg = array.map(item=>item.latitude).reduce((acc,curr)=>acc+curr,0)/array.length;
+    const longAvg = array.map(item=>item.longitude).reduce((acc,curr)=>acc+curr,0)/array.length;
 
     return [latAvg, longAvg];
 };
 
 type MapProps = {
-    points?:ICoordinates[]
+    points?:IPlace[],
 }
 
 export default function Map({points}:MapProps) {
@@ -50,14 +52,14 @@ export default function Map({points}:MapProps) {
 
     if (points) {
         return (
-            <MapContainer center={[points[0].clong,points[0].clat]} zoom={17} scrollWheelZoom={true}>
+            <MapContainer center={[points[0].longitude,points[0].latitude]} zoom={17} scrollWheelZoom={true}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {points.map((point)=>(
-                    <Marker position={[point.clong, point.clat]} key={point.clong+point.clat} icon={customIcon}>
-                        <Popup>{point.name}</Popup>
+                    <Marker position={[point.longitude, point.latitude]} key={point.longitude+point.latitude} icon={customIcon}>
+                        <Popup><SpotPopup place={point}/></Popup>
                     </Marker>
                 ))}
                 
@@ -78,8 +80,3 @@ export default function Map({points}:MapProps) {
     }  
 }
 
-
-
-export function MarkerIcon () {
-
-};

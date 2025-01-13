@@ -120,6 +120,7 @@
     min-width: 500px;
     max-width: 700px;
     width: 100%;
+    max-width: 100%;
     height: 300px;
     padding: 0 0 16px 0;
     border-bottom: 2px solid var(--lightGray);
@@ -200,4 +201,8 @@
         align-content: center;
     }
 
+    .notification__new textarea {
+        max-width: 100%;
+        min-width: 100%;
+    }
 }

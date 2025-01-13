@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo, useMemo } from "react";
 import {
   addWeeks,
   startOfWeek,
@@ -7,42 +7,49 @@ import {
   addDays,
   isSameDay,
   getWeek,
-  compareDesc,
+  isBefore,
+  parse,
+  compareAsc
 } from "date-fns";
-import { cs } from "date-fns/locale";
+import { cs, de, enUS } from "date-fns/locale";
 import "./schedule.css";
 import { Button, IconButton } from "../button/button";
 import { IoArrowBackOutline, IoArrowForwardOutline } from "react-icons/io5";
-import { IAdminEvent, IEventReduced } from "../../../types/events";
+import { IEventReduced } from "../../../types/events";
+import { Spinner } from "../spinner/spinner";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/reduxStore";
 
 const hours = Array.from({ length: 11 }, (_, i) => `${10 + i}:00`); // Hodiny od 10:00 do 20:00
-const daysOfWeek = [
-  "Pondělí",
-  "Úterý",
-  "Středa",
-  "Čtvrtek",
-  "Pátek",
-  "Sobota",
-  "Neděle",
-];
+
+const locales = {
+  cs: cs,
+  en: enUS,
+  de: de,
+};
 
 type ScheduleProps = {
   events?: IEventReduced[];
-  returnInterval: (start: Date) => void;
+  returnInterval?: (start: Date) => void;
   buttonText: string;
   eventClick: (id: number) => void;
-  variant?: "default" | "daysOnTop"; // Nový prop pro variantu
+  variant?: "default" | "daysOnTop";
   isAdmin?:boolean;
+  hasFilter?:boolean;
+  isLoading?:boolean;
 };
 
-export function Schedule({
+export const Schedule = memo(function Schedule({
   events = [],
   returnInterval,
   buttonText,
   eventClick,
   variant = "default",
   isAdmin=false,
+  hasFilter=true,
+  isLoading=false,
 }: ScheduleProps) {
+  const { lang } = useSelector((root: RootState) => root.lang);
   const [currentWeekStart, setCurrentWeekStart] = useState(
     startOfWeek(new Date(), { weekStartsOn: 1 })
   );
@@ -69,13 +76,13 @@ export function Schedule({
     setCurrentWeekStart((prev) => addWeeks(prev, direction));
   };
 
-  const getDaysInWeek = () => {
+  const getDaysInWeek = useMemo(() => {
     return Array.from({ length: 7 }, (_, i) => addDays(currentWeekStart, i));
-  };
+  }, [currentWeekStart]);
 
   useEffect(() => {
-    returnInterval(currentWeekStart);
-  }, [currentWeekStart]);
+    returnInterval && returnInterval(currentWeekStart);
+  }, [currentWeekStart, returnInterval]);
 
   const getEventsForCell = (day: Date, hour: string) => {
     return events.filter(
@@ -88,6 +95,8 @@ export function Schedule({
 
   return (
     <div className="schedule">
+      {isLoading && <Spinner/>}
+      {hasFilter &&
       <div className="schedule__header">
         <div className="flex g-16 items-center content-center mb-32">
           <IconButton onClick={() => handleWeekChange(-1)}>
@@ -105,6 +114,7 @@ export function Schedule({
           </IconButton>
         </div>
       </div>
+      }
 
       {mobile === "default" ? (
         <div className="default__sched">
@@ -123,10 +133,11 @@ export function Schedule({
             ))}
           </div>
           <div className="schedule__grid">
-            {getDaysInWeek().map((day) => (
+            {getDaysInWeek.map((day) => (
               <div key={day.toISOString()} className="schedule__row">
-                <div className="schedule__day bg-black tx-white">
-                  {format(day, "EEEEEE", { locale: cs })}
+                <div className="schedule__day tx-white px-8">
+                  <span className="tx-xs mr-8">{format(day, "EEEEEE", { locale: locales[lang] })}</span>
+                  <span className="xbold">{format(day,'dd.MM.',{locale:locales[lang]})}</span>
                 </div>
                 {hours.map((hour) => {
                   const eventsInCell = events ? getEventsForCell(day, hour) : [];
@@ -151,9 +162,11 @@ export function Schedule({
                           const widthPercent = (durationInMinutes / 60) * cellWidthPercent;
                   
                           return (
+                            //outer container
                             <div
                               key={event.id}
-                              className={`schedule__event ${isAdmin? 'admin':''} ${event.nick? 'occupied' : ''}`}
+                              className={`schedule__event p-4 box ${isAdmin? 'admin':''} ${!isAdmin? 'occupied' : ''} ${
+                                !isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day)) ? 'old' : ''}`}
                               style={{
                                 position: "absolute",
                                 left: `${leftOffsetPercent}%`,
@@ -163,15 +176,37 @@ export function Schedule({
                                 margin: "auto",
                               }}
                             > 
-                              {isAdmin && event.nick && <>{event.nick}</>}
-                              {isAdmin && !event.nick && <>?</>}
-                              {!isAdmin && <>{event.city}, {event.spot}</>}
-                              {compareDesc(event.day,new Date) !==0 && endHour >= (new Date).getHours() &&
-                                <div className="schedule__event--back">
+                            {/*inner content*/}
+                            <div className="relative event__inner flex box items-center">
+                              {
+                                  isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day)) &&
                                 <Button onClick={() => eventClick(event.id)}>
-                                  {buttonText}
+                                        {buttonText}
                                 </Button>
-                              </div>}
+                              }
+                              <span className="event-rect"></span>
+                              <div className="w-full">
+                                {/* Dynamický obsah na základě podmínek */}
+                                <p className="text-left bold event--place">
+                                  {isAdmin 
+                                    ? (event.nick ? event.nick : "?") 
+                                    : `${event.spot}`}
+                                </p>
+                                <p className="mb-4 text-left">
+                                  {event.start.split(":").slice(0, 2).join(":")} - {event.end.split(":").slice(0, 2).join(":")}
+                                </p>
+                              </div>
+                            </div>
+                              {/*!(compareAsc(new Date(event.day), new Date()) === -1 &&
+                                !isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day))) &&
+                                
+                                <div className="schedule__event--back">
+                                  <div className="schedule__event--back__inner relative">
+                                    <Button onClick={() => eventClick(event.id)}>
+                                      {buttonText}
+                                    </Button>
+                                </div>
+                              </div>*/}
                             </div>
                           );
                         })
@@ -195,17 +230,18 @@ export function Schedule({
               {getWeek(currentWeekStart)}
             </span>
           </div>
-          {getDaysInWeek().map((day) => (
-            <div key={day.toISOString()} className="schedule__day tx-white">
-              {format(day, "EEEEEE", { locale: cs })}
-            </div>
+          {getDaysInWeek.map((day) => (
+            <div className="schedule__day tx-white px-8">
+              <span className="tx-xs mr-8">{format(day, "EEEEEE", { locale: locales[lang] })}</span>
+              <span className="xbold">{format(day,'dd.MM.',{locale:locales[lang]})}</span>
+          </div>
           ))}
         </div>
         <div className="schedule__grid">
           {hours.map((hour) => (
             <div key={hour} className="schedule__row">
               <div className="schedule__hour bg-black tx-white">{hour}</div>
-              {getDaysInWeek().map((day) => {
+              {getDaysInWeek.map((day) => {
                 const eventsInCell = events ? getEventsForCell(day, hour) : [];
 
                 return (
@@ -215,37 +251,65 @@ export function Schedule({
                     style={{ position: "relative" }}
                   >
                     {eventsInCell.length > 0 ? (
-                      eventsInCell.map((event) => {
+                      eventsInCell.map((event) => {                
+                        const cellHeightPercent = 100;
+
                         const [startHour, startMinute] = event.start.split(":").map(Number);
                         const [endHour, endMinute] = event.end.split(":").map(Number);
-                
+                  
                         const startInMinutes = startHour * 60 + startMinute;
                         const endInMinutes = endHour * 60 + endMinute;
                         const durationInMinutes = endInMinutes - startInMinutes;
-                
-                        const cellHeightPercent = 100;
-                        const topOffsetPercent = (startMinute / 60) * cellHeightPercent;
-                        const heightPercent = (durationInMinutes / 60) * cellHeightPercent;
+
+                          const cellWidthPercent = 100;
+                          const topOffsetPercent = (startMinute / 60) * cellHeightPercent;
+                          const heightPercent = (durationInMinutes / 60) * cellHeightPercent;
                 
                         return (
+                          //outer container
                           <div
                             key={event.id}
-                            className={`schedule__event ${isAdmin? 'admin':''} ${event.nick? 'occupied' : ''}`}
+                            className={`schedule__event p-4 box ${isAdmin? 'admin':''} ${!isAdmin? 'occupied' : ''} ${
+                              !isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day)) ? 'old' : ''}`}
                             style={{
                               position: "absolute",
                               top: `${topOffsetPercent}%`,
                               height: `${heightPercent}%`,
-                              width: `calc(100% - 2px)`,
+                              width: "calc(100% - 2px)",
                               margin: "auto",
                             }}
-                          >
-                            {isAdmin ? (<>{event.nick}</>):(<>{event.city}, {event.spot}</>)}
-                            {compareDesc(event.day,new Date) !==0 && endHour >= (new Date).getHours() &&
-                            <div className="schedule__event--back">
+                          > 
+                          {/*inner content*/}
+                          <div className="relative event__inner flex box items-center">
+                            {
+                                isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day)) &&
                               <Button onClick={() => eventClick(event.id)}>
-                                {buttonText}
+                                      {buttonText}
                               </Button>
-                            </div>}
+                            }
+                            <span className="event-rect"></span>
+                            <div className="w-full">
+                              {/* Dynamický obsah na základě podmínek */}
+                              <p className="text-left bold event--place">
+                                {isAdmin 
+                                  ? (event.nick ? event.nick : "?") 
+                                  : `${event.spot}`}
+                              </p>
+                              <p className="mb-4 text-left">
+                                {event.start.split(":").slice(0, 2).join(":")} - {event.end.split(":").slice(0, 2).join(":")}
+                              </p>
+                            </div>
+                          </div>
+                            {/*!(compareAsc(new Date(event.day), new Date()) === -1 &&
+                              !isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day))) &&
+                              
+                              <div className="schedule__event--back">
+                                <div className="schedule__event--back__inner relative">
+                                  <Button onClick={() => eventClick(event.id)}>
+                                    {buttonText}
+                                  </Button>
+                              </div>
+                            </div>*/}
                           </div>
                         );
                       })
@@ -262,4 +326,4 @@ export function Schedule({
       )}
     </div>
   );
-}
+});

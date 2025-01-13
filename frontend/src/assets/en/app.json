@@ -9,15 +9,28 @@
         "updateImageError": "Failed to update the image. Please try again later.",
         "updateImageSuccess": "Image updated successfully.",
         "about": "About me/us",
-        "played": "Played",
+        "played": "Performances",
         "playedHours": "Played Hours",
-        "visitedPlaces": "Visited Places"
+        "visitedPlaces": "Visited Places",
+        "sixMonths": "Performances in the last 6 months"
         },
+        "home": {
+    "checkedAcc": "Account verified",
+    "checkPending": "Account awaiting verification",
+    "profileProgress": "Profile completed",
+    "newMess": "New messages",
+    "noNewMess": "No new messages",
+    "thisWkEv": "Calendar for this week",
+    "tooltip": "Remember, if you are inactive for more than 6 months, your account will be deleted."
+},
+
     "dashboard": {
         "findSpot": "Find Spot",
         "profile": "Profile",
         "calendar": "Calendar",
         "messages": "Messages",
-        "home": "Home"
+        "home": "Home",
+        "back": "Leave",
+        "setting": "Settings"
     }
 }

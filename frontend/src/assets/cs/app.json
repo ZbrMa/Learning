@@ -9,15 +9,27 @@
         "updateImageError": "Obrázek se nepodařilo aktualizovat. Zkuste to později.",
         "updateImageSuccess": "Obrázek byl úspěšně aktualizován.",
         "about": "O mě/nás",
-        "played": "Odehráno",
+        "played": "Vystoupení",
         "playedHours": "Odehraných hodin",
-        "visitedPlaces": "Navštívených míst"
+        "visitedPlaces": "Navštívených míst",
+        "sixMonths": "Vystoupení za posledních 6 měsíců"
+    },
+    "home": {
+        "checkedAcc": "Účet ověřen",
+        "checkPending": "Účet čeká na ověření",
+        "profileProgress": "Profil dokončen z",
+        "newMess": "Nové zprávy",
+        "noNewMess": "Žádné nové zprávy",
+        "thisWkEv": "Kalnedář pro tento týden",
+        "tooltip": "Nezapomínej, že pokud nejsi aktivní více než 6 měsíců, tvůj účet bude smazán."
     },
     "dashboard": {
         "findSpot": "Najít spot",
         "profile": "Profil",
         "calendar": "Kalendář",
         "messages": "Zprávy",
-        "home": "Domů"
+        "home": "Domů",
+        "back":"Odejít",
+        "setting":" Nastavení"
     }
 }

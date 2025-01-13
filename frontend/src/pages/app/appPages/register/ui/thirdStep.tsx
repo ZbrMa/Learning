@@ -11,6 +11,8 @@ import { StepsContext } from "../../../../../ui/components/steps/stepsContext";
 import { StepMove } from "../../../../../ui/components/steps/steps";
 import { useTranslation } from "react-i18next";
 
+const LANGUAGES = ['cs','de','en'];
+
 const bandOptions: IOption[] = [
   {
     label: "Solitare",
@@ -95,6 +97,13 @@ export function RegisterThirdStep() {
           defaultValue={user.nick}
           placeholder={t('registerThirdStep.nickPlaceholder')}
           labelPosition="out"
+        />
+        <MySelect
+          options={LANGUAGES.map(lang=>({value:lang,label:lang}))}
+          placeholder={t('registerThirdStep.countryPlaceholder')}
+          label={t('registerThirdStep.countryLabel')}
+          returnSelected={(e) => handleInputChange("lang", e)}
+          optionsStyle={{maxHeight:300}}
         />
       </div>
       <div className="flex g-16 register__btns">

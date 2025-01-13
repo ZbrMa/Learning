@@ -6,6 +6,7 @@ import {
   IUser,
   IChangePassword,
   GetUserResponse,
+  IUserStatistcs,
 } from "../types/users";
 import { MessageResponse } from "./eventApiSlice";
 import apiSlice from "./apiSlice";
@@ -96,6 +97,13 @@ export const userApi = apiSlice.injectEndpoints({
         body: payload,
       }),
     }),
+    getUserStatistics: builder.query<IUserStatistcs, { userId: number }>({
+      query: (user) => ({
+        url: "/userStatistics",
+        method: "POST",
+        body: user,
+      }),
+    }),
   }),
 });
 
@@ -111,4 +119,5 @@ export const {
   useCheckNickMutation,
   useCheckUserMutation,
   useGetUserQuery,
+  useGetUserStatisticsQuery,
 } = userApi;

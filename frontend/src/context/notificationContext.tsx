@@ -18,6 +18,12 @@ type NotificationContextProps = {
 function NotificationContextProvider({ children }: NotificationContextProps) {
   const [notification, setNotification] = useState<INotification | null>(null);
 
+  useEffect(()=>{
+    if(window.location.pathname !== '/app/mail' && window.location.pathname !== '/app/adminPage/notifications'){
+      setNotification(null);
+    };
+  },[window.location.pathname]);
+
   return (
     <NotificationContext.Provider value={{ notification, setNotification }}>
       {children}

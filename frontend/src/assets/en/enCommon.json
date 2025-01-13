@@ -14,7 +14,9 @@
       "admin": "Administration",
       "join": "Join",
       "next": "Next",
-      "prev": "Prev"
+      "prev": "Prev",
+      "cancel": "Cancel",
+       "booking": "Add"
     },
     "label": {
       "address": "Address",

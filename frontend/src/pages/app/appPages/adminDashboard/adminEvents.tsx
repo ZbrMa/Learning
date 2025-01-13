@@ -1,85 +1,78 @@
 import {
   useGetAdminEventsQuery,
+  useDeleteEventMutation
 } from "../../../../api/eventApiSlice";
 import { useGetPlacesQuery } from "../../../../api/filtersApiSlice";
-import { useState, useEffect } from "react";
-import { IEventFilter } from "../../../../types/filtersTypes";
-import { endOfWeek, format, parseISO, addDays } from "date-fns";
-import { useSearchParams } from "react-router-dom";
-import { Schedule } from "../../../../ui/components/schedule/schedule";
+import { useState } from "react";
+import { format } from "date-fns";
+import {Schedule} from "../../../../ui/components/schedule/schedule";
 import { cs } from "date-fns/locale";
 import { IPlace } from "../../../../types/filtersTypes";
 import { Spinner } from "../../../../ui/components/spinner/spinner";
 import { GroupedSelect } from "../../../../ui/components/groupedSelect/groupedSelect";
 import { AdminDashboard } from "./adminDashboard";
-import { AdminNewPlaceModal } from "../../../../ui/modals/adminPlaceModal";
 import { Button } from "../../../../ui/components/button/button";
 import { IoAddOutline } from "react-icons/io5";
 import { useContext } from "react";
 import { ModalContext } from "../../../../context/modalContext";
+import { Alert } from "../../../../ui/components/alert/alert";
+import { useAlert } from "../../../../context/alertContext";
+import { useCallback } from "react";
+import { AdminEventModal } from "../../../../ui/modals/adminEventModal";
 
 export function AdminEvents() {
-  const { data: places, isLoading: placesLoading } = useGetPlacesQuery();
   const {setModal} = useContext(ModalContext);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [range, setRange] = useState<{ from: Date; to: Date }>({
-    from: searchParams.get("from")
-      ? parseISO(searchParams.get("from")!)
-      : new Date(),
-    to: searchParams.get("to")
-      ? parseISO(searchParams.get("to")!)
-      : endOfWeek(new Date(), { locale: cs }),
-  });
-  const [filters, setFilters] = useState<IEventFilter>({
-    places: searchParams.get("places")
-      ? searchParams.get("places")!.split(",").map(Number)
-      : [],
-    arts: searchParams.get("arts")
-      ? searchParams.get("arts")!.split(",").map(Number)
-      : [],
-  });
+  const [startDate,setStartDate] = useState(new Date());
+  const [place,setPlace] = useState<number[]>([]);
+  const { data: places, isLoading: placesLoading } = useGetPlacesQuery();
   const {
     data: events,
-    isLoading: eventsLoading,
-    isFetching: eventsFetching,
+    isLoading,
+    isFetching
   } = useGetAdminEventsQuery(
-    {
-      from: format(range.from, "yyyy-MM-dd"),
-      places:filters.places,
+  { 
+      from: format(startDate, "yyyy-MM-dd"),
+      places:place,
     },
-    { refetchOnMountOrArgChange: true }
+    {refetchOnMountOrArgChange:true}
   );
 
-  const handleSelect = (type: keyof IEventFilter, values: number[]) => {
-    setFilters({
-      ...filters,
-      [type]: values,
-    });
+  const [deleteEvent] = useDeleteEventMutation();
+
+  const { showAlert } = useAlert();
+
+  const deleteClick = useCallback((id: number) => {
+    const event = events?.find(ev=>ev.id===id);
+    
+    if (event)
+    showAlert(
+      <Alert type="neutral" title="Opravdu si přejete smazat záznam?">
+        <div className="flex-col g-8">
+        <div>
+          Kdy: {format(event.day, "dd.MM.yyyy")}, {event.start} - {event.end}
+        </div>
+        <div>
+          Místo: {event.city}, {event.spot}
+        </div>
+        {event.nick && <div>Uživatel: {event.nick}</div>}
+        <Button size="small" style={{fontSize:'0.9rem', padding:'0.6rem'}} onClick={() => handleDelete(event.id)}>
+          Smazat
+        </Button>
+        </div>
+      </Alert>,
+      10000
+    );
+  },[]);
+
+  const handleDelete = async (id: number) => {
+    const response = await deleteEvent({ id: id });
+
+    if (response.error) {
+      showAlert(<Alert type="negative">Nepodařilo se smazat záznam.</Alert>);
+    } else if (response.data) {
+      showAlert(<Alert type="positive">Záznam byl úspěšně smazán.</Alert>);
+    }
   };
-
-  useEffect(() => {
-    const places = searchParams.get("places")?.split(",").map(Number) || [0];
-    const arts = searchParams.get("arts")?.split(",").map(Number) || [];
-    const from = searchParams.get("from")
-      ? parseISO(searchParams.get("from")!)
-      : new Date();
-    const to = searchParams.get("to")
-      ? parseISO(searchParams.get("to")!)
-      : addDays(endOfWeek(new Date()), 1);
-
-    setFilters({ places, arts });
-    setRange({ from, to });
-  }, [searchParams]);
-
-  useEffect(() => {
-    const params: any = {};
-    if (filters.places.length) params.places = filters.places.join(",");
-    if (filters.arts.length) params.arts = filters.arts.join(",");
-    params.from = format(range.from, "yyyy-MM-dd");
-    params.to = format(range.to, "yyyy-MM-dd");
-
-    setSearchParams(params);
-  }, [filters, range, setSearchParams]);
 
   return (
   <>
@@ -108,26 +101,22 @@ export function AdminEvents() {
             groupKey={"city"}
             multiSelect={false}
             defaultValue={places[0]}
-            returnSelected={(e) =>
-              handleSelect(
-                "places",
-                [e.id]
-              )
-            }
+            returnSelected={(e) =>setPlace([...place,e.id])}
           />
         )
       )}
-      <Schedule
+
+        <Schedule
         events={events}
-        returnInterval={(e) =>
-          setRange({ from: e, to: endOfWeek(e, { locale: cs }) })
-        }
-        eventClick={()=>(console.log('ahoj'))}
+        returnInterval={setStartDate}
+        eventClick={deleteClick}
         buttonText="Smazat"
         isAdmin
+        isLoading = {isLoading || isFetching}
       />
+      
     </AdminDashboard>
-    <AdminNewPlaceModal/>
+    <AdminEventModal/>
     </>
   );
 }

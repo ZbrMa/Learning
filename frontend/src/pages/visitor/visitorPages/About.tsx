@@ -2,6 +2,7 @@ import { useGetAdminPlacesQuery } from "../../../api/placeApiSlice";
 import { AboutCitiesBlock } from "../../../ui/blocks/aboutPage/aboutCities/aboutCitites";
 import { BodyBlock, MainHeader } from "../../../ui/blocks/common/bodyBlock/bodyBlock";
 import Map from "../../../ui/components/map/map";
+import { SpotPopup } from "../../../ui/components/map/mapPopups";
 import { Spinner } from "../../../ui/components/spinner/spinner";
 import { VisitorLayout } from "../visitorLayout";
 
@@ -19,15 +20,10 @@ export function AboutPage() {
   } else if (places) {
     return (
       <VisitorLayout>
-        <AboutCitiesBlock places={places} />
         <BodyBlock style={{minHeight:'100vh'}}>
           <MainHeader>Mapa míst</MainHeader>
             <Map
-                points={places?.map((place) => ({
-                  clong: place.longitude,
-                  clat: place.latitude,
-                  name:place.city + ', ' + place.spot
-                }))}
+                points={places}
               />
               
         </BodyBlock>

@@ -9,15 +9,28 @@
         "updateImageError": "Das Bild konnte nicht aktualisiert werden. Bitte versuchen Sie es später erneut.",
         "updateImageSuccess": "Bild erfolgreich aktualisiert.",
         "about": "Über mich/uns",
-        "played": "Gespielt",
+        "played": "Auftritten",
         "playedHours": "Gespielte Stunden",
-        "visitedPlaces": "Besuchte Orte"
+        "visitedPlaces": "Besuchte Orte",
+        "sixMonths": "Auftritte in den letzten 6 Monaten"
     },
+    "home": {
+    "checkedAcc": "Konto verifiziert",
+    "checkPending": "Konto wartet auf Verifizierung",
+    "profileProgress": "Profil abgeschlossen",
+    "newMess": "Neue Nachrichten",
+    "noNewMess": "Keine neuen Nachrichten",
+    "thisWkEv": "Kalender für diese Woche",
+    "tooltip": "Denke daran, wenn du länger als 6 Monate inaktiv bist, wird dein Konto gelöscht."
+},
+
     "dashboard": {
-        "findSpot": "Find Spot",
-        "profile": "Profile",
-        "calendar": "Calendar",
-        "messages": "Messages",
-        "home": "Home"
+        "findSpot": "Platz Finden",
+        "profile": "Profil",
+        "calendar": "Kalendar",
+        "messages": "Nachrichten",
+        "home": "Home",
+        "back": "Verlassen",
+        "setting": "Einstellungen"
     }
 }

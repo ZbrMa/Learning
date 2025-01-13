@@ -141,24 +141,11 @@ export function ProfileBlock() {
                 defaultValue={user.description}
               />
             </div>
-            <ProfileStatistics />
           </div>
         </div>
       </div>
 
       <ChnagePasswordForm />
     </>
-  );
-}
-
-function ProfileStatistics() {
-  const { t } = useTranslation("app");
-
-  return (
-    <div className="flex g-32 profile__statistics py-16">
-      <InfoCard name={t("profile.played")}>{75}</InfoCard>
-      <InfoCard name={t("profile.playedHours")}>{150}</InfoCard>
-      <InfoCard name={t("profile.visitedPlaces")}>{5}</InfoCard>
-    </div>
   );
 }

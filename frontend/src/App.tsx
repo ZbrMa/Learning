@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import { Login } from "./pages/app/appPages/login/login";
 import { Register } from "./pages/app/appPages/register/register";
 import { Domu } from "./pages/visitor/visitorPages/Domu";
@@ -21,6 +21,8 @@ import { UserFindSpot } from "./pages/app/appPages/userDashboard/userFindSpot";
 import { UserNotifications } from "./pages/app/appPages/userDashboard/userNotifications";
 import { KontaktPage } from "./pages/visitor/visitorPages/Kontakt";
 import { AboutPage } from "./pages/visitor/visitorPages/About";
+import { UserHome } from "./pages/app/appPages/userDashboard/userHome";
+import { NotificationContextProvider } from "./context/notificationContext";
 
 const events = [
   "mousedown",
@@ -69,30 +71,43 @@ const App: React.FC = () => {
 
   return (
     <Routes>
-      {/*návštěvnické části */}
+      {/* návštěvnické části */}
       <Route path="/" element={<Domu />} />
       <Route path="/events" element={<UdalostiPage />} />
       <Route path="/contact" element={<KontaktPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/user/:userId" element={<UserPage />} />
 
-      {/* části aplikace*/}
+      {/* části aplikace */}
       <Route path="/app/login" element={<Login />} />
       <Route path="/app/register" element={<Register />} />
 
       <Route element={<ProtectedRoute isAuth={!!token} isChecked={authChecked} />}>
+        <Route element={<NotifiactionRoutes />}>
+          <Route path="/app/home" element={<UserHome />} />
+          <Route path="/app/mail" element={<UserNotifications />} />
+        </Route>
         <Route path="/app/calendar" element={<UserCalendar />} />
         <Route path="/app/profile/:userId" element={<UserProfile />} />
         <Route path="/app/findSpot" element={<UserFindSpot />} />
-        <Route path="/app/mail" element={<UserNotifications />} />
-        <Route path="/app/calendar" element={<UserProfile />} />
+        
         <Route path="/app/adminPage/events" element={<AdminEvents />} />
         <Route path="/app/adminPage/places" element={<AdminPlaces />} />
         <Route path="/app/adminPage/users" element={<AdminUsers />} />
-        <Route path="/app/adminPage/notifications" element={<AdminNotifications />}/>
+        <Route path="/app/adminPage/notifications" element={<AdminNotifications />} />
       </Route>
     </Routes>
   );
 };
 
+
 export default App;
+
+function NotifiactionRoutes(){
+
+  return(
+    <NotificationContextProvider>
+      <Outlet/>
+    </NotificationContextProvider>
+  )
+};

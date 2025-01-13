@@ -47,6 +47,7 @@ code {
   --grayText:rgb(120,120,120);
   --lightYellow:rgb(255, 248, 186);
   --darkYellow:rgb(158, 121, 8);
+  --orange: rgb(255, 146, 43);
 }
 
 img {
@@ -132,4 +133,9 @@ p,h1,h2,h3,h4{
 
 .inherit {
   all: inherit;
+}
+
+.country-flag {
+  height: 16px;
+  width: auto;
 }

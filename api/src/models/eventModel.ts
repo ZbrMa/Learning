@@ -2,7 +2,7 @@ import { QueryResult, RowDataPacket } from "mysql2";
 import { db } from "../controllers/database";
 import { IAdminEvent, IEventReduced, INewEvent, IRepeatEvent, IEvent,IEditableEvent } from "../types/eventTypes";
 import { format } from "date-fns";
-import { IEventDateRangeFilter, IEventFilter } from "../types/filterTypes";
+import { IEventDateRangeFilter, IEventFilter, IUserArts } from "../types/filterTypes";
 import { generateIntervals } from "../utils/dateUtils";
 import { IMessageResponse } from "../types/responseTypes";
 
@@ -87,12 +87,14 @@ export const upcomingEvents = async (
 };
 
 
-export const filteredEvents = (
+export const filteredEvents = async(
   eventFilter:{range:IEventDateRangeFilter,filters:IEventFilter,checked:boolean},
   callback: (err: Error | null, results: IEvent[] | null) => void
 ) => {
   let whereClause = '';
+  let artWhereClause = "";
   let params:(string | number)[] = [eventFilter.range.from, eventFilter.range.to];
+  let artParams:number[] = [];
 
   if (eventFilter.filters.places?.length >0){
     params = [...params,...eventFilter.filters.places];
@@ -101,32 +103,79 @@ export const filteredEvents = (
   };
 
   if (eventFilter.filters.arts?.length > 0){
-    params = [...params,...eventFilter.filters.arts];
+    artParams = [...artParams,...eventFilter.filters.arts];
     const artsClause = Array.from({length:eventFilter.filters.arts.length}).fill('?').join(',');
-    whereClause += ` AND a.id IN (${artsClause}) `;
+    artWhereClause += ` WHERE art_id IN (${artsClause}) `;
   };
 
-  const sql = `   SELECT e.id, e.event_day as day, e.event_start as start,e.event_end as end,  p.city, p.spot, a.name as art, u.nick, u.id as artistId,c.name,u.description as about, c.name, u.website, u.facebook, u.instagram, u.twitter, u.image
-              FROM events e
-              LEFT JOIN places p ON e.place_id = p.id
-              LEFT JOIN users u ON e.user_id = u.id
-              LEFT JOIN arts a ON u.art = a.id 
-              LEFT JOIN countries c ON u.country = c.id
-                    WHERE e.user_id IS ${eventFilter.checked ? 'NOT': ''} NULL 
-                    AND e.event_day BETWEEN ? AND ?
-                    AND e.event_day >= CURDATE()
-                    ${whereClause}
-                    ORDER BY e.event_day, e.event_start`;
-  db.query<IEvent[] & RowDataPacket[]>(sql,params, (err, res) => {
-    if (err) {
-      console.log(err);
-      return callback(err, null);
-    } else if (res.length > 0) {
-      return callback(null, res);
-    } else {
-      return callback(err, null);
+  const artsQuery = ` SELECT 
+      ua.user_id, 
+      a.name as artName
+    FROM user_art ua
+    LEFT JOIN arts a ON ua.art_id = a.id`;
+
+    try {
+      // Spuštění dotazu na druhy umění
+      const [arts] = await db.promise().query<
+        { user_id: number; artName: string }[] & RowDataPacket[]
+      >(artsQuery, artParams);
+  
+      // Získání všech uživatelů (pokud nejsou žádní, použijeme prázdný Set)
+      const usersWithArts = new Set(arts.map((art) => art.user_id));
+  
+      // Pokud filtr "arts" není prázdný, přidáme podmínku na uživatele
+      if (eventFilter.filters.arts?.length > 0) {
+        const userClause = Array.from({ length: usersWithArts.size }).fill('?').join(',');
+        whereClause += ` AND (e.user_id IN (${userClause}) OR e.user_id IS NULL)`;
+        params = [...params, ...usersWithArts];
+      }
+  
+      // Dotaz na eventy
+      const sql = `
+        SELECT 
+          e.id, 
+          e.event_day as day, 
+          e.event_start as start,
+          e.event_end as end,  
+          p.city, 
+          p.spot, 
+          u.nick, 
+          u.id as artistId,
+          c.name as countryName,
+          u.description as about, 
+          u.website, 
+          u.facebook, 
+          u.instagram, 
+          u.twitter, 
+          u.image
+        FROM events e
+        LEFT JOIN places p ON e.place_id = p.id
+        LEFT JOIN users u ON e.user_id = u.id
+        LEFT JOIN countries c ON u.country = c.id
+        WHERE e.user_id IS ${eventFilter.checked ? 'NOT' : ''} NULL 
+          AND e.event_day BETWEEN ? AND ?
+          AND e.event_day >= CURDATE()
+          ${whereClause}
+        ORDER BY e.event_day, e.event_start;
+      `;
+  
+      // Spuštění dotazu na eventy
+      const [events] = await db.promise().query<IEvent[] & RowDataPacket[]>(sql, params);
+  
+      // Obohacení eventů o informace o druzích umění
+      const enrichedEvents = events.map((event) => ({
+        ...event,
+        arts: arts
+          .filter((ua) => ua.user_id === event.artistId)
+          .map((ua) => ua.artName),
+      }));
+  
+      // Vrácení výsledků
+      return callback(null, enrichedEvents);
+    } catch (err) {
+      console.error(err);
+      return callback(err as Error, null);
     }
-  });
 };
 
 export const adminEventsModel = (
@@ -259,7 +308,15 @@ export const loginEventModel = (
   const conflictCheckSql = `
     SELECT id 
     FROM events 
-    WHERE user_id = ? AND event_day = ? AND event_start = ? AND event_end = ?
+    WHERE 
+      user_id = ? 
+      AND event_day = ? 
+      AND (
+        (event_start < ? AND event_end > ?) -- Nový začátek je uvnitř existující události
+        OR (event_start < ? AND event_end > ?) -- Nový konec je uvnitř existující události
+        OR (event_start >= ? AND event_end <= ?) -- Nová událost je plně uvnitř existující
+        OR (event_start <= ? AND event_end >= ?) -- Existující událost je plně uvnitř nové
+      )
   `;
 
   const updateSql = 'UPDATE events SET user_id = ? WHERE id = ?';
@@ -277,27 +334,39 @@ export const loginEventModel = (
 
     const { event_day, event_start, event_end } = eventDetails[0];
 
-    db.query(conflictCheckSql, [userId, event_day, event_start, event_end], (err, conflictRes) => {
-      if (err) {
-        return callback(err, { success: false, message: 'Chyba při kontrole konfliktu.' });
-      }
-
-      const conflicts = conflictRes as RowDataPacket[];
-
-      if (conflicts.length > 0) {
-        return callback(null, { success: false, message: 'Nemůžeš být na dvou místech zároveň. :)' });
-      }
-
-      db.query(updateSql, [userId, id], (err) => {
+    db.query(
+      conflictCheckSql,
+      [
+        userId,
+        event_day,
+        event_start, event_start,
+        event_end, event_end,
+        event_start, event_end,
+        event_start, event_end
+      ],
+      (err, conflictRes) => {
         if (err) {
-          return callback(err, { success: false, message: 'Chyba při přihlašování.' });
+          return callback(err, { success: false, message: 'Chyba při kontrole konfliktu.' });
         }
 
-        return callback(null, { success: true, message: 'Úspěšně zabookováno.' });
-      });
-    });
+        const conflicts = conflictRes as RowDataPacket[];
+
+        if (conflicts.length > 0) {
+          return callback(null, { success: false, message: 'Nemůžeš být na dvou místech zároveň. :)' });
+        }
+
+        db.query(updateSql, [userId, id], (err) => {
+          if (err) {
+            return callback(err, { success: false, message: 'Chyba při přihlašování.' });
+          }
+
+          return callback(null, { success: true, message: 'Úspěšně zabookováno.' });
+        });
+      }
+    );
   });
 };
+
 
 export const signOutEventModel = (id:number,callback:(err:Error | null, response:{ success: boolean; message: string })=>void) => {
   const sql = 'UPDATE events SET user_id = NULL WHERE id = ?';
@@ -336,4 +405,33 @@ export const userEventsModel = (
       return callback(null, null);
     }
   });
+};
+
+export const userUpcomingEventsModel = (userId:number,callback:(err:Error | null,response:Omit<IEventReduced, 'nick'>[] | null)=>void) => {
+  const sql = `SELECT 
+                e.id,
+                e.event_day as day,
+                e.event_start as start,
+                e.event_end as end,
+                p.city,
+                p.spot 
+              FROM 
+                events e 
+              LEFT JOIN places p ON e.place_id = p.id 
+              WHERE 
+                e.event_day BETWEEN NOW() AND (NOW() + INTERVAL 6 DAY) 
+                AND (TIME_FORMAT(e.event_start,'%H:%i') >= TIME_FORMAT(CURRENT_TIME(),'%H:%i') OR TIME_FORMAT(e.event_end ,'%H:%i') <= TIME_FORMAT(CURRENT_TIME(),'%H:%i')) 
+                AND e.user_id = ? `;
+
+  db.query<Omit<IEventReduced, 'nick'>[] & RowDataPacket[]>(sql,[userId],(err,res)=>{
+    if(err){
+      console.error(err);
+      return callback(err,null);
+    } else if (res.length > 0) {
+      return callback(null,res);
+    } else {
+      return callback(null,null);
+    }
+  })
+
 };

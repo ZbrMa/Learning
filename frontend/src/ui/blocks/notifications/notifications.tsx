@@ -28,7 +28,6 @@ export function Notifications() {
   } = useGetSentNotificationsQuery({ userId: id });
 
   return (
-      <NotificationContextProvider>
         <Tabs defaultTab="in">
           <TabBody>
             <TabItem value="in">
@@ -53,6 +52,5 @@ export function Notifications() {
             </TabItem>
           </TabBody>
         </Tabs>
-      </NotificationContextProvider>
   );
 }

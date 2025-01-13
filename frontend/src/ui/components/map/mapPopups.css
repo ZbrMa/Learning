@@ -1,0 +1,10 @@
+.spot__popup img {
+    max-height: 120px;
+    
+    width: 100%;
+    border-radius: var(--radius);
+}
+
+.spot--desc {
+    font-size: 0.9rem;
+}

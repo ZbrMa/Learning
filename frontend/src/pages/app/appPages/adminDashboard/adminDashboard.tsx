@@ -8,7 +8,7 @@ import {
 } from "../../layout/dashboard";
 import { Link } from "react-router-dom";
 import { Button, IconButton } from "../../../../ui/components/button/button";
-import { IoCalendarOutline, IoHomeOutline } from "react-icons/io5";
+import { IoArrowBackOutline, IoCalendarOutline, IoHomeOutline } from "react-icons/io5";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { TbMapPin2 } from "react-icons/tb";
 import { HiOutlineNewspaper } from "react-icons/hi2";
@@ -43,8 +43,8 @@ export function AdminDashboard({ children }: AdminDashBoardProps) {
 
         <Link to="/"  style={{ marginTop: "auto" }}>
           <Button size="small" variant="ternary">
-            <IoHomeOutline />
-            Domů
+            <IoArrowBackOutline />
+            Odejít
           </Button>
         </Link>
       </DashboardLeft>

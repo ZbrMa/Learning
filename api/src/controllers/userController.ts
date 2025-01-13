@@ -10,6 +10,7 @@ import {
   checkNickModel,
   checkUserModel,
   getUserModel,
+  userStatisticsModel,
 } from "../models/userModel";
 import { Request, Response , RequestHandler} from "express";
 import { IChangePassword, IEditableUser, IForgotPassword, INewUser, IUser } from "../types/userTypes";
@@ -45,11 +46,10 @@ export const createNewUser = (req: Request, res: Response) => {
     country: req.body.country,
     phone: req.body.phone,
     nick: req.body.nick,
+    lang:req.body.lang,
   };
 
-  const lang = (req.headers['language'] || 'en') as 'en' | 'de' | 'cs';
-
-  postNewUser(newUser, lang, (err, result) => {
+  postNewUser(newUser, (err, result) => {
     if (err) {
       console.log("registrace", err);
       return res.status(500).json(result);
@@ -195,4 +195,15 @@ export const uploadUserImage: RequestHandler = (req, res, next) => {
   });
 
   return;
+};
+
+export const userStatistics = (req:Request,res:Response) => {
+
+  userStatisticsModel(req.body.userId,(err,result)=>{
+    if (err) {
+      return res.status(500).json(result);
+    } else{
+      res.status(200).json(result);
+    }
+  });
 };

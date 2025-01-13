@@ -23,7 +23,7 @@ type DashboardLeftProps = {
 export function DashboardLeft({children}:DashboardLeftProps){
     return(
         <div className='p-32 dash__left box'>
-            <div className='dash__left__inner flex-col g-64'>{children}</div>
+            <div className='dash__left__inner flex-col'>{children}</div>
     </div>
     );
 };
@@ -42,14 +42,22 @@ export function DashboardMenu({children}:DashBoardMenuProps){
 
 interface DashboardMeuItemProps extends HTMLAttributes<HTMLElement> {
     children:ReactNode,
-    path:string,
+    path?:string,
+    color?:'def'|'red',
 };
 
-export function DashboardMeuItem({children,path, ...props}:DashboardMeuItemProps){
+export function DashboardMeuItem({children,path,color='def', ...props}:DashboardMeuItemProps){
+
+    if (path) {
+        return(
+            <Link to={path} className='dash--menu--item' {...props}><Button variant={color === 'def' ? 'ternary' : 'primary'} size='small'>{children}</Button></Link>
+        );
+    };
 
     return(
-        <Link to={path} className='dash--menu--item' {...props}><Button variant='ternary' size='small'>{children}</Button></Link>
+        <div className='dash--menu--item' {...props}><Button variant={color === 'def' ? 'ternary' : 'primary'} size='small'>{children}</Button></div>
     );
+    
 };
 
 type DashboardRightProps = {

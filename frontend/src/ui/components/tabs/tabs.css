@@ -31,3 +31,13 @@
     background-color: var(--lightGray);
     color: var(--black);
 }
+
+.tabs__header--item:first-child {
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+}
+
+.tabs__header--item:last-child {
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+}
