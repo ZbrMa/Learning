@@ -109,7 +109,8 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns:19% 19% 24% 19% 19%;
     justify-content: space-around;
     align-items: center;
     background-color: var(--black);
@@ -189,9 +190,9 @@
         flex-grow: 1;
     }
 
-    .bottom-bar .dash--menu--item, .bottom-bar .dash__left a {
-        max-width: 64px;
-    }
+    /*.bottom-bar .dash--menu--item, .bottom-bar .dash__left a {
+        width: 64px;
+    }*/
 
     .bottom-bar .dashboard .logo {
         display: none;

@@ -47,7 +47,7 @@ export function ReadMessageModal({flow}:ReadMessageProps){
                         </p>
                       </div>
                     </div>
-                    <p className="tx-sm">{notification.content}</p>
+                    <p className="tx-sm modal__message--content">{notification.content}</p>
                   </div>
                 )
               }
