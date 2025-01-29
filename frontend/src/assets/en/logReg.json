@@ -58,7 +58,8 @@
         "artLabel": "Type of Busking",
         "artPlaceholder": "Select your type of busking",
         "serverError": "Server error. Please try again later.",
-        "nickTaken": "This stage name is already in use."
+        "nickTaken": "This stage name is already in use.",
+        "langPlaceholder": "Prefered language"
     },
     "registerFourthStep": {
         "checkInfo": "Please check your information again",

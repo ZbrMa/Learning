@@ -1,9 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import { Login } from "./pages/app/appPages/login/login";
-import { Register } from "./pages/app/appPages/register/register";
-import { Domu } from "./pages/visitor/visitorPages/Domu";
-import { UdalostiPage } from "./pages/visitor/visitorPages/Udalosti";
-import { UserPage } from "./pages/visitor/visitorPages/User";
+import { Login } from "./pages/login/login";
+import { Register } from "./pages/register/register";
+import {Home} from "./pages/home/Home";
 import { ProtectedRoute } from "./ui/components/protectedRoute";
 import { useSelector } from "react-redux";
 import { RootState } from "./store/reduxStore";
@@ -19,8 +17,6 @@ import { UserCalendar } from "./pages/app/appPages/userDashboard/userCalendar";
 import { UserProfile } from "./pages/app/appPages/userDashboard/userProfile";
 import { UserFindSpot } from "./pages/app/appPages/userDashboard/userFindSpot";
 import { UserNotifications } from "./pages/app/appPages/userDashboard/userNotifications";
-import { KontaktPage } from "./pages/visitor/visitorPages/Kontakt";
-import { AboutPage } from "./pages/visitor/visitorPages/About";
 import { UserHome } from "./pages/app/appPages/userDashboard/userHome";
 import { NotificationContextProvider } from "./context/notificationContext";
 
@@ -72,15 +68,11 @@ const App: React.FC = () => {
   return (
     <Routes>
       {/* návštěvnické části */}
-      <Route path="/" element={<Domu />} />
-      <Route path="/events" element={<UdalostiPage />} />
-      <Route path="/contact" element={<KontaktPage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/user/:userId" element={<UserPage />} />
+      <Route path="/" element={<Home/>} />
 
       {/* části aplikace */}
-      <Route path="/app/login" element={<Login />} />
-      <Route path="/app/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       <Route element={<ProtectedRoute isAuth={!!token} isChecked={authChecked} />}>
         <Route element={<NotifiactionRoutes />}>

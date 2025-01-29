@@ -1,0 +1,19 @@
+{
+    "user": {
+            "address": "Adresa",
+            "nationality": "Národnost",
+            "city": "Město",
+            "contact": "Kontakt",
+            "email": "Email",
+            "phone": "Telefon",
+            "group": "Skupina",
+            "activeSince": "Aktivní od",
+            "about": "Něco o mě/nás",
+            "whereToFindMe": "Kde se uvidíme?" ,
+            "other":"Ostatní",
+            "spot": "Místo",
+            "art" : "Druh umění",
+            "find" : "Hledej"
+    }
+
+}

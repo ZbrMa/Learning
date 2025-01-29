@@ -16,7 +16,8 @@
             "next": "Další",
             "prev": "Zpět",
             "cancel": "Zrušit",
-            "booking": "Přidat"
+            "booking": "Přidat",
+            "send": "Odeslat"
       },
       "label":{
             "address": "Adresa",
@@ -35,11 +36,26 @@
             "find" : "Hledej"
       },
       "errors":{
-            "server":"Chyba serveru. Zkust to později."
+            "title":{
+                  "server":"Chyba serveru",
+                  "email":"Nesprávný email",
+                  "pass":"Nesprávné heslo",
+                  "send": "Chyba při odesílání"
+            },
+            "server":"Objevila se chyba serveru. Zkus to později.",
+            "email": "Zadaná emailová adresa neexistuje.",
+            "pass": "Zadané heslo je nesprávné.",
+            "send": "Při odesílání nastala chyba."
       },
       "success":{
             "header":"Úspěch",
-            "save":"Data byla úspěšně uložena."
+            "save":"Data byla úspěšně uložena.",
+            "passReset": "Nové heslo bylo doručeno na tvou emailovou adresu.",
+            "passChange": "Heslo bylo úspěšně změněno.",
+            "send": "Odesílání proběhlo v pořádku."
+      },
+      "alert":{
+            "newMess": "Zkontroluj předmět a příjemce."
       },
       "calendar":{
             "today": "Dnes",

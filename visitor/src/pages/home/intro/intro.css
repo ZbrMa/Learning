@@ -1,0 +1,51 @@
+#intro {
+    padding-block: 0;
+}
+.intro__card {
+    display: grid;
+    grid-template-columns: 64px auto;
+    padding: 64px;
+}
+
+.intro__card svg {
+    width: 64px;
+    height: 64px;
+}
+
+.intro__card.red {
+    background-color: var(--red);
+}
+
+.intro__card.black {
+    background-color: var(--black);
+}
+
+.intro__card.gray {
+    background-color: var(--grayText);
+}
+
+.intro__card.white {
+    background-color: var(--white);
+}
+
+.intro__card.red *, .intro__card.black *, .intro__card.gray * {
+    color: var(--white);
+}
+
+.intro__card.white {
+    color: var(--black);
+}
+
+
+@media only screen and (max-width:768px) {
+    .intro__card svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .intro__card {
+        grid-template-columns: 48px auto;
+        padding: 10%;
+    }
+    
+ }

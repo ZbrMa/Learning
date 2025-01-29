@@ -1,0 +1,54 @@
+#try-app .main--header::first-letter {
+    color: var(--white);
+}
+
+#try-app {
+    background: rgb(140,0,0);
+background: linear-gradient(90deg, rgba(140,0,0,1) 0%, rgba(220,0,0,1) 100%);
+    
+}
+
+#try-app .main--header {
+    color: var(--white);
+}
+
+#try-app-btn {
+    background-color: transparent;
+    outline: 2px solid var(--white);
+    color: vaR(--white);
+}
+
+#try-app-btn:hover {
+    background-color: var(--white);
+    outline: 2px solid var(--white);
+    color: vaR(--black);
+}
+
+#try-app svg {
+    height: auto;
+    max-height: 232px;
+    width: 80%;
+    margin: auto;
+    color: var(--lightGray);
+}
+
+
+@media only screen and (max-width:768px) { 
+    #try-app {
+        text-align: center;
+    }
+
+    #try-app .button {
+        margin-inline: auto;
+        font-weight: 500;
+    }
+
+    .upcom__events .button {
+        display: none;
+    }
+
+    #try-app svg {
+        display: none;
+    }
+
+}

@@ -58,7 +58,8 @@
         "artLabel": "Druh buskingu",
         "artPlaceholder": "Vyber, co děláš/děláte",
         "serverError": "Chyba serveru. Zkuste to později.",
-        "nickTaken": "Toto umělecké jméno již někdo používá."
+        "nickTaken": "Toto umělecké jméno již někdo používá.",
+        "langPlaceholder": "Preferovaný jazyk"
     },
     "registerFourthStep": {
         "checkInfo": "Vše ještě jednou zkontroluj",

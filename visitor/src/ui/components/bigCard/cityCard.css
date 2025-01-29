@@ -1,0 +1,44 @@
+.city__card {
+    position: relative;
+    /*aspect-ratio: 1 / 1.16;*/
+    width: 100%;
+}
+
+.city__card--img {
+    /*position: absolute;
+    top: 0;
+    left: 0;*/
+    width: 100%;
+    max-width: 340px;
+    max-height: 340px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.city__card.left .city__card--img {
+    margin-left: auto;
+}
+
+.city__card.left
+
+.city__card--overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-color: rgba(0,0,0,0.3);
+}
+
+.city__card__content {
+    height: fit-content;
+    width:fit-content;
+    z-index: 2;
+    margin: auto;
+}
+
+.city--name, .city--desc {
+    backdrop-filter: blur(4px);
+    background-color: rgba(0,0,0,0.4);
+}

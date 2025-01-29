@@ -11,36 +11,44 @@
       "instagram": "Instagram",
       "contactForm": "Kontaktní formulář"
     },
+
+
     "homePage": {
       "citiesIntro": {
         "header": "Jevištěm se stává celé město",
         "text": "Momentálně spravujeme <1>{{number}} míst</1> a další neustále přibývají."
       },
       "intro": {
-        "header": "Poznej město jinak",
-        "text": "Užij si <1>živé umění</1> v pulzujících <2>ulicích města</2>. Podpoř umělce a staň se součástí <3>scény</3>.",
-        "button": "Více o projektu"
+        "users":"Je počet umělců, kteří jsou součástí naší komunity",
+        "hours": "Tolik hodin už buskeři předávali své umění",
+        "events": "Představení bylo odehráno"
       },
-      "upcomingBlock": {
-        "header": "Co se chystá?",
-        "button": "Události"
-      },
+      "follow": "Sleduj nás",
       "actionCall": {
         "joinCommunity": {
           "header": "Staň se součástí našeho světa!",
-          "cards": {
-            "artists": "umělců",
-            "eventsPerMonth": "akcí měsíčně",
-            "places": "míst"
-          }
+          "talent":"talenty",
+          "dream":"sny",
+          "energy":"energie",
+          "text": "Společně vytváříme prostor, kde se mohou spojit <1>{{talent}}</1>, <2>{{dream}}</2> a <3>{{energy}}</3>, které dělají město živějším a inspirativnějším."
         },
         "buskerJoin": {
-          "header": "Jsi busker?",
+          "header1": "Jsi busker?",
+          "header2": "Jsi návštěvník?",
           "text": "Ať už jsi umělec, nebo fanoušek pouličního umění, naše platforma je tu pro tebe. Přidej se k nám a vytvářejme společně nezapomenutelné zážitky!",
-          "button": "Chci být součástí"
+          "button": "Chci být součástí",
+          "watermark1": "busker",
+          "watermark2":"návštěvník"
         }
+      },
+      "tryApp": {
+        "header":"Vyzkoušej naši aplikaci",
+        "text": "Už jsi vyžkoušel naši apliakci? Jestli ne, tak hurá do toho!",
+        "button":"Více o aplikaci"
       }
     },
+
+
     "eventsPage": {
       "filters": "Vyber oblast zájmu",
       "calendar": "Vyber období, které tě zajímá",

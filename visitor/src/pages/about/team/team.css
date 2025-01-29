@@ -1,0 +1,27 @@
+.team__cards {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    width: 100%;
+}
+
+#team .main--header {
+    color: var(--white);
+}
+
+.team__grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5%;
+}
+
+@media only screen and (max-width:992px){
+    .team__grid {
+        grid-template-columns: 1fr;
+        height: fit-content;
+        gap: 16px;
+    }
+
+    .team__cards {
+        grid-template-columns: 1fr;
+    }
+}

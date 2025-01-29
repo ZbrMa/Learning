@@ -1,0 +1,12 @@
+{
+    "filters": {
+        "filters": "Wähle das Interessengebiet",
+        "calendar": "Wähle den Zeitraum, der dich interessiert",
+        "events": "Veranstaltungen",
+        "eventsError": "Keine Veranstaltungen",
+        "search":"Search",
+        "places":"Place",
+        "genre": "Genre"
+    }
+    
+}

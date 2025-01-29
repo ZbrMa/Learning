@@ -5,7 +5,7 @@ import {
   useGetEventDatesQuery,
 } from "../../../../api/eventApiSlice";
 import { useGetPlacesQuery } from "../../../../api/filtersApiSlice";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { IEventFilter } from "../../../../types/filtersTypes";
 import { format, addDays } from "date-fns";
 import {Schedule} from "../../../../ui/components/schedule/schedule";
@@ -45,21 +45,22 @@ export function UserFindSpot() {
 
   const { showAlert } = useAlert();
 
-  const handleLoginSpot = async (event: number) => {
-    const response = await loginEvent({ id: event, userId: userId });
+  const handleLoginSpot = useCallback(
+    async (event: number) => {
+      const {data,error} = await loginEvent({ id: event, userId: userId });
 
-    if (response.data) {
-      if (response.data.success) {
-        showAlert(<Alert type="positive">{response.data.message}</Alert>);
-      } else {
-        showAlert(<Alert type="negative">{response.data.message}</Alert>);
+      if (data) {
+        if (data.success) {
+          showAlert(<Alert type="positive">{data.message}</Alert>);
+        } else {
+          showAlert(<Alert type="negative">{data.message}</Alert>);
+        }
+      } else if (error) {
+        showAlert(
+          <Alert type="negative">Chyba serveru, zkuste to později.</Alert>
+        );
       }
-    } else if (response.error) {
-      showAlert(
-        <Alert type="negative">Chyba serveru, zkuste to později.</Alert>
-      );
-    }
-  };
+  },[loginEvent,showAlert,t]);
 
   return (
     <UserDashboard>

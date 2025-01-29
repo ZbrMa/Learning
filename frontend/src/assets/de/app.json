@@ -12,7 +12,30 @@
         "played": "Auftritten",
         "playedHours": "Gespielte Stunden",
         "visitedPlaces": "Besuchte Orte",
-        "sixMonths": "Auftritte in den letzten 6 Monaten"
+        "sixMonths": "Auftritte in den letzten 6 Monaten",
+        "profileForm":{
+            "contactInfo": "Kontaktinformationen",
+            "firstName": "Vorname",
+            "lastName": "Nachname",
+            "email": "E-Mail",
+            "phone": "Telefon",
+            "city": "Stadt",
+            "address": "Adresse",
+            "socialMedia": "Soziale Medien",
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "instagram": "Instagram",
+            "website": "Webseite",
+            "others": "Andere",
+            "birthDate": "Geburtsdatum",
+            "nationality": "Nationalität",
+            "group": "Gruppe",
+            "solo": "Einzeln",
+            "band": "Band",
+            "genre": "Genre",
+            "placeholderGenre": "Genre",
+            "saveSuccess": "Daten wurden erfolgreich gespeichert."
+        }
     },
     "home": {
     "checkedAcc": "Konto verifiziert",
@@ -21,7 +44,13 @@
     "newMess": "Neue Nachrichten",
     "noNewMess": "Keine neuen Nachrichten",
     "thisWkEv": "Kalender für diese Woche",
-    "tooltip": "Denke daran, wenn du länger als 6 Monate inaktiv bist, wird dein Konto gelöscht."
+    "tooltip": "Denke daran, wenn du länger als 6 Monate inaktiv bist, wird dein Konto gelöscht.",
+    "contact":{
+            "header":"Schnell Kontakt",
+            "phone": "Telefon",
+            "email": "Email",
+            "address": "Adresse"
+        }
 },
 
     "dashboard": {
@@ -32,5 +61,15 @@
         "home": "Home",
         "back": "Verlassen",
         "setting": "Einstellungen"
+    },
+    "notif": {
+        "noMess": "Keine Nachrichten",
+        "send": "Gesendet",
+        "recieved": "Empfangen",
+        "newMess": "Neue Nachricht",
+        "from": "Von",
+        "to": "Empfänger",
+        "subject": "Betreff",
+        "messContent": "Nachrichteninhalt"
     }
 }

@@ -1,16 +1,16 @@
 import { useContext } from "react";
-import { INotification } from "../../types/notifications";
-import { NewMessage, NotificationDetail } from "../blocks/notifications/notificationContainer";
+import { NewMessage } from "../blocks/notifications/notificationContainer";
 import { Modal } from "../components/modal/modal";
 import { NotificationContext } from "../../context/notificationContext";
 import { format, parse } from "date-fns";
-
 import './messageModals.css';
+import { useTranslation } from "react-i18next";
 
 export function NewMessageModal(){
+  const { t } = useTranslation('app');
 
     return(
-        <Modal id="msg-modal" title="Nová zpráva" color="black">
+        <Modal id="msg-modal" title={t("notif.newMess")} color="black">
             <NewMessage/>
         </Modal>
     )
@@ -22,6 +22,7 @@ type ReadMessageProps = {
 
 export function ReadMessageModal({flow}:ReadMessageProps){
     const {notification,setNotification } = useContext(NotificationContext);
+    const { t } = useTranslation('app');
 
     return(
         <Modal id="read-msg-modal" title={notification?.subject} color="black" onClose={()=>setNotification(null)}>
@@ -37,12 +38,12 @@ export function ReadMessageModal({flow}:ReadMessageProps){
                       </div>
                       <div className="flex-col g-8 pb-8">
                         <p className="tx-sm bold">
-                          <span className="tx-gray tx-xs">Od: </span>
+                          <span className="tx-gray tx-xs">{t("notif.from")}: </span>
                           {notification.from_user}
                         </p>
                         {/*<span className='tx-lg tx-lightGray'>&#x2022; &#x2022; &#x2022;</span>*/}
                         <p className="tx-sm bold">
-                          <span className="tx-gray tx-xs">Pro: </span>
+                          <span className="tx-gray tx-xs">{t("notif.to")}: </span>
                           {notification.to_user}
                         </p>
                       </div>

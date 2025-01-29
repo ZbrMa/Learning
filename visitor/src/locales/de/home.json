@@ -1,0 +1,41 @@
+{
+    "banner": {
+      "title": "Busking.",
+      "description": "Entdecke Straßenkunst – Werde Teil der pulsierenden Community!",
+      "followUs": "Folge uns"
+    },
+    "intro": {
+      "users": "ist die Anzahl der Künstler, die Teil unserer Community sind",
+      "hours": "So viele Stunden haben Busker bereits ihr Kunst geteilt",
+      "events": "Auftritte wurden gespielt"
+    },
+    "cities": {
+      "header": "Die ganze Stadt wird zur Bühne",
+      "text": "Wir verwalten derzeit <1>{{number}} Standorte</1> und es kommen ständig weitere hinzu."
+    },
+    "actionCall": {
+      "follow": "Folge uns",
+      "joinCommunity": {
+        "header": "Werde Teil unserer Welt!",
+        "talent": "Talente",
+        "dream": "Träume",
+        "energy": "Energie",
+        "text": "Gemeinsam schaffen wir einen Raum, in dem <1>{{talent}}</1>, <2>{{dream}}</2> und <3>{{energy}}</3> zusammenkommen und die Stadt lebendiger und inspirierender machen."
+      },
+      "buskerJoin": {
+        "header1": "Bist du ein Busker?",
+        "header2": "Bist du ein Besucher?",
+        "text": "Egal, ob du Künstler bist oder ein Fan von Straßenkunst, unsere Plattform ist für dich da. Schließe dich uns an und lass uns gemeinsam unvergessliche Erlebnisse schaffen!",
+        "button": "Ich möchte dabei sein",
+        "events": "Veranstaltungen",
+        "watermark1": "Busker",
+        "watermark2": "Besucher"
+      }
+    },
+    "tryApp": {
+      "header": "Probiere unsere App aus",
+      "text": "Hast du unsere App schon ausprobiert? Wenn nicht, worauf wartest du noch!",
+      "button": "Mehr über die App erfahren"
+    }
+  }
+  

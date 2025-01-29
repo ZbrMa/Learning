@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo, useMemo } from "react";
+import React, { useEffect, useState, memo, useMemo, useCallback } from "react";
 import {
   addWeeks,
   startOfWeek,
@@ -21,6 +21,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store/reduxStore";
 
 const hours = Array.from({ length: 11 }, (_, i) => `${10 + i}:00`); // Hodiny od 10:00 do 20:00
+const getDaysInWeek = (weekStart:Date) => {
+  return Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+};
 
 const locales = {
   cs: cs,
@@ -62,37 +65,36 @@ export const Schedule = memo(function Schedule({
     } else setMobile('default');
   };
 
-  useEffect(()=>{
-    const handleResize = () => checkMobile(768);
-
-    window.addEventListener('resize',handleResize);
-
+  useEffect(() => {
+    const handleResize = () => {
+      setTimeout(() => checkMobile(768), 200);
+    };
+  
+    window.addEventListener("resize", handleResize);
     handleResize();
-
-    return () => window.removeEventListener('resize',handleResize);
-  },[]);
+  
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  
 
   const handleWeekChange = (direction: 1 | -1) => {
     setCurrentWeekStart((prev) => addWeeks(prev, direction));
   };
 
-  const getDaysInWeek = useMemo(() => {
-    return Array.from({ length: 7 }, (_, i) => addDays(currentWeekStart, i));
-  }, [currentWeekStart]);
-
   useEffect(() => {
     returnInterval && returnInterval(currentWeekStart);
   }, [currentWeekStart, returnInterval]);
 
-  const getEventsForCell = (day: Date, hour: string) => {
+  const getEventsForCell = useCallback (
+    (day: Date, hour: string) => {
     return events.filter(
       (event) =>
         isSameDay(event.day, day) &&
         parseInt(event.start.split(":")[0], 10) ===
           parseInt(hour.split(":")[0], 10)
     );
-  };
-
+  },[events]);
+  
   return (
     <div className="schedule">
       {isLoading && <Spinner/>}
@@ -133,7 +135,7 @@ export const Schedule = memo(function Schedule({
             ))}
           </div>
           <div className="schedule__grid">
-            {getDaysInWeek.map((day) => (
+            {getDaysInWeek(currentWeekStart).map((day) => (
               <div key={day.toISOString()} className="schedule__row">
                 <div className="schedule__day tx-white px-8">
                   <span className="tx-xs mr-8">{format(day, "EEEEEE", { locale: locales[lang] })}</span>
@@ -143,78 +145,19 @@ export const Schedule = memo(function Schedule({
                   const eventsInCell = events ? getEventsForCell(day, hour) : [];
 
                   return (
-                    <div
-                      key={`${hour}-${day}`}
-                      className="schedule__cell box"
-                      style={{ position: "relative" }}
-                    >
-                      {eventsInCell.length > 0 ? (
-                        eventsInCell.map((event) => {
-                          const [startHour, startMinute] = event.start.split(":").map(Number);
-                          const [endHour, endMinute] = event.end.split(":").map(Number);
+                    
+                      <ScheduleCell
+                        key={`${hour}-${day}`}
+                        day={day}
+                        hour={hour}
+                        eventsInCell={eventsInCell}
+                        eventClick={eventClick}
+                        buttonText={buttonText}
+                        isMobile={false}
+                        isAdmin={isAdmin}
+                      />
+                    );
                   
-                          const startInMinutes = startHour * 60 + startMinute;
-                          const endInMinutes = endHour * 60 + endMinute;
-                          const durationInMinutes = endInMinutes - startInMinutes;
-
-                          const cellWidthPercent = 100;
-                          const leftOffsetPercent = (startMinute / 60) * cellWidthPercent;
-                          const widthPercent = (durationInMinutes / 60) * cellWidthPercent;
-                  
-                          return (
-                            //outer container
-                            <div
-                              key={event.id}
-                              className={`schedule__event p-4 box ${isAdmin? 'admin':''} ${!isAdmin? 'occupied' : ''} ${
-                                !isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day)) ? 'old' : ''}`}
-                              style={{
-                                position: "absolute",
-                                left: `${leftOffsetPercent}%`,
-                                top:'0',
-                                width: `${widthPercent}%`,
-                                height: "calc(100% - 2px)",
-                                margin: "auto",
-                              }}
-                            > 
-                            {/*inner content*/}
-                            <div className="relative event__inner flex box items-center">
-                              {
-                                  isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day)) &&
-                                <Button onClick={() => eventClick(event.id)}>
-                                        {buttonText}
-                                </Button>
-                              }
-                              <span className="event-rect"></span>
-                              <div className="w-full">
-                                {/* Dynamický obsah na základě podmínek */}
-                                <p className="text-left bold event--place">
-                                  {isAdmin 
-                                    ? (event.nick ? event.nick : "?") 
-                                    : `${event.spot}`}
-                                </p>
-                                <p className="mb-4 text-left">
-                                  {event.start.split(":").slice(0, 2).join(":")} - {event.end.split(":").slice(0, 2).join(":")}
-                                </p>
-                              </div>
-                            </div>
-                              {/*!(compareAsc(new Date(event.day), new Date()) === -1 &&
-                                !isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day))) &&
-                                
-                                <div className="schedule__event--back">
-                                  <div className="schedule__event--back__inner relative">
-                                    <Button onClick={() => eventClick(event.id)}>
-                                      {buttonText}
-                                    </Button>
-                                </div>
-                              </div>*/}
-                            </div>
-                          );
-                        })
-                      ) : (
-                        <span className="schedule__no-events"></span>
-                      )}
-                    </div>
-                  );
                 })}
               </div>
             ))}
@@ -230,8 +173,8 @@ export const Schedule = memo(function Schedule({
               {getWeek(currentWeekStart)}
             </span>
           </div>
-          {getDaysInWeek.map((day) => (
-            <div className="schedule__day tx-white px-8">
+          {getDaysInWeek(currentWeekStart).map((day) => (
+            <div className="schedule__day tx-white px-8" key={day.toISOString()}>
               <span className="tx-xs mr-8">{format(day, "EEEEEE", { locale: locales[lang] })}</span>
               <span className="xbold">{format(day,'dd.MM.',{locale:locales[lang]})}</span>
           </div>
@@ -241,82 +184,20 @@ export const Schedule = memo(function Schedule({
           {hours.map((hour) => (
             <div key={hour} className="schedule__row">
               <div className="schedule__hour bg-black tx-white">{hour}</div>
-              {getDaysInWeek.map((day) => {
+              {getDaysInWeek(currentWeekStart).map((day) => {
                 const eventsInCell = events ? getEventsForCell(day, hour) : [];
 
                 return (
-                  <div
+                  <ScheduleCell
                     key={`${hour}-${day}`}
-                    className="schedule__cell box"
-                    style={{ position: "relative" }}
-                  >
-                    {eventsInCell.length > 0 ? (
-                      eventsInCell.map((event) => {                
-                        const cellHeightPercent = 100;
-
-                        const [startHour, startMinute] = event.start.split(":").map(Number);
-                        const [endHour, endMinute] = event.end.split(":").map(Number);
-                  
-                        const startInMinutes = startHour * 60 + startMinute;
-                        const endInMinutes = endHour * 60 + endMinute;
-                        const durationInMinutes = endInMinutes - startInMinutes;
-
-                          const cellWidthPercent = 100;
-                          const topOffsetPercent = (startMinute / 60) * cellHeightPercent;
-                          const heightPercent = (durationInMinutes / 60) * cellHeightPercent;
-                
-                        return (
-                          //outer container
-                          <div
-                            key={event.id}
-                            className={`schedule__event p-4 box ${isAdmin? 'admin':''} ${!isAdmin? 'occupied' : ''} ${
-                              !isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day)) ? 'old' : ''}`}
-                            style={{
-                              position: "absolute",
-                              top: `${topOffsetPercent}%`,
-                              height: `${heightPercent}%`,
-                              width: "calc(100% - 2px)",
-                              margin: "auto",
-                            }}
-                          > 
-                          {/*inner content*/}
-                          <div className="relative event__inner flex box items-center">
-                            {
-                                isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day)) &&
-                              <Button onClick={() => eventClick(event.id)}>
-                                      {buttonText}
-                              </Button>
-                            }
-                            <span className="event-rect"></span>
-                            <div className="w-full">
-                              {/* Dynamický obsah na základě podmínek */}
-                              <p className="text-left bold event--place">
-                                {isAdmin 
-                                  ? (event.nick ? event.nick : "?") 
-                                  : `${event.spot}`}
-                              </p>
-                              <p className="mb-4 text-left">
-                                {event.start.split(":").slice(0, 2).join(":")} - {event.end.split(":").slice(0, 2).join(":")}
-                              </p>
-                            </div>
-                          </div>
-                            {/*!(compareAsc(new Date(event.day), new Date()) === -1 &&
-                              !isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day))) &&
-                              
-                              <div className="schedule__event--back">
-                                <div className="schedule__event--back__inner relative">
-                                  <Button onClick={() => eventClick(event.id)}>
-                                    {buttonText}
-                                  </Button>
-                              </div>
-                            </div>*/}
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <span className="schedule__no-events"></span>
-                    )}
-                  </div>
+                    day={day}
+                    hour={hour}
+                    eventsInCell={eventsInCell}
+                    eventClick={eventClick}
+                    buttonText={buttonText}
+                    isMobile
+                    isAdmin={isAdmin}
+                  />
                 );
               })}
             </div>
@@ -327,3 +208,86 @@ export const Schedule = memo(function Schedule({
     </div>
   );
 });
+
+const ScheduleCell = memo(function ScheduleCell({
+  eventsInCell,
+  eventClick,
+  buttonText,
+  isMobile,
+  isAdmin,
+}: {
+  day: Date;
+  hour: string;
+  eventsInCell: any[];
+  eventClick: (id: number) => void;
+  buttonText: string;
+  isMobile: boolean;
+  isAdmin: boolean;
+}) {
+  return (
+    <div
+      className="schedule__cell box"
+      style={{ position: "relative" }}
+    >
+      {eventsInCell.length > 0 ? (
+        eventsInCell.map((event) => {
+          const [startHour, startMinute] = event.start.split(":").map(Number);
+          const [endHour, endMinute] = event.end.split(":").map(Number);
+          const startInMinutes = startHour * 60 + startMinute;
+          const endInMinutes = endHour * 60 + endMinute;
+          const durationInMinutes = endInMinutes - startInMinutes;
+
+          // Vypočítá pozici eventu v závislosti na orientaci
+          const offsetPercent = isMobile
+            ? (startHour - 10) * 100 // Vertikální zarovnání
+            : (startMinute / 60) * 100; // Horizontální zarovnání
+
+          const sizePercent = (durationInMinutes / 60) * 100 // Výška pro mobilní zobrazení
+
+          return (
+            <div
+              key={event.id}
+              className={`schedule__event p-4 box ${isAdmin? 'admin':''} ${!isAdmin? 'occupied' : ''} ${
+                !isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day)) ? 'old' : ''}`}
+              style={{
+                position: "absolute",
+                ...(isMobile
+                  ? {
+                      left:'0',
+                      top: `${offsetPercent}%`,
+                      height: `${sizePercent}%`,
+                      width: "calc(100% - 2px)",
+                    }
+                  : { 
+                      top: '0',
+                      left: `${offsetPercent}%`,
+                      width: `${sizePercent}%`,
+                    }),
+              }}
+            >
+              <div className="relative event__inner flex box items-center">
+              {
+                isBefore(new Date(), parse(event.end, 'HH:mm:ss', event.day)) &&
+                <Button onClick={() => eventClick(event.id)}>{buttonText}</Button>
+              }
+                <span className="event-rect"></span>
+                <div className="w-full">
+                  <p className="text-left bold event--place">
+                    {isAdmin ? event.nick || "?" : event.spot}
+                  </p>
+                  <p className="mb-4 text-left">
+                    {event.start.split(":").slice(0, 2).join(":")} - {event.end.split(":").slice(0, 2).join(":")}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      ) : (
+        <span className="schedule__no-events"></span>
+      )}
+    </div>
+  );
+});
+
+export default ScheduleCell;

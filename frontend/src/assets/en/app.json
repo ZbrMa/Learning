@@ -12,17 +12,47 @@
         "played": "Performances",
         "playedHours": "Played Hours",
         "visitedPlaces": "Visited Places",
-        "sixMonths": "Performances in the last 6 months"
-        },
-        "home": {
-    "checkedAcc": "Account verified",
-    "checkPending": "Account awaiting verification",
-    "profileProgress": "Profile completed",
-    "newMess": "New messages",
-    "noNewMess": "No new messages",
-    "thisWkEv": "Calendar for this week",
-    "tooltip": "Remember, if you are inactive for more than 6 months, your account will be deleted."
-},
+        "sixMonths": "Performances in the last 6 months",
+        "profileForm":{
+            "contactInfo": "Contact Information",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "email": "Email",
+            "phone": "Phone",
+            "city": "City",
+            "address": "Address",
+            "socialMedia": "Social Media",
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "instagram": "Instagram",
+            "website": "Website",
+            "others": "Others",
+            "birthDate": "Date of Birth",
+            "nationality": "Nationality",
+            "group": "Group",
+            "solo": "Solo",
+            "band": "Band",
+            "genre": "Genre",
+            "placeholderGenre": "Genre",
+            "saveSuccess": "Data has been successfully saved."
+        }
+    },
+
+    "home": {
+        "checkedAcc": "Account verified",
+        "checkPending": "Account awaiting verification",
+        "profileProgress": "Profile completed",
+        "newMess": "New messages",
+        "noNewMess": "No new messages",
+        "thisWkEv": "Calendar for this week",
+        "tooltip": "Remember, if you are inactive for more than 6 months, your account will be deleted.",
+        "contact":{
+            "header":"Fast contact",
+            "phone": "Phone",
+            "email": "E-mail",
+            "address": "Address"
+        }
+    },
 
     "dashboard": {
         "findSpot": "Find Spot",
@@ -32,5 +62,15 @@
         "home": "Home",
         "back": "Leave",
         "setting": "Settings"
+    },
+    "notif": {
+        "noMess": "No messages",
+        "send": "Sent",
+        "recieved": "Received",
+        "newMess": "New message",
+        "from": "From",
+        "to": "Recipient",
+        "subject": "Subject",
+        "messContent": "Message content"
     }
 }

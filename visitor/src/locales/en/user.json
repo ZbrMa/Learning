@@ -1,0 +1,18 @@
+{
+    "user": {
+    "address": "Address",
+      "nationality": "Nationality",
+      "city": "City",
+      "contact": "Contact",
+      "email": "Email",
+      "phone": "Phone",
+      "group": "Group",
+      "activeSince": "Active since",
+      "about": "About me/us",
+      "whereToFindMe": "Where to find me?",
+      "other": "Other",
+      "spot": "Spot",
+      "art": "Type of art",
+      "find": "Search"
+    }
+}

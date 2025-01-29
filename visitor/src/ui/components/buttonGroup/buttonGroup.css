@@ -1,0 +1,15 @@
+.button__group {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.button__group.col {
+    flex-direction: column;
+}
+
+.button__group.row {
+    flex-direction: row;
+}

@@ -1,0 +1,57 @@
+#app-features .main--header {
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.features__items {
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.feature__item {
+    flex: 1 1 0px;
+    transition: all 0.2s ease-in-out;
+}
+
+.feature__item svg {
+    width: 50%;
+    height: auto;
+    max-width: 120px;
+    max-height: 120px;
+    aspect-ratio: 1;
+    color: var(--red);
+}
+
+.feature__item:hover {
+    scale: 1.1;
+}
+
+.horizontal--separator {
+    width: 90%;
+    height: 2px;
+    background-color: var(--lightGray);
+    margin-block: 16px;
+}
+
+.app--text {
+    max-width: 66.66%;
+    margin-inline: auto;
+}
+
+@media only screen and (min-width:992px) {
+    .horizontal--separator {
+        display: block;
+        width: 2px;
+        height: 100px;
+        margin-block: auto;
+    }
+}
+
+@media only screen and (max-width:992px) {
+
+    .app--text {
+        max-width: 90%;
+        
+    }
+}

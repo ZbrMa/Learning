@@ -58,7 +58,8 @@
         "artLabel": "Art des Busking",
         "artPlaceholder": "Wähle deine Art von Busking",
         "serverError": "Serverfehler. Bitte versuche es später noch einmal.",
-        "nickTaken": "Dieser Bühnenname wird bereits verwendet."
+        "nickTaken": "Dieser Bühnenname wird bereits verwendet.",
+        "langPlaceholder": "Bevorzugte Sprache"
     },
     "registerFourthStep": {
         "checkInfo": "Bitte überprüfen Sie Ihre Informationen",

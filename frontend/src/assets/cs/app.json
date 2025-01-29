@@ -12,7 +12,30 @@
         "played": "Vystoupení",
         "playedHours": "Odehraných hodin",
         "visitedPlaces": "Navštívených míst",
-        "sixMonths": "Vystoupení za posledních 6 měsíců"
+        "sixMonths": "Vystoupení za posledních 6 měsíců",
+        "profileForm":{
+            "contactInfo": "Kontaktní údaje",
+            "firstName": "Jméno",
+            "lastName": "Příjmení",
+            "email": "E-mail",
+            "phone": "Telefon",
+            "city": "Město",
+            "address": "Adresa",
+            "socialMedia": "Sociální sítě",
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "instagram": "Instagram",
+            "website": "Web",
+            "others": "Ostatní",
+            "birthDate": "Datum narození",
+            "nationality": "Národnost",
+            "group": "Skupina",
+            "solo": "Solitare",
+            "band": "Skupina",
+            "genre": "Žánr",
+            "placeholderGenre": "Žánr",
+            "saveSuccess": "Data byla úspěšně uložena."
+        }
     },
     "home": {
         "checkedAcc": "Účet ověřen",
@@ -20,8 +43,14 @@
         "profileProgress": "Profil dokončen z",
         "newMess": "Nové zprávy",
         "noNewMess": "Žádné nové zprávy",
-        "thisWkEv": "Kalnedář pro tento týden",
-        "tooltip": "Nezapomínej, že pokud nejsi aktivní více než 6 měsíců, tvůj účet bude smazán."
+        "thisWkEv": "Kalendář pro tento týden",
+        "tooltip": "Nezapomínej, že pokud nejsi aktivní více než 6 měsíců, tvůj účet bude smazán.",
+        "contact":{
+            "header":"Rychlý kontakt",
+            "phone": "Telefon",
+            "email": "E-mail",
+            "address": "Adresa"
+        }
     },
     "dashboard": {
         "findSpot": "Najít spot",
@@ -31,5 +60,15 @@
         "home": "Domů",
         "back":"Odejít",
         "setting":" Nastavení"
+    },
+    "notif":{
+        "noMess":"Žádné zprávy",
+        "send": "Odeslané",
+        "recieved": "Přijaté",
+        "newMess": "Nová zpráva",
+        "from": "Od",
+        "to": "Příjemce",
+        "subject": "Předmět",
+        "messContent": "Obsah zprávy"
     }
 }

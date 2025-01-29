@@ -47,10 +47,10 @@ export const CHANGE_PASS_TEMPLATE = (
   title: string,
   greeting: string,
   newPass: string,
+  resetPass: string,
   tip: string,
   warning: string,
-  thank: string,
-  resetPass: string
+  thank: string
 ) => `<div style="font-family: Arial, sans-serif; text-align: center; line-height: 1.6; padding: 20px; max-width: 600px; margin: 0 auto; font-size:20px">
               <img src="https://buskup.com/app-logo.png"/>
                   <h1 style="font-weight:600; margin-bottom: 20px; color:black">${title}</h1>

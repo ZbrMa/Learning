@@ -9,6 +9,7 @@ import { useAlert } from "../../context/alertContext";
 import { Alert } from "../components/alert/alert";
 import { ModalContext } from "../../context/modalContext";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 
 const changePassFields: IFieldConfig[] = [
   {
@@ -40,6 +41,7 @@ const changePassFields: IFieldConfig[] = [
 export function ChnagePasswordForm() {
   const [sendPass, { isLoading }] = useChangePasswordMutation();
   const userId = useSelector((root: RootState) => root.auth.id);
+  const { t } = useTranslation("common");
 
   const { showAlert } = useAlert();
   const { setModal } = useContext(ModalContext);
@@ -55,22 +57,22 @@ export function ChnagePasswordForm() {
 
       if (response.error) {
         showAlert(
-          <Alert type="negative" title="Chyba serveru">
-            Chyba serveru. Zkus to později.
+          <Alert type="negative" title={t("errors.title.server")}>
+            {t("errors.server")}
           </Alert>
         );
       } else if (response.data.success) {
         showAlert(
-          <Alert type="positive" title="Heslo změněno">
-            {response.data.message}
+          <Alert type="positive" title={t("success.header")}>
+            {t("success.passChange")}
           </Alert>,
           3000
         );
         setModal(null);
       } else {
         showAlert(
-          <Alert type="negative" title="Nesprávné heslo">
-            {response.data.message}
+          <Alert type="negative" title={t("errors.title.pass")}>
+            {t("errors.pass")}
           </Alert>,
           3000
         );

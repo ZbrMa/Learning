@@ -1,0 +1,82 @@
+.random__grid {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    width: 100%;
+}
+
+.random--grid--img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 1;
+    padding: 3%;
+    box-sizing: border-box;
+}
+
+.random--grid--img img {
+    position: relative !important;
+}
+
+
+@media only screen and (max-width:992px){
+    .random__grid {
+        grid-template-columns: repeat(4,1fr);
+    }
+}
+
+@media only screen and (max-width:600px){
+    .random__grid {
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+
+/*.random__grid img:nth-child(14n){
+    grid-column: span 2;
+}
+
+.random__grid img:nth-child(14n+1){
+    grid-row: span 2;
+}
+
+.random__grid img:nth-child(14n+2){
+    grid-column: span 1;
+}
+
+.random__grid img:nth-child(14n+3){
+    grid-column: span 3;
+    grid-row: span 1;
+}
+
+.random__grid img:nth-child(14n+4){
+    grid-row: span 2;
+    grid-column: span 2;
+}
+
+.random__grid img:nth-child(14n+5){
+    grid-column: span 1;
+}
+
+.random__grid img:nth-child(14n+6){
+    grid-column: span 1;
+}
+
+.random__grid img:nth-child(14n+7){
+    grid-column: span 2;
+}
+
+
+.random__grid img:nth-child(14n+8){
+    grid-column: span 1;
+}
+
+.random__grid img:nth-child(14n+9){
+    grid-column: span 1;
+}
+
+.random__grid img:nth-child(14n+10){
+    grid-column: span 2;
+}
+
+.random__grid img:nth-child(14n+14){
+    grid-column: span 3;
+}*/

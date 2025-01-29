@@ -3,10 +3,11 @@ import { useSelector } from "react-redux";
 import { useGetUserCalendarEventsQuery } from "../../../../api/eventApiSlice";
 import { Schedule } from "../../../../ui/components/schedule/schedule";
 import { RootState } from "../../../../store/reduxStore";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useSignOutEventMutation } from "../../../../api/eventApiSlice";
 import { useAlert } from "../../../../context/alertContext";
 import { Alert } from "../../../../ui/components/alert/alert";
+import { useTranslation } from "react-i18next";
 
 export function UserCalendar(){
 
@@ -15,27 +16,30 @@ export function UserCalendar(){
     const {data,isLoading,isFetching} = useGetUserCalendarEventsQuery({userId:id,startDate:startDate},{refetchOnMountOrArgChange:true});
     const [signOutEvent] = useSignOutEventMutation();
     const {showAlert} = useAlert();
+    const {t} = useTranslation("common");
 
-    const handleSignOut = async (id:number) => {
-        const response = await signOutEvent({ id:id });
+    const handleSignOut = useCallback( 
+      async (eventId:number) => {
+        const {data,error} = await signOutEvent({ id:eventId });
     
-        if (response.data) {
-          if (response.data.success) {
-            showAlert(<Alert type="positive">{response.data.message}</Alert>);
+        if (data) {
+          if (data.success) {
+            showAlert(<Alert type="positive">{data.message}</Alert>);
           } else {
-            showAlert(<Alert type="negative">{response.data.message}</Alert>);
+            showAlert(<Alert type="negative">{data.message}</Alert>);
           }
-        } else if (response.error) {
+        } else if (error) {
           showAlert(
-            <Alert type="negative">Chyba serveru, zkuste to později.</Alert>
+            <Alert type="negative">{t("errors.server")}</Alert>
           );
         }
-      };
+      }
+    ,[signOutEvent,t,showAlert]);
 
     return(
         <UserDashboard>
-            <h3 className="h-xl xbold mb-32 text-center">Můj kalendář</h3>
-            <Schedule events={data} returnInterval={setStartDate} buttonText="Zrušit" eventClick={(handleSignOut)} isLoading = {isLoading || isFetching}/>
+            <h3 className="h-xl xbold mb-32 text-center">{t("button.myCalendar")}</h3>
+            <Schedule events={data} returnInterval={setStartDate} buttonText={t("button.cancel")} eventClick={(handleSignOut)} isLoading = {isLoading || isFetching}/>
         </UserDashboard>
     )
 };

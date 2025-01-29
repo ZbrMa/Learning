@@ -1,0 +1,33 @@
+.separator {
+    z-index: 1;
+}
+
+  .separator__line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--white); /* Barva čáry */
+  }
+
+  .separator__triangle {
+    content: "";
+    transform: translateY(11px);
+    background-color: var(--white);
+    clip-path: polygon(50% 50%, 100% 0, 100% 7.5%, 50% 57.5%, 0 7.5%, 0 0);
+    height: 24px;
+    width: 24px;
+
+  }
+
+  
+  /*.separator__line::before {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    content: "";
+    top: 0;
+    background-color: transparent;
+    height: 2px;
+    width: 24px;
+    backdrop-filter: opacity(100%);
+  }*/
+  

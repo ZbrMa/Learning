@@ -7,6 +7,8 @@ export interface INotification {
     day:Date,
     time:string,
     readAt?:Date | undefined,
+    fromImage:string,
+    toImage:string,
 };
 
 export interface INewNotification {

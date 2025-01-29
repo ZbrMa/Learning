@@ -12,14 +12,10 @@ export const getNotificationsModel = (flow:'from_user'|'to_user',userId:number,c
                     n.day, 
                     n.time,
                     n.read_at as readAt, 
-                    CASE 
-                        WHEN n.from_user = 2 THEN 'Všichni'
-                        ELSE u.nick
-                    END as from_user,  
-                    CASE
-                        WHEN n.to_user = 2 THEN 'Všichni'
-                        ELSE u2.nick 
-                    END as to_user
+                    u.nick as from_user,  
+                    u2.nick as to_user,
+                    u.image as fromImage,
+                    u2.image as toImage
                 FROM notifications n
                 LEFT JOIN users u ON n.from_user = u.id 
                 LEFT JOIN users u2 ON n.to_user = u2.id 

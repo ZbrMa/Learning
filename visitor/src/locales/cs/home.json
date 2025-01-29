@@ -1,0 +1,40 @@
+{
+  "banner": {
+    "title": "Busking.",
+    "description": "Objevte pouliční umění – Přidejte se k pulzující komunitě!",
+    "followUs": "Sledujte nás"
+  },
+  "intro": {
+    "users": "je počet umělců, kteří jsou součástí naší komunity",
+    "hours": "Tolik hodin již buskeři sdíleli své umění",
+    "events": "vystoupení již proběhlo"
+  },
+  "cities": {
+    "header": "Celé město se stává jevištěm",
+    "text": "Momentálně spravujeme <1>{{number}} míst</1> a stále přidáváme další."
+  },
+  "actionCall": {
+    "follow": "Sledujte nás",
+    "joinCommunity": {
+      "header": "Staňte se součástí našeho světa!",
+      "talent": "talenty",
+      "dream": "sny",
+      "energy": "energie",
+      "text": "Společně vytváříme prostor, kde se mohou spojit <1>{{talent}}</1>, <2>{{dream}}</2> a <3>{{energy}}</3>, čímž děláme město živější a inspirativnější."
+    },
+    "buskerJoin": {
+      "header1": "Jste busker?",
+      "header2": "Jste návštěvník?",
+      "text": "Ať už jste umělec nebo fanoušek pouličního umění, naše platforma je tu pro vás. Přidejte se k nám a společně vytvářejme nezapomenutelné zážitky!",
+      "button": "Chci být součástí",
+      "events": "Události",
+      "watermark1": "busker",
+      "watermark2": "návštěvník"
+    }
+  },
+  "tryApp": {
+    "header": "Vyzkoušejte naši aplikaci",
+    "text": "Už jste vyzkoušeli naši aplikaci? Pokud ne, na co ještě čekáte!",
+    "button": "Zjistit více o aplikaci"
+  }
+}

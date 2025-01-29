@@ -1,0 +1,120 @@
+.get__user__action__block.left {
+   justify-content: flex-start;
+}
+
+.get__user__action__block.right {
+    justify-content: flex-end;
+}
+
+.user__action__text {
+    max-width: 600px;
+    z-index: 1;
+}
+
+.get__user__action__block {
+  overflow: hidden;
+}
+
+.watermark {
+    margin: auto 0;
+    width: 100%;
+    position: absolute;
+    font-size: 10rem;
+    text-transform: uppercase;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.get__user__action__block.right .watermark {
+    left: 0;    
+}
+
+.get__user__action__block.left .watermark {
+    right: 0;
+    text-align: right;
+}
+
+.user__action__text p {
+    margin-left: 136px;
+}
+
+.arrow {
+    position: relative;
+    display: inline-block;
+    min-width: 120px;
+    max-width: 120px;
+    height: 2px;
+    margin: 8.5px 0;
+    border-radius: 9999px;
+    background-color: var(--red);
+  }
+  
+  .arrow::before,
+  .arrow::after {
+    content: "";
+    position: absolute;
+    top: calc(50% - 1px);
+    right: 0;
+    width: 12px;
+    height: 2px;
+    border-radius: 9999px;
+    background-color: var(--red);
+    transform-origin: calc(100% - 1px) 50%;
+  }
+  
+  .arrow::before {
+    transform: rotate(35deg);
+  }
+  
+  .arrow::after {
+    transform: rotate(-35deg);
+  }
+
+  .get__user__action__block  .button.link {
+    margin-top: 16px;
+    color: var(--black);
+    padding: 0;
+    font-size: 1.2rem;
+    border-radius: 0;
+    transition: none;
+    border-bottom: 2px solid transparent;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    
+  }
+
+  .get__user__action__block  .button.link a{ 
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .get__user__action__block  .button.link:hover{ 
+    border-color: var(--black);
+  }
+
+  @media only screen and (max-width:1220px) { 
+    .watermark {
+      font-size: 7rem;
+  }
+
+  }
+
+  @media only screen and (max-width:992px) { 
+    .watermark {
+      font-size: 5rem;
+  }
+  }
+
+  @media only screen and (max-width:768px) {
+    .arrow {
+      min-width: 60px;
+      max-width: 60px;
+    }
+
+    .user__action__text p {
+      margin-left: 76px;
+    }
+
+   }

@@ -1,0 +1,75 @@
+{     
+      "menu":{
+            "home":"Domů",
+            "events":"Události",
+            "about":"O projektu",
+            "app":"Appka",
+            "join":"Přidat se"
+      },
+    "button":{
+          "home": "Domů",
+          "events": "Události",
+          "about": "O projektu",
+          "contact": "Kontakt",
+          "profile": "Profil",
+          "notifications": "Upozornění",
+          "myCalendar": "Můj kalendář",
+          "logout": "Odhlásit se",
+          "login": "Přihlásit se",
+          "register": "Registrace",
+          "findEvent": "Najít spot",
+          "admin": "Správa",
+          "join": "Přidat se",
+          "next": "Další",
+          "prev": "Zpět",
+          "cancel": "Zrušit",
+          "booking": "Přidat",
+          "send": "Odeslat"
+    },
+    "label":{
+          "address": "Adresa",
+          "nationality": "Národnost",
+          "city": "Město",
+          "contact": "Kontakt",
+          "email": "Email",
+          "phone": "Telefon",
+          "group": "Skupina",
+          "activeSince": "Aktivní od",
+          "about": "Něco o mě/nás",
+          "whereToFindMe": "Kde se uvidíme?" ,
+          "other":"Ostatní",
+          "spot": "Místo",
+          "art" : "Druh umění",
+          "find" : "Hledej"
+    },
+    "errors":{
+          "title":{
+                "server":"Chyba serveru",
+                "email":"Nesprávný email",
+                "pass":"Nesprávné heslo",
+                "send": "Chyba při odesílání"
+          },
+          "server":"Objevila se chyba serveru. Zkus to později.",
+          "email": "Zadaná emailová adresa neexistuje.",
+          "pass": "Zadané heslo je nesprávné.",
+          "send": "Při odesílání nastala chyba."
+    },
+    "success":{
+          "header":"Úspěch",
+          "save":"Data byla úspěšně uložena.",
+          "passReset": "Nové heslo bylo doručeno na tvou emailovou adresu.",
+          "passChange": "Heslo bylo úspěšně změněno.",
+          "send": "Odesílání proběhlo v pořádku."
+    },
+    "alert":{
+          "newMess": "Zkontroluj předmět a příjemce."
+    },
+    "calendar":{
+          "today": "Dnes",
+          "tomorow": "Zítra",
+          "thisWeek": "Tento týden",
+          "nextWeek": "Příští týden",
+          "thisMonth": "Tento měsíc",
+          "nextMonth": "Příští měsíc"
+    }
+}

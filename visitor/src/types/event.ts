@@ -1,0 +1,29 @@
+export interface IEvent {
+    id:number,
+    day:Date,
+    start:string,
+    end:string,
+    city:string,
+    spot:string,
+    nick:string,
+    arts:string[],
+    artistId:number,
+    about:string | undefined,
+    country:string,
+    website:string | undefined,
+    instagram:string | undefined,
+    facebook:string | undefined,
+    twitter:string | undefined, 
+    image:string,
+};
+
+export interface IEventReduced {
+    id:number,
+    day:Date,
+    city:string,
+    spot:string,
+    start:string,
+    end:string,
+    nick:string | undefined,
+    arts:string[],
+};

@@ -1,0 +1,11 @@
+{
+    "filters": {
+      "filters": "Vyber oblast zájmu",
+      "calendar": "Vyber období, které tě zajímá",
+      "events": "Události",
+      "eventsError": "Žádné události",
+      "search":"Hledej",
+        "places":"Místo",
+        "genre": "Žánr"
+    }
+}

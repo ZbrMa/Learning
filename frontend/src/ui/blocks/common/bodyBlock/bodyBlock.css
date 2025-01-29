@@ -7,6 +7,7 @@
 
 .body__section {
     padding-block: 64px;
+    position: relative;
 }
 
 .body__section.pad .section__inner {
@@ -28,16 +29,16 @@
     color: var(--white);
 }
 
-.body__section:first-child, .body__section:nth-child(2) {
+/*.body__section:first-child, .body__section:nth-child(2) {
     padding-top: 64px;
-}
+}*/
 
 .body__section:last-child {
     padding-bottom: 64px;
 }
 
 .main--header {
-    font-size: 5rem;
+    font-size: 4rem;
     text-transform: uppercase;
     position: relative;
     z-index: 1;
@@ -51,13 +52,20 @@
     color: var(--white);
 }
 
+.section--number{
+    text-decoration: underline 6px solid var(--black);
+    text-underline-offset: 8px;
+    font-size: 4rem;
+    position: relative;
+}
+
 @media only screen and (max-width:768px) { 
     .body__section.pad {
         padding: 32px 2%;
     }
 
     .main--header {
-        font-size: 3.6rem;
+        font-size: 3rem;
     }
 
 }

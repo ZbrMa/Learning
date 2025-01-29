@@ -16,7 +16,8 @@
       "next": "Weiter",
       "prev": "Zurück",
       "cancel": "Storno",
-      "booking": "Hinzufügen"
+      "booking": "Hinzufügen",
+      "send" : "Schicken"
     },
     "label": {
       "address": "Adresse",
@@ -34,12 +35,21 @@
       "art": "Art der Kunst",
       "find": "Suchen"
     },
-    "errors": {
-      "server": "Serverfehler. Bitte versuchen Sie es später erneut."
+   "errors": {
+      "title": {
+        "server": "Serverfehler",
+        "email": "Ungültige E-Mail",
+        "pass": "Ungültiges Passwort"
+      },
+      "server": "Serverfehler. Bitte versuchen Sie es später erneut.",
+      "email": "Die eingegebene E-Mail-Adresse existiert nicht.",
+      "pass": "Das eingegebene Passwort ist falsch."
     },
     "success": {
       "header": "Erfolg",
-      "save": "Daten wurden erfolgreich gespeichert."
+      "save": "Die Daten wurden erfolgreich gespeichert.",
+      "passReset": "Ein neues Passwort wurde an Ihre E-Mail-Adresse gesendet.",
+      "passChange": "Das Passwort wurde erfolgreich geändert."
     },
     "calendar": {
       "today": "Heute",

@@ -1,0 +1,69 @@
+.modal__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.481);
+    z-index: 1000;
+}
+
+.modal__content {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    max-width: 90vw;
+    background-color: var(--white);
+    animation: modalAnim 0.2s ease-in-out forwards;
+}
+
+.modal__header {
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+}
+
+.modal__header.def {
+    border-bottom: 2px solid vaR(--lightGray);
+    color: var(--black);
+}   
+
+.modal__header.black {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.modal__header h3 {
+    color: inherit;
+}
+
+.modal__header svg {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+}
+
+.modal__container .option-container {
+    max-height: 250px;
+}
+
+.modal__body {
+    overflow-y: auto;
+    max-height:calc(90vh - 64px);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@keyframes modalAnim {
+    0% {
+        top: -100%;
+    }
+    100% {
+        top:0;
+    }
+}
+
+@media only screen and (max-width:992px){
+    .modal__content {
+        max-height: 90vh;
+    }
+}

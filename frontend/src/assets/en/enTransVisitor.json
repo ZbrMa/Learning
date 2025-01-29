@@ -11,36 +11,44 @@
       "instagram": "Instagram",
       "contactForm": "Contact form"
     },
+
+
     "homePage": {
       "citiesIntro": {
-        "header": "The whole city becomes the stage",
-        "text": "We are currently managing <1>{{number}} places</1> and more are constantly being added."
+        "header": "The whole city becomes a stage",
+        "text": "We currently manage {{number}} locations and more are constantly being added."
       },
       "intro": {
-        "header": "See the city differently",
-        "text": "Enjoy <1>live art</1> in the pulsating <2>streets of the city</2>. Support artists and become part of the <3>scene</3>.",
-        "button": "More about the project"
+        "users":"is the number of artists who are part of our community",
+        "hours": "That's how many hours buskers have already shared their art",
+        "events": "performances have been played"
       },
-      "upcomingBlock": {
-        "header": "What's coming up?",
-        "button": "Events"
-      },
+      "follow": "Follow us",
       "actionCall": {
         "joinCommunity": {
-          "header": "Become part of our world!",
-          "cards": {
-            "artists": "artists",
-            "eventsPerMonth": "events per month",
-            "places": "cities"
-          }
+          "header": "Become a part of our world!",
+          "talent":"talents",
+          "dream":"dreams",
+          "energy":"energy",
+          "text": "Together we create a space where <1>{{talent}}</1>, <2>{{dream}}</2> and <3>{{energy}}</3> can come together, making the city more vibrant and inspiring."
         },
         "buskerJoin": {
-          "header": "Are you a busker?",
-          "text": "Whether you're an artist or a fan of street art, our platform is here for you. Join us and let's create unforgettable experiences together!",
-          "button": "I want to be part of it"
+          "header1": "Are you a busker?",
+          "header2": "Are you a visitor?",
+          "text": "Whether you are an artist or a fan of street art, our platform is for you. Join us and let's create unforgettable experiences together!",
+          "button": "I want to be a part of it",
+          "watermark1": "busker",
+          "watermark2":"visitor"
         }
+      },
+      "tryApp": {
+        "header":"Try our app",
+        "text": "Have you tried our app yet? If not, what are you waiting for!",
+        "button":"Learn more about the app"
       }
     },
+
+
     "eventsPage": {
       "filters": "Select the area of interest",
       "calendar": "Select the period you're interested in",

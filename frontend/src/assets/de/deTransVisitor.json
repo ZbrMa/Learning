@@ -11,36 +11,44 @@
       "instagram": "Instagram",
       "contactForm": "Kontaktformular"
     },
+
+
     "homePage": {
       "citiesIntro": {
         "header": "Die ganze Stadt wird zur Bühne",
-        "text": "Wir verwalten derzeit <1>{{number}} Orte</1> und es kommen ständig neue hinzu."
+        "text": "Derzeit verwalten wir {{number}} Orte und es kommen ständig neue hinzu."
       },
       "intro": {
-        "header": "Erlebe die Stadt anders",
-        "text": "Genieße <1>lebende Kunst</1> in den pulsierenden <2>Stadtstraßen</2>. Unterstütze Künstler und werde Teil der <3>Szene</3>.",
-        "button": "Mehr über das Projekt"
+        "users":"Ist die Anzahl der Künstler, die Teil unserer Community sind",
+        "hours": "So viele Stunden haben Busker bereits ihre Kunst geteilt",
+        "events": "Aufführungen wurden gespielt"
       },
-      "upcomingBlock": {
-        "header": "Was steht an?",
-        "button": "Veranstaltungen"
-      },
+      "follow": "Folge uns",
       "actionCall": {
         "joinCommunity": {
           "header": "Werde Teil unserer Welt!",
-          "cards": {
-            "artists": "Künstler",
-            "eventsPerMonth": "Veranstaltungen pro Monat",
-            "places": "Städte"
-          }
+          "talent":"Talente",
+          "dream":"Träume",
+          "energy":"Energie",
+          "text": "Gemeinsam schaffen wir einen Raum, in dem <1>{{talent}}</1>, <2>{{dream}}</2> und <3>{{energy}}</3> zusammenkommen und die Stadt lebendiger und inspirierender machen."
         },
         "buskerJoin": {
-          "header": "Bist du ein Straßenkünstler?",
-          "text": "Egal, ob du Künstler oder ein Fan von Straßenkunst bist, unsere Plattform ist für dich. Schließe dich uns an und lass uns gemeinsam unvergessliche Erlebnisse schaffen!",
-          "button": "Ich möchte ein Teil davon sein"
+          "header1": "Bist du ein Busker?",
+          "header2": "Bist du ein Besucher?",
+          "text": "Egal, ob du Künstler oder Fan von Straßenkunst bist, unsere Plattform ist für dich da. Werde Teil von uns und lass uns gemeinsam unvergessliche Erlebnisse schaffen!",
+          "button": "Ich möchte dabei sein",
+          "watermark1": "Busker",
+          "watermark2":"Besucher"
         }
+      },
+      "tryApp": {
+        "header":"Probiere unsere App aus",
+        "text": "Hast du unsere App schon ausprobiert? Wenn nicht, worauf wartest du!",
+        "button":"Mehr über die App erfahren"
       }
     },
+
+
     "eventsPage": {
       "filters": "Wähle das Interessengebiet",
       "calendar": "Wähle den Zeitraum, der dich interessiert",

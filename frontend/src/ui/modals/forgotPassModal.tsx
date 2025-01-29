@@ -7,6 +7,7 @@ import { Alert } from "../components/alert/alert";
 import { useContext } from "react";
 import { ModalContext } from "../../context/modalContext";
 import { Spinner } from "../components/spinner/spinner";
+import { useTranslation } from "react-i18next";
 
 const forgotPassFields:IFieldConfig[] = [
     {
@@ -26,6 +27,8 @@ export function ForgotPassModal(){
     const {showAlert} = useAlert();
     const {setModal} = useContext(ModalContext);
 
+    const {t} = useTranslation("common");
+
     const forgotPassFormConfig:IFormConfig = {
         fields:forgotPassFields,
         onSubmit:async(data)=>{
@@ -34,12 +37,12 @@ export function ForgotPassModal(){
             });
 
             if(response.error){
-                showAlert(<Alert type="negative" title="Chyba serveru" >Chyba server. Zkus to později</Alert>)
+                showAlert(<Alert type="negative" title="Chyba serveru" >{t("errors.server")}</Alert>)
             } else if (response.data.success) {
-                showAlert(<Alert type="positive" title="Email odeslán">{response.data.message}</Alert>,3000);
+                showAlert(<Alert type="positive" title="Email odeslán">{t("success.passReset")}</Alert>,3000);
                 setModal(null);
             } else {
-                showAlert(<Alert type="negative" title="Nesprávný email">{response.data.message}</Alert>,3000);
+                showAlert(<Alert type="negative" title="Nesprávný email">{t("errors.email")}</Alert>,3000);
             }
 
         },

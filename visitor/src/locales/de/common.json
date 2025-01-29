@@ -1,0 +1,69 @@
+{
+  "menu":{
+            "home":"Startseite",
+            "events":"Veranstaltungen",
+            "about":"Das Projekt",
+            "app":"Die App",
+            "join":"Beitreten"
+      },
+  "button": {
+    "home": "Startseite",
+    "events": "Veranstaltungen",
+    "about": "Das Projekt",
+    "contact": "Kontakt",
+    "profile": "Profil",
+    "notifications": "Benachrichtigungen",
+    "myCalendar": "Mein Kalender",
+    "logout": "Abmelden",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "findEvent": "Buchung",
+    "admin": "Verwaltung",
+    "join": "Beitreten",
+    "next": "Weiter",
+    "prev": "Zurück",
+    "cancel": "Storno",
+    "booking": "Hinzufügen",
+    "send" : "Schicken"
+  },
+  "label": {
+    "address": "Adresse",
+    "nationality": "Staatsangehörigkeit",
+    "city": "Stadt",
+    "contact": "Kontakt",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "group": "Gruppe",
+    "activeSince": "Aktiv seit",
+    "about": "Über mich/uns",
+    "whereToFindMe": "Wo kann man mich finden?",
+    "other": "Andere",
+    "spot": "Ort",
+    "art": "Art der Kunst",
+    "find": "Suchen"
+  },
+ "errors": {
+    "title": {
+      "server": "Serverfehler",
+      "email": "Ungültige E-Mail",
+      "pass": "Ungültiges Passwort"
+    },
+    "server": "Serverfehler. Bitte versuchen Sie es später erneut.",
+    "email": "Die eingegebene E-Mail-Adresse existiert nicht.",
+    "pass": "Das eingegebene Passwort ist falsch."
+  },
+  "success": {
+    "header": "Erfolg",
+    "save": "Die Daten wurden erfolgreich gespeichert.",
+    "passReset": "Ein neues Passwort wurde an Ihre E-Mail-Adresse gesendet.",
+    "passChange": "Das Passwort wurde erfolgreich geändert."
+  },
+  "calendar": {
+    "today": "Heute",
+    "tomorow": "Morgen",
+    "thisWeek": "Diese Woche",
+    "nextWeek": "Nächste Woche",
+    "thisMonth": "Diesen Monat",
+    "nextMonth": "Nächsten Monat"
+  }
+}

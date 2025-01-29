@@ -1,0 +1,15 @@
+.feature__item {
+    max-width: 300px;
+}
+
+.feature__item svg {
+    color: var(--red);
+    height: 64px;
+    width: 64px;
+    flex-shrink: 0;
+}
+
+.feature__item:not(:last-child) {
+    margin-bottom: 48px;
+
+}

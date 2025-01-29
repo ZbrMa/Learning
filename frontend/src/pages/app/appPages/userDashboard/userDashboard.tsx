@@ -20,14 +20,12 @@ import { HiOutlineUser } from "react-icons/hi2";
 import { HiOutlineNewspaper } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/reduxStore";
-import { IoMdAdd } from "react-icons/io";
 import { DropdownMenu } from "../../../../ui/components/dropdownMenu/dropdownMenu";
 import { setLang } from "../../../../redux/languageSlice";
 import { useTranslation } from "react-i18next";
 import { logout } from "../../../../api/authSlice";
-import "./userDashboard.css";
 import { ILang } from "../../../../types/filtersTypes";
-import { checkPrime } from "crypto";
+import { HiOutlineMicrophone } from "react-icons/hi2";
 
 type UserDashBoardProps = {
   children: ReactNode;
@@ -39,6 +37,7 @@ export function UserDashboard({ children }: UserDashBoardProps) {
   const { lang } = useSelector((root: RootState) => root.lang);
   const navigate = useNavigate();
   const { t } = useTranslation("app");
+  const { t:tCom } = useTranslation("common");
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -101,7 +100,7 @@ export function UserDashboard({ children }: UserDashBoardProps) {
             </Button>
           )}
           <Link to={"/app/home"}>
-            <img src="/images/logo.png" className="logo" />
+            <img src="/images/logo.png" className="logo" alt="app-logo"/>
           </Link>
           <DashboardMenu>
             <DropdownMenu
@@ -139,7 +138,7 @@ export function UserDashboard({ children }: UserDashBoardProps) {
               id="find-spot-btn"
               color="red"
             >
-              <IoMdAdd />
+              <HiOutlineMicrophone />
               <span>{t("dashboard.findSpot")}</span>
             </DashboardMeuItem>
             <DashboardMeuItem path={"/app/home"}>
@@ -170,8 +169,8 @@ export function UserDashboard({ children }: UserDashBoardProps) {
                 {t("dashboard.back")}
               </DashboardMeuItem>
               <Button variant="ternary" size="small" onClick={handleLogout}>
-                <IoLogOutOutline />
-                Odhlásit se
+                <IoLogOutOutline style={{WebkitTransform: 'scaleX(-1)',transform: 'scaleX(-1)'}}/>
+                {tCom("button.logout")}
               </Button>
             </div>
           </DashboardMenu>
@@ -183,7 +182,7 @@ export function UserDashboard({ children }: UserDashBoardProps) {
         <div className="bottom-bar">
           <div className="flex-col items-center" id="find-spot-btn">
             <DashboardMeuItem path={"/app/findSpot"} color="red">
-              <IoMdAdd />
+              <HiOutlineMicrophone />
             </DashboardMeuItem>
             <span>{t("dashboard.findSpot")}</span>
           </div>

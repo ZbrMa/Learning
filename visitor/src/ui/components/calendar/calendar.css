@@ -1,0 +1,50 @@
+.cal__grid {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    width: 100%;
+}
+
+.cal--day {
+    padding: 1rem;
+    position: relative;
+}
+
+.day--name {
+    color: var(--lightGrayHover);
+}
+
+.this--day {
+    cursor: pointer;
+}
+
+.this--day:hover {
+    outline: 2px solid var(--red);
+    outline-offset: -2px;
+    background-color: var(--white);
+    color: vaR(--black);
+}
+
+.day-in-range {
+    background-color: rgb(255 240 240);
+}
+
+.terminal--day {
+    background-color: var(--red);
+    color: vaR(--white);
+}
+
+.this--day.has--event {
+    text-decoration:underline 1px solid var(--black);
+    text-underline-offset: 2px;
+}
+
+.terminal--day.has--event {
+    text-decoration:underline 1px solid var(--white);
+    text-underline-offset: 2px;
+}
+
+@media only screen and (max-width:768px) { 
+    .cal--day {
+        padding: 0.6rem;
+    }
+}

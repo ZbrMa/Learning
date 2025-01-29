@@ -1,0 +1,11 @@
+{
+    "filters": {
+        "filters": "Select the area of interest",
+        "calendar": "Select the period you're interested in",
+        "events": "Events",
+        "eventsError": "No events",
+        "search":"Search",
+        "places":"Place",
+        "genre": "Genre"
+    }
+  }

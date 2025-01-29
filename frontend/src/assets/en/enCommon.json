@@ -16,7 +16,8 @@
       "next": "Next",
       "prev": "Prev",
       "cancel": "Cancel",
-       "booking": "Add"
+       "booking": "Add",
+       "send" : "Send"
     },
     "label": {
       "address": "Address",
@@ -35,11 +36,20 @@
       "find": "Search"
     },
     "errors": {
-      "server": "Server error. Please try again later."
+      "title": {
+        "server": "Server Error",
+        "email": "Invalid Email",
+        "pass": "Invalid Password"
+      },
+      "server": "Server error. Please try again later.",
+      "email": "The entered email address does not exist.",
+      "pass": "The entered password is incorrect."
     },
     "success": {
       "header": "Success",
-      "save": "Data has been successfully saved."
+      "save": "Data has been successfully saved.",
+      "passReset": "A new password has been sent to your email address.",
+      "passChange": "The password has been successfully changed."
     },
     "calendar": {
       "today": "Today",

@@ -1,0 +1,69 @@
+{
+  "menu":{
+            "home":"Home",
+            "events":"Events",
+            "about":"About",
+            "app":"App",
+            "join":"Join"
+      },
+  "button": {
+    "home": "Home",
+    "events": "Events",
+    "about": "About",
+    "contact": "Contact",
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "myCalendar": "My Calendar",
+    "logout": "Log Out",
+    "login": "Log In",
+    "register": "Register",
+    "findEvent": "Find Spot",
+    "admin": "Administration",
+    "join": "Join",
+    "next": "Next",
+    "prev": "Prev",
+    "cancel": "Cancel",
+     "booking": "Add",
+     "send" : "Send"
+  },
+  "label": {
+    "address": "Address",
+    "nationality": "Nationality",
+    "city": "City",
+    "contact": "Contact",
+    "email": "Email",
+    "phone": "Phone",
+    "group": "Group",
+    "activeSince": "Active since",
+    "about": "About me/us",
+    "whereToFindMe": "Where to find me?",
+    "other": "Other",
+    "spot": "Spot",
+    "art": "Type of art",
+    "find": "Search"
+  },
+  "errors": {
+    "title": {
+      "server": "Server Error",
+      "email": "Invalid Email",
+      "pass": "Invalid Password"
+    },
+    "server": "Server error. Please try again later.",
+    "email": "The entered email address does not exist.",
+    "pass": "The entered password is incorrect."
+  },
+  "success": {
+    "header": "Success",
+    "save": "Data has been successfully saved.",
+    "passReset": "A new password has been sent to your email address.",
+    "passChange": "The password has been successfully changed."
+  },
+  "calendar": {
+    "today": "Today",
+    "tomorow": "Tomorrow",
+    "thisWeek": "This week",
+    "nextWeek": "Next week",
+    "thisMonth": "This month",
+    "nextMonth": "Next month"
+  }
+}
