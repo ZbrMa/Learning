@@ -3,16 +3,17 @@ import { useSelector } from "react-redux";
 import { useGetUserCalendarEventsQuery } from "../../api/eventApiSlice";
 import { Schedule } from "../../ui/components/schedule/schedule";
 import { RootState } from "../../store/reduxStore";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 import { useSignOutEventMutation } from "../../api/eventApiSlice";
 import { useAlert } from "../../context/alertContext";
 import { Alert } from "../../ui/components/alert/alert";
 import { useTranslation } from "react-i18next";
+import { startOfISOWeek } from "date-fns";
 
 export function UserCalendar(){
 
     const {id} = useSelector((root:RootState)=>root.auth);
-    const [startDate,setStartDate] = useState(new Date());
+    const [startDate,setStartDate] = useState(startOfISOWeek(new Date));
     const {data,isLoading,isFetching} = useGetUserCalendarEventsQuery({userId:id,startDate:startDate},{refetchOnMountOrArgChange:true});
     const [signOutEvent] = useSignOutEventMutation();
     const {showAlert} = useAlert();

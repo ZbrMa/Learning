@@ -152,6 +152,7 @@ option:hover {
     padding: 2px 2px 2px 8px;
     margin-right: 4px;
     cursor: pointer;
+    border-radius: 4px;
 }
 
 .dropdown.disabled .selected-item {

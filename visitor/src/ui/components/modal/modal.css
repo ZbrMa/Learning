@@ -7,6 +7,10 @@
     background-color: rgba(0, 0, 0, 0.481);
     z-index: 1000;
 }
+.custom-modal {
+    border-radius: var(--radius);
+    overflow: hidden;
+}
 
 .modal__content {
     position: relative;

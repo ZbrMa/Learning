@@ -28,6 +28,7 @@ import { ModalContext } from "../../../context/modalContext";
 import { NewMessageModal, ReadMessageModal } from "../../modals/messageModal";
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
+import { TabsContext } from "../../components/tabs/tabsContext";
 
 type NotificationContainerProps = {
   notifications: INotification[] | undefined;
@@ -146,7 +147,7 @@ export function NotificationItem({
       } ${!notificationInput.readAt && flow === 'from' ? "new" : ""}`}
       onClick={handleReadNotification}
     >
-       <img src={flow === 'from' ? notificationInput.fromImage : notificationInput.toImage} className="small--message--img" alt="user-image"/>
+       <img src={flow === 'from' ? notificationInput.fromImage ?? '/app-logo.png' : notificationInput.toImage ?? '/app-logo.png'} className="small--message--img" alt="user-image"/>
       <div className="flex-col g-8 w-full">
        
       <div className="flex g-32 items-base content-space">
@@ -170,7 +171,8 @@ export function NotificationItem({
 export function NotificationDetail({
   flow,
 }: Omit<NotificationItemProps, "notificationInput">) {
-  const { notification } = useContext(NotificationContext);
+  const { active } = useContext(TabsContext);
+  const { notification, setNotification } = useContext(NotificationContext);
   const [mobile,setMobile] = useState(false);
   const { t } = useTranslation('app');
 
@@ -183,7 +185,11 @@ export function NotificationDetail({
     window.addEventListener('resize',checkMobile);
 
     return ()=> window.removeEventListener('resize',checkMobile);
-  },[])
+  },[]);
+
+  useEffect(()=>{
+    setNotification(null);
+  },[active]);
 
   if (mobile){
     return null; 

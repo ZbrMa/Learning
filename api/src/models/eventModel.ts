@@ -87,96 +87,84 @@ export const upcomingEvents = async (
 };
 
 
-export const filteredEvents = async(
-  eventFilter:{range:IEventDateRangeFilter,filters:IEventFilter,checked:boolean},
+export const filteredEvents = async (
+  eventFilter: { range: IEventDateRangeFilter, filters: IEventFilter, checked: boolean },
   callback: (err: Error | null, results: IEvent[] | null) => void
 ) => {
-  let whereClause = '';
-  let artWhereClause = "";
-  let params:(string | number)[] = [eventFilter.range.from, eventFilter.range.to];
-  let artParams:number[] = [];
+  let whereClause = `e.event_day BETWEEN ? AND ? AND e.event_day >= CURDATE() AND e.user_id IS ${eventFilter.checked ? 'NOT' : ''} NULL`;
+  let params: (string | number)[] = [eventFilter.range.from, eventFilter.range.to];
 
-  if (eventFilter.filters.places?.length >0){
-    params = [...params,...eventFilter.filters.places];
-    const placesClause = Array.from({length:eventFilter.filters.places.length}).fill('?').join(',');
+  if (eventFilter.filters.places?.length > 0) {
+    const placesClause = Array.from({ length: eventFilter.filters.places.length }).fill('?').join(',');
     whereClause += ` AND e.place_id IN (${placesClause})`;
-  };
+    params = [...params, ...eventFilter.filters.places];
+  }
 
-  if (eventFilter.filters.arts?.length > 0){
-    artParams = [...artParams,...eventFilter.filters.arts];
-    const artsClause = Array.from({length:eventFilter.filters.arts.length}).fill('?').join(',');
-    artWhereClause += ` WHERE art_id IN (${artsClause}) `;
-  };
+  if (eventFilter.filters.arts?.length > 0) {
+    const artsClause = Array.from({ length: eventFilter.filters.arts.length }).fill('?').join(',');
+    whereClause += ` AND ua.art_id IN (${artsClause})`;
+    params = [...params, ...eventFilter.filters.arts];
+  }
 
-  const artsQuery = ` SELECT 
-      ua.user_id, 
-      a.name as artName
-    FROM user_art ua
-    LEFT JOIN arts a ON ua.art_id = a.id`;
+  const sql = `
+    SELECT 
+      e.id, 
+      e.event_day as day, 
+      e.event_start as start,
+      e.event_end as end,  
+      p.city, 
+      p.spot, 
+      u.nick, 
+      u.id as artistId,
+      c.name as countryName,
+      u.description as about, 
+      u.website, 
+      u.facebook, 
+      u.instagram, 
+      u.twitter, 
+      u.image
+    FROM events e
+    LEFT JOIN places p ON e.place_id = p.id
+    LEFT JOIN users u ON e.user_id = u.id
+    LEFT JOIN countries c ON u.country = c.id
+    LEFT JOIN user_art ua ON ua.user_id = u.id
+    WHERE ${whereClause}
+    GROUP BY e.id
+    ORDER BY e.event_day, e.event_start;
+  `;
 
-    try {
-      // Spuštění dotazu na druhy umění
-      const [arts] = await db.promise().query<
-        { user_id: number; artName: string }[] & RowDataPacket[]
-      >(artsQuery, artParams);
-  
-      // Získání všech uživatelů (pokud nejsou žádní, použijeme prázdný Set)
-      const usersWithArts = new Set(arts.map((art) => art.user_id));
-  
-      // Pokud filtr "arts" není prázdný, přidáme podmínku na uživatele
-      if (eventFilter.filters.arts?.length > 0) {
-        const userClause = Array.from({ length: usersWithArts.size }).fill('?').join(',');
-        whereClause += ` AND (e.user_id IN (${userClause}) OR e.user_id IS NULL)`;
-        params = [...params, ...usersWithArts];
-      }
-  
-      // Dotaz na eventy
-      const sql = `
-        SELECT 
-          e.id, 
-          e.event_day as day, 
-          e.event_start as start,
-          e.event_end as end,  
-          p.city, 
-          p.spot, 
-          u.nick, 
-          u.id as artistId,
-          c.name as countryName,
-          u.description as about, 
-          u.website, 
-          u.facebook, 
-          u.instagram, 
-          u.twitter, 
-          u.image
-        FROM events e
-        LEFT JOIN places p ON e.place_id = p.id
-        LEFT JOIN users u ON e.user_id = u.id
-        LEFT JOIN countries c ON u.country = c.id
-        WHERE e.user_id IS ${eventFilter.checked ? 'NOT' : ''} NULL 
-          AND e.event_day BETWEEN ? AND ?
-          AND e.event_day >= CURDATE()
-          ${whereClause}
-        ORDER BY e.event_day, e.event_start;
-      `;
-  
-      // Spuštění dotazu na eventy
-      const [events] = await db.promise().query<IEvent[] & RowDataPacket[]>(sql, params);
-  
-      // Obohacení eventů o informace o druzích umění
-      const enrichedEvents = events.map((event) => ({
-        ...event,
-        arts: arts
-          .filter((ua) => ua.user_id === event.artistId)
-          .map((ua) => ua.artName),
-      }));
-  
-      // Vrácení výsledků
-      return callback(null, enrichedEvents);
-    } catch (err) {
-      console.error(err);
-      return callback(err as Error, null);
+  try {
+    const [events] = await db.promise().query<IEvent[] & RowDataPacket[]>(sql, params);
+
+    if (events.length === 0) {
+      return callback(null, null);
     }
+
+    const userIds = events.map(event => event.artistId);
+
+    const artsQuery = `
+      SELECT ua.user_id, a.name as artName 
+      FROM user_art ua
+      LEFT JOIN arts a ON ua.art_id = a.id
+      WHERE ua.user_id IN (${Array.from({ length: userIds.length }).fill('?').join(',')})
+    `;
+
+    const [arts] = await db.promise().query<{ user_id: number; artName: string }[] & RowDataPacket[]>(artsQuery, userIds);
+
+    const enrichedEvents:IEvent[] = events.map(event => ({
+      ...event,
+      arts: arts
+        .filter(art => art.user_id === event.artistId)
+        .map(art => art.artName),
+    }));
+
+    return callback(null, enrichedEvents);
+  } catch (err) {
+    console.error(err);
+    return callback(err as Error, null);
+  }
 };
+
 
 export const adminEventsModel = (
   startDay: string,

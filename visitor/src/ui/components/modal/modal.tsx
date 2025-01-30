@@ -1,5 +1,5 @@
 import { IoCloseOutline } from "react-icons/io5";
-import { HTMLAttributes, memo, useContext } from "react";
+import { HTMLAttributes, memo, useContext, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { ModalContext } from "../../../context/modalContext";
 import './modal.css';
@@ -16,21 +16,37 @@ type ModalProps = {
 export function Modal({children,title,id,custom= false, color='default',onClose}:ModalProps){
 
     const { modal, setModal } = useContext(ModalContext);
+    const modalRef = useRef<HTMLDivElement>(null);
+    const modalContRef = useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (modalContRef.current && modalContRef.current.contains(event.target as Node) && modalRef.current && !modalRef.current.contains(event.target as Node)) {
+          setModal(null);
+        }
+    };
+
+        useEffect(() => {
+          document.addEventListener("mousedown", handleClickOutside);
+          return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+          };
+        }, []);
 
     if(modal === id){
         if (custom){
             return ReactDOM.createPortal(
-                <div className="modal__container flex items-center content-center" id={id}>
-                    <div className="page--shadow"></div>
-                    {children}
+                <div className="modal__container flex items-center content-center" id={id} ref={modalContRef}>
+                    <div ref={modalRef} className="custom-modal">
+                        {children}
+                    </div>
+                    
                 </div>,
                 document.body
             );
         }
         return ReactDOM.createPortal(
-            <div className="modal__container flex items-center content-center" id={id}>
-                <div className="page--shadow"></div>
-                <div className="modal__content">
+            <div className="modal__container flex items-center content-center" id={id} ref={modalContRef}>
+                <div className="modal__content" ref={modalRef}>
                     <ModalHeader close={onClose ?? (() => setModal(null))} color={color}>{title}</ModalHeader>
                     <ModalBody>{children}</ModalBody>
                 </div>

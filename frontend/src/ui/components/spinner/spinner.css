@@ -10,6 +10,7 @@
    border: 9px solid var(--red);
    animation: spinner-bulqg1 0.8s infinite linear alternate,
         spinner-oaa3wk 1.6s infinite linear;
+        z-index: 1000;
 }
 
 @keyframes spinner-bulqg1 {

@@ -36,11 +36,11 @@ export function EventSearchBlock() {
 
   return (
     <>
-    <BodyBlock style={{marginTop:'0'}}>
+    <BodyBlock id="events">
       <div className="event__search grid-2 g-128">
         <div className="flex-col g-32">
             <h2 className="h-md xbold">{t('filters.filters')}</h2>
-            <Input label={t('filters.search')}/>
+            {/*<Input label={t('filters.search')}/>*/}
           {places && (
             <GroupedDropdown
               placeholder={t('filters.places')}

@@ -78,12 +78,14 @@ export const Schedule = memo(function Schedule({
   
 
   const handleWeekChange = (direction: 1 | -1) => {
-    setCurrentWeekStart((prev) => addWeeks(prev, direction));
+    const newWeek = addWeeks(currentWeekStart,direction);
+    setCurrentWeekStart(newWeek);
+    if (returnInterval) returnInterval(newWeek);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     returnInterval && returnInterval(currentWeekStart);
-  }, [currentWeekStart, returnInterval]);
+  }, [currentWeekStart, returnInterval]);*/
 
   const getEventsForCell = useCallback (
     (day: Date, hour: string) => {
@@ -96,8 +98,8 @@ export const Schedule = memo(function Schedule({
   },[events]);
   
   return (
-    <div className="schedule">
-      {isLoading && <Spinner/>}
+    <div className="schedule relative">
+      {isLoading && <Spinner fixed={false}/>}
       {hasFilter &&
       <div className="schedule__header">
         <div className="flex g-16 items-center content-center mb-32">

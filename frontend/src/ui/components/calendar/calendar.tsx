@@ -16,7 +16,6 @@ import { cs, enUS, de } from "date-fns/locale";
 import { useEffect, useState } from "react";
 import { Button, IconButton } from "../button/button";
 import "./calendar.css";
-import { IEventReduced } from "../../../types/events";
 import { ButtonGroup } from "../buttonGroup/buttonGroup";
 import { IoArrowBackOutline, IoArrowForwardOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";

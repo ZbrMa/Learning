@@ -13,11 +13,11 @@ import { AdminEvents } from "./pages/app/appPages/adminDashboard/adminEvents";
 import { AdminUsers } from "./pages/app/appPages/adminDashboard/adminUsers";
 import { AdminPlaces } from "./pages/app/appPages/adminDashboard/adminPlaces";
 import { AdminNotifications } from "./pages/app/appPages/adminDashboard/adminNotifications";
-import { UserCalendar } from "./pages/app/appPages/userDashboard/userCalendar";
-import { UserProfile } from "./pages/app/appPages/userDashboard/userProfile";
-import { UserFindSpot } from "./pages/app/appPages/userDashboard/userFindSpot";
-import { UserNotifications } from "./pages/app/appPages/userDashboard/userNotifications";
-import { UserHome } from "./pages/app/appPages/userDashboard/userHome";
+import { UserCalendar } from "./pages/userDashboard/userCalendar";
+import { UserProfile } from "./pages/userDashboard/userProfile";
+import { UserFindSpot } from "./pages/userDashboard/userFindSpot";
+import { UserNotifications } from "./pages/userDashboard/userNotifications";
+import { UserHome } from "./pages/userDashboard/userHome";
 import { NotificationContextProvider } from "./context/notificationContext";
 
 const events = [
