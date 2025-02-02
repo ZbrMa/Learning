@@ -1,0 +1,18 @@
+{
+    "features": {
+      "plan": {
+        "title": "Plan",
+        "text": "Organize your performances. Choose the time and place that suits you."
+      },
+      "community": {
+        "title": "Communicate",
+        "text": "Connect with our team or other buskers and build relationships and collaborations."
+      },
+      "perform": {
+        "title": "Perform",
+        "text": "Show everyone what you're made of. Bring the streets to life. Be part of the scene."
+      }
+    },
+    "tryMobile": "Try our mobile app as well"
+  }
+  

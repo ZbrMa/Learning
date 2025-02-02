@@ -23,9 +23,9 @@
       "text": "Společně vytváříme prostor, kde se mohou spojit <1>{{talent}}</1>, <2>{{dream}}</2> a <3>{{energy}}</3>, čímž děláme město živější a inspirativnější."
     },
     "buskerJoin": {
-      "header1": "Jste busker?",
-      "header2": "Jste návštěvník?",
-      "text": "Ať už jste umělec nebo fanoušek pouličního umění, naše platforma je tu pro vás. Přidejte se k nám a společně vytvářejme nezapomenutelné zážitky!",
+      "header1": "Jsi busker?",
+      "header2": "Jsi návštěvník?",
+      "text": "Ať už jsi umělec nebo fanoušek pouličního umění, naše platforma je tu pro vás. Přidejte se k nám a společně vytvářejme nezapomenutelné zážitky!",
       "button": "Chci být součástí",
       "events": "Události",
       "watermark1": "busker",
@@ -34,7 +34,7 @@
   },
   "tryApp": {
     "header": "Vyzkoušejte naši aplikaci",
-    "text": "Už jste vyzkoušeli naši aplikaci? Pokud ne, na co ještě čekáte!",
+    "text": "Už jsi vyzkoušeli naši aplikaci? Pokud ne, na co ještě čekáte!",
     "button": "Zjistit více o aplikaci"
   }
 }

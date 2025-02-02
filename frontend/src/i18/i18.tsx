@@ -12,6 +12,12 @@ import deLogReg from '../assets/de/logReg.json';
 import enApp from '../assets/en/app.json';
 import csApp from '../assets/cs/app.json';
 import deApp from '../assets/de/app.json';
+import csHome from '../assets/cs/home.json';
+import enHome from '../assets/en/home.json';
+import deHome from '../assets/de/home.json';
+import csModals from '../assets/cs/modals.json';
+import enModals from '../assets/en/modals.json';
+import deModals from '../assets/de/modals.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reduxStore';
 import { useEffect } from 'react';
@@ -25,23 +31,29 @@ i18n
         common: enCommon,
         logReg:enLogReg,
         app: enApp,
+        home:enHome,
+        modals:enModals,
       },
       cs: {
         visitor: csVisit,
         common: csCommon,
         logReg:csLogReg,
         app: csApp,
+        home:csHome,
+        modals:csModals,
       },
       de: {
         visitor: deVisit,
         common: deCommon,
         logReg:deLogReg,
         app: deApp,
+        home:deHome,
+        modals:deModals,
       },
     },
-    lng: 'cs',
-    fallbackLng: 'en',
-    ns: ['visitor', 'common', 'logReg','app'],
+    lng: 'en',
+    fallbackLng: 'de',
+    ns: ['visitor', 'common', 'logReg','app','home','modals'],
     defaultNS: 'common',
     interpolation: {
       escapeValue: false,

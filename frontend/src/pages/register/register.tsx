@@ -5,11 +5,11 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/reduxStore";
 import { logout } from "../../api/authSlice";
 import { useSelector } from "react-redux";
-import { BodyBlock } from "../../ui/blocks/common/bodyBlock/bodyBlock";
 import { NewUser } from "./ui/newUser";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { LuPlus } from "react-icons/lu";
+import { IconButton } from "../../ui/components/button/button";
+import { IoHomeOutline } from "react-icons/io5";
 
 export function Register() {
   const token = useSelector((root: RootState) => root.auth.token);
@@ -21,13 +21,13 @@ export function Register() {
     return (
       <Layout
         button={
-          <Link to="/login" className="xbold">
-            <Button>
-              <LuPlus />
-              {t("button.join")}
-            </Button>
-          </Link>
-        }
+                  <Link to="/">
+                    
+                    <IconButton>
+                      <IoHomeOutline/>
+                    </IconButton>
+                  </Link>
+                }
         left={<div>ahoj</div>}
         right={
           

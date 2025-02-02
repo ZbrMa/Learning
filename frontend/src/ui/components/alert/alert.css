@@ -17,6 +17,7 @@
     box-shadow: 4px 13px 20px 0px rgba(0,0,0,0.1);
     border-radius: calc(var(--radius) / 2);
     overflow: hidden;
+    animation: alertShow 0.5s ease-in-out forwards;
 }
 
 .alert__container svg {
@@ -148,4 +149,13 @@
         max-width: 92%;
     }
     
+}
+
+@keyframes alertShow {
+    0% {
+        top: -20%;
+    }
+    100% {
+        top: 64px;
+    }
 }

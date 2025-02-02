@@ -2,7 +2,6 @@ import { UserDashboard } from "./userDashboard";
 import {
   useGetFilteredEventsQuery,
   useLoginEventMutation,
-  useGetEventDatesQuery,
 } from "../../api/eventApiSlice";
 import { useGetPlacesQuery } from "../../api/filtersApiSlice";
 import { useCallback, useState } from "react";
@@ -17,10 +16,15 @@ import { IPlace } from "../../types/filtersTypes";
 import { Spinner } from "../../ui/components/spinner/spinner";
 import { GroupedSelect } from "../../ui/components/groupedSelect/groupedSelect";
 import { useTranslation } from "react-i18next";
+import { Timer } from "../../ui/components/timer/timer";
+import './userDashboardStyles.css';
+
+const DISABLE_TIME = 60;
 
 export function UserFindSpot() {
   const { id: userId } = useSelector((root: RootState) => root.auth);
-  const { data: places, isLoading: placesLoading } = useGetPlacesQuery(undefined,{refetchOnMountOrArgChange:false});
+  const [disabled,setDisabled] = useState(false);
+  const {data: places, isLoading: placesLoading } = useGetPlacesQuery(undefined,{refetchOnMountOrArgChange:false});
   const {t} = useTranslation("common");
   const [startDate,setStartDate] = useState(new Date());
   const [filters, setFilters] = useState<IEventFilter>({
@@ -29,6 +33,7 @@ export function UserFindSpot() {
   })
 
   const {
+    refetch,
     data: events,isLoading,isFetching} = useGetFilteredEventsQuery(
     {
       range: {
@@ -52,19 +57,32 @@ export function UserFindSpot() {
       if (data) {
         if (data.success) {
           showAlert(<Alert type="positive">{data.message}</Alert>);
+          setDisabled(true);
+          setTimeout(()=>{
+            setDisabled(false);
+            refetch();
+          },DISABLE_TIME*1000);
         } else {
           showAlert(<Alert type="negative">{data.message}</Alert>);
         }
       } else if (error) {
         showAlert(
-          <Alert type="negative">Chyba serveru, zkuste to později.</Alert>
+          <Alert type="negative"title={t("errors.title")}>{t("errors.server")}</Alert>
         );
       }
-  },[loginEvent,showAlert,t]);
+  },[loginEvent,showAlert,t,refetch,userId]);
 
   return (
     <UserDashboard>
       <h3 className="h-xl xbold mb-16 text-center">Registrace místa</h3>
+      {disabled && 
+        <div className="find-spot-timer">
+          <div className="find-spot-timer-inner p-16 text-center">
+            <p className="mb-16">Čas, po kterém budeš moct booknout další spot:</p>
+            <Timer initialTime={DISABLE_TIME} format='mm:ss'/>
+          </div>
+        </div>
+      }
       {placesLoading ? (
         <Spinner />
       ) : (

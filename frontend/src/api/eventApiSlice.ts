@@ -1,4 +1,4 @@
-import { IAdminEvent, IEvent, IEventReduced, INewEvent, IRepeatEvent,IEditableEvent } from "../types/events";
+import { IEvent, IEventReduced, INewEvent, IRepeatEvent,IEditableEvent } from "../types/events";
 import { IEventDateRangeFilter, IEventFilter } from "../types/filtersTypes";
 import apiSlice from "./apiSlice";
 

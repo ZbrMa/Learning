@@ -21,6 +21,13 @@
     border-radius: var(--radius);
 }
 
+.dropdown__menu__options.right {
+    flex-direction: row;
+    top: 0;
+    right: 0;
+    left: 100%;
+}
+
 .dropdown__menu__options.opened {
     height: fit-content;
 }

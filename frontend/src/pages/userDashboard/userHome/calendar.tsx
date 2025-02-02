@@ -11,6 +11,8 @@ import { Alert } from "../../../ui/components/alert/alert";
 import { useAlert } from "../../../context/alertContext";
 import { useTranslation } from "react-i18next";
 
+const thisWeekStart =startOfISOWeek(new Date());
+
 export function UserHomeCalendar() {
     const { id } = useSelector((root: RootState) => root.auth);
     const { t:tComm } = useTranslation("common");
@@ -20,7 +22,7 @@ export function UserHomeCalendar() {
       isLoading: eventsLoading,
       isFetching:eventsFetching,
     } = useGetUserCalendarEventsQuery({
-      startDate: startOfISOWeek(new Date),
+      startDate: thisWeekStart,
       userId:id
     });
     const [signOutEvent] = useSignOutEventMutation();

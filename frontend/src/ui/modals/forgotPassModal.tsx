@@ -28,6 +28,7 @@ export function ForgotPassModal(){
     const {setModal} = useContext(ModalContext);
 
     const {t} = useTranslation("common");
+    const { t:tMod } = useTranslation("modals");
 
     const forgotPassFormConfig:IFormConfig = {
         fields:forgotPassFields,
@@ -49,10 +50,10 @@ export function ForgotPassModal(){
     }
 
     return(
-        <Modal id="forgotPassModal" title="Zapomenuté heslo">
+        <Modal id="forgotPassModal" title={tMod("lostPass.title")}>
             {isLoading && (<Spinner/>)}
-            <p className="tx-md tx-gray mb-32 mt-16">Po odeslání zkontroluj svůj email.</p>
-            <Form config={forgotPassFormConfig} btnText="Odeslat" />
+            <p className="tx-md tx-gray mb-32 mt-16" style={{width:'100%',maxWidth:'340px'}}>{tMod("lostPass.message")}</p>
+            <Form config={forgotPassFormConfig} btnText={tMod("lostPass.button")} />
         </Modal>
         
     );

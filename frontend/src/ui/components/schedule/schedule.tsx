@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo, useMemo, useCallback } from "react";
+import { useEffect, useState, memo, useCallback } from "react";
 import {
   addWeeks,
   startOfWeek,
@@ -9,7 +9,6 @@ import {
   getWeek,
   isBefore,
   parse,
-  compareAsc
 } from "date-fns";
 import { cs, de, enUS } from "date-fns/locale";
 import "./schedule.css";

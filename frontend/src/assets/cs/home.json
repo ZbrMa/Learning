@@ -1,0 +1,17 @@
+{
+    "features":{
+        "plan":{
+            "title":"Plánuj",
+            "text":"Organizuj si svá vystoupení. Vyber si čas a místo, které ti vyhovuje."
+        },
+        "community":{
+            "title":"Komunikuj",
+            "text":"Komunikuj s naším týmem nebo ostatními buskery a navazuj tak vzathy a spolupráce."
+        },
+        "perform":{
+            "title":"Vystupuj",
+            "text":"Ukaž všm, co v tobě. Rozpohybuj ulice. Staň se součástí scény."
+        }
+    },
+    "tryMobile":"Vyzkoušej i naši mobilní aplikaci"
+}

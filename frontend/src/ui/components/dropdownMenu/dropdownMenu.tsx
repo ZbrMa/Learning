@@ -1,77 +1,36 @@
 import React, {
   useState,
   useRef,
-  useEffect,
-  CSSProperties,
-  MouseEventHandler,
+  HTMLAttributes,
 } from "react";
 import { Link } from "react-router-dom";
 import "./dropdownMenu.css";
 import { useClickOutside } from "../../../hooks/clickHooks";
 import { IDropdownMenuOption } from "../../../types/filtersTypes";
 
-type DropdownMenuProps = {
+interface DropdownMenuProps extends HTMLAttributes<HTMLDivElement> {
   options: IDropdownMenuOption[];
   children: React.ReactNode;
-  style?: CSSProperties;
+  orientation?:'up'|'down'|'left'|'right',
 };
 
-export function DropdownMenu({ options, children, style }: DropdownMenuProps) {
+export function DropdownMenu({ options, children,orientation='down',...props }: DropdownMenuProps) {
   const [opened, setOpened] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLDivElement>(null);
-  const optionsRef = useRef<HTMLUListElement>(null);
 
   useClickOutside(menuRef, () => setOpened(false));
 
-  const toggleMenu = () => {
-    setOpened(!opened);
-    if (optionsRef.current && triggerRef.current) {
-      const rect = optionsRef.current.getBoundingClientRect();
-      const triggerRect = triggerRef.current.offsetWidth;
-      const windowWidth = window.innerWidth;
-      const windowHeight = window.innerHeight;
-
-      if (rect.bottom > windowHeight - 10) {
-        optionsRef.current.style.top = `-${
-          rect.height + triggerRef.current.getBoundingClientRect().height
-        }px`;
-      } else {
-        optionsRef.current.style.top = "";
-      }
-
-      if (rect.right > windowWidth) {
-        optionsRef.current.style.left = `-${
-          rect.right - rect.left - triggerRect
-        }px`;
-      } else {
-        optionsRef.current.style.left = "0";
-      }
-
-      if (rect.left < 0) {
-        optionsRef.current.style.left = `${-rect.left}px`;
-      }
-
-      if (rect.top < 0) {
-        const overflowY = -rect.top;
-        optionsRef.current.style.top = `${overflowY + 10}px`;
-      }
-    }
-  };
-
   return (
-    <div className="dropdown__menu" ref={menuRef} style={style}>
+    <div className="dropdown__menu" ref={menuRef} {...props}>
       <div
         className="dropdown__menu--trigger"
-        onClick={toggleMenu}
-        ref={triggerRef}
+        onClick={()=>setOpened(!opened)}
       >
         {children}
       </div>
       <ul
-        className={`dropdown__menu__options ${opened ? "opened" : ""}`}
-        ref={optionsRef}
+        className={`dropdown__menu__options ${orientation} ${opened ? "opened" : ""}`}
       >
         {options.map((option, index) =>
           option.children ? (

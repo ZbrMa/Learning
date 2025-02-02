@@ -37,3 +37,5 @@ export interface IDropdownMenuOption {
 export interface ILang {
     lang:'cs'|'en'|'de'
 };
+
+export type TLang = 'cs'|'en'|'de';

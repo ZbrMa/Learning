@@ -16,7 +16,8 @@ import { RegisterThirdStep } from "./thirdStep";
 import { RegisterFourthStep } from "./fourthStep";
 import { useTranslation } from "react-i18next";
 import { Layout } from "../../../ui/blocks/common/layout/layout";
-import { LuPlus } from "react-icons/lu";
+import { IconButton } from "../../../ui/components/button/button";
+import { IoHomeOutline } from "react-icons/io5";
 
 export function NewUser() {
   const { t } = useTranslation("logReg");
@@ -27,13 +28,13 @@ export function NewUser() {
         <Layout
         id="register"
           button={
-            <Link to="/login" className="xbold">
-              <Button>
-                <LuPlus />
-                Přihlásit se
-              </Button>
-            </Link>
-          }
+                            <Link to="/">
+                              
+                              <IconButton>
+                                <IoHomeOutline/>
+                              </IconButton>
+                            </Link>
+                          }
           left={
             <div className="register__left flex-col content-space items-center tx-white">
               <h1 className="tx-white h-lg bold">{t("register.header")}</h1>

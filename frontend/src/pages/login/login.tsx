@@ -3,7 +3,7 @@ import { Form } from "../../ui/components/form/form";
 import { IFormConfig } from "../../types/form";
 import { useLoginMutation } from "../../api/userApiSlice";
 import { Spinner } from "../../ui/components/spinner/spinner";
-import { Button } from "../../ui/components/button/button";
+import { Button, IconButton } from "../../ui/components/button/button";
 import { Layout } from "../../ui/blocks/common/layout/layout";
 import "./login.css";
 import { useNavigate } from "react-router";
@@ -19,7 +19,7 @@ import { ForgotPassModal } from "../../ui/modals/forgotPassModal";
 import { useTranslation } from "react-i18next";
 import { setLang } from "../../redux/languageSlice";
 import { Link } from "react-router-dom";
-import { LuPlus } from "react-icons/lu";
+import { IoHomeOutline } from "react-icons/io5";
 
 export function Login() {
   const [loginTrigger, { data, isLoading }] = useLoginMutation();
@@ -84,11 +84,11 @@ export function Login() {
     <>
       <Layout
         button={
-          <Link to="/register" className="xbold">
-            <Button>
-              <LuPlus />
-              {t("button.join")}
-            </Button>
+          <Link to="/">
+            
+            <IconButton>
+              <IoHomeOutline/>
+            </IconButton>
           </Link>
         }
         left={<div>ahoj</div>}
@@ -128,7 +128,7 @@ export function Login() {
                     variant="link"
                     className="xbold"
                     style={{ fontSize: "1rem", padding: "8px" }}
-                    onClick={() => navigate("/app/register")}
+                    onClick={() => navigate("/register")}
                   >
                     {t("login.register")}
                   </Button>

@@ -37,7 +37,7 @@
 }
 
 .home__images img:last-child {
-    bottom: 0;
+    top: 50%;
     right: 0;
 }
 

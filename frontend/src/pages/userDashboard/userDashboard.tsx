@@ -1,9 +1,14 @@
 import { ReactNode, useEffect, useState } from "react";
-import { Dashboard,DashboardLeft,DashboardMenu,DashboardMeuItem,DashboardRight } from "../app/layout/dashboard";
-import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../../ui/components/button/button";
 import {
-  IoArrowBackOutline,
+  Dashboard,
+  DashboardLeft,
+  DashboardMenu,
+  DashboardMeuItem,
+  DashboardRight,
+} from "../app/layout/dashboard";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, IconButton } from "../../ui/components/button/button";
+import {
   IoCalendarOutline,
   IoHomeOutline,
   IoLogOutOutline,
@@ -18,7 +23,7 @@ import { DropdownMenu } from "../../ui/components/dropdownMenu/dropdownMenu";
 import { setLang } from "../../redux/languageSlice";
 import { useTranslation } from "react-i18next";
 import { logout } from "../../api/authSlice";
-import { ILang } from "../../types/filtersTypes";
+import { TLang } from "../../types/filtersTypes";
 import { HiOutlineMicrophone } from "react-icons/hi2";
 
 type UserDashBoardProps = {
@@ -31,12 +36,12 @@ export function UserDashboard({ children }: UserDashBoardProps) {
   const { lang } = useSelector((root: RootState) => root.lang);
   const navigate = useNavigate();
   const { t } = useTranslation("app");
-  const { t:tCom } = useTranslation("common");
+  const { t: tCom } = useTranslation("common");
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  const handleLangChange = (e: ILang) => {
-    dispatch(setLang(e.lang));
+  const handleLangChange = (e: TLang) => {
+    dispatch(setLang(e));
   };
 
   const handleLogout = () => {
@@ -68,10 +73,14 @@ export function UserDashboard({ children }: UserDashBoardProps) {
           <Link to={"/app/home"} className="top-bar__logo">
             <img src="/images/logo.png" alt="Logo" />
           </Link>
-          <Button variant="link" style={{ padding: "0" }} onClick={toggleMenu} id="dash-menu-open-btn">
+          <Button
+            variant="link"
+            style={{ padding: "0" }}
+            onClick={toggleMenu}
+            id="dash-menu-open-btn"
+          >
             <IoMenuOutline />
           </Button>
-          
         </div>
       )}
 
@@ -94,38 +103,27 @@ export function UserDashboard({ children }: UserDashBoardProps) {
             </Button>
           )}
           <Link to={"/app/home"}>
-            <img src="/images/logo.png" className="logo" alt="app-logo"/>
+            <img src="/images/logo.png" className="logo" alt="app-logo" />
           </Link>
           <DashboardMenu>
             <DropdownMenu
-              options={[
-                {
-                  label: "cs",
-                  onClick: () => handleLangChange({ lang: "cs" }),
-                },
-                {
-                  label: "en",
-                  onClick: () => handleLangChange({ lang: "en" }),
-                },
-                {
-                  label: "de",
-                  onClick: () => handleLangChange({ lang: "de" }),
-                },
-              ]}
+              orientation="right"
+              id="lang-switcher"
+              options={["cs", "en", "de"]
+                .filter((item) => item !== lang)
+                .map((mapped) => ({
+                  label: mapped,
+                  onClick: () =>
+                    handleLangChange(mapped as TLang),
+                }))}
               style={{ marginInline: "auto", width: "fit-content" }}
             >
-              <Button
+              <IconButton
                 variant="ternary"
-                size="small"
-                style={{
-                  fontSize: "1.2rem",
-                  fontWeight: "400",
-                  width: "100%",
-                  padding: "1rem",
-                }}
+                style={{ fontSize: "1.2rem", fontWeight: "500" }}
               >
                 {lang}
-              </Button>
+              </IconButton>
             </DropdownMenu>
             <DashboardMeuItem
               path={"/app/findSpot"}
@@ -155,15 +153,16 @@ export function UserDashboard({ children }: UserDashBoardProps) {
               style={{
                 marginTop: "auto",
                 paddingTop: "16px",
-                borderTop: "1px solid var(--darkGray)",
+                borderTop: "1px solid rgb(65,65,65)",
               }}
             >
-              <DashboardMeuItem path="/">
-                <IoArrowBackOutline />
-                {t("dashboard.back")}
-              </DashboardMeuItem>
               <Button variant="ternary" size="small" onClick={handleLogout}>
-                <IoLogOutOutline style={{WebkitTransform: 'scaleX(-1)',transform: 'scaleX(-1)'}}/>
+                <IoLogOutOutline
+                  style={{
+                    WebkitTransform: "scaleX(-1)",
+                    transform: "scaleX(-1)",
+                  }}
+                />
                 {tCom("button.logout")}
               </Button>
             </div>

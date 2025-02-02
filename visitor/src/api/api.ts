@@ -6,7 +6,7 @@ const DEV_SERVER_URL = 'http://localhost:5000';
 
 const apiSlice = createApi({
     reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ baseUrl: DEV_SERVER_URL, prepareHeaders:(headers, { getState }) => {
+    baseQuery: fetchBaseQuery({ baseUrl: PRODUCTION_SERVER_URL, prepareHeaders:(headers, { getState }) => {
         const lang = (getState() as RootState).lang.lang;
         headers.set("Language", lang);
         return headers; }}),

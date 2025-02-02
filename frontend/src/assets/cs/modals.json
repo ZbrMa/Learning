@@ -1,0 +1,7 @@
+{
+    "lostPass":{
+        "title":"Zapomenuté heslo",
+        "message":"Po odeslání zkontroluj svůj email.",
+        "button":"Odeslat"
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "features": {
+      "plan": {
+        "title": "Plane",
+        "text": "Organisiere deine Auftritte. Wähle die Zeit und den Ort, die dir am besten passen."
+      },
+      "community": {
+        "title": "Kommuniziere",
+        "text": "Tausche dich mit unserem Team oder anderen Straßenkünstlern aus und knüpfe Beziehungen und Kooperationen."
+      },
+      "perform": {
+        "title": "Treten Sie auf",
+        "text": "Zeige allen, was in dir steckt. Bringe Leben auf die Straßen. Werde Teil der Szene."
+      }
+    },
+    "tryMobile": "Probiere auch unsere mobile App aus"
+  }
+  

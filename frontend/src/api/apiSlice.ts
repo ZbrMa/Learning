@@ -12,7 +12,7 @@ const apiSlice = createApi({
         return headers; }}),
     endpoints: builder => ({}),
     tagTypes:['events', 'userEvents','notificationOut','notificationIn','places'],
-    keepUnusedDataFor: 120,
+    keepUnusedDataFor: 60,
 });
 
 export default apiSlice;

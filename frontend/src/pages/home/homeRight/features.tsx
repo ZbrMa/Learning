@@ -2,16 +2,19 @@ import { RiCalendarScheduleLine } from "react-icons/ri";
 import { MdGroups } from "react-icons/md";
 import { PiMicrophoneFill } from "react-icons/pi";
 import './features.css';
+import { useTranslation } from "react-i18next";
 
 export function Features(){
 
+    const { t } = useTranslation('home');
+
     return(
         <div className="features g-32">
-            <FeatureItem title="Plánuj" icon={<RiCalendarScheduleLine/>}>Organizuj si svá vystoupení. Vyber si čas a místo, které ti vyhovuje.</FeatureItem>
+            <FeatureItem title={t("features.plan.title")} icon={<RiCalendarScheduleLine/>}>{t("features.plan.text")}</FeatureItem>
                 <span className="horizontal--separator"></span>
-                <FeatureItem title="Komunikuj" icon={<MdGroups/>}>Komunikuj s naším týmem nebo ostatními buskery a navazuj tak vzathy a spolupráce.</FeatureItem>
+                <FeatureItem title={t("features.community.title")} icon={<MdGroups/>}>{t("features.community.text")}</FeatureItem>
                 <span className="horizontal--separator"></span>
-                <FeatureItem title="Vystupuj" icon={<PiMicrophoneFill/>}>Ukaž všm, co v tobě. Rozpohybuj ulice. Staň se součástí scény.</FeatureItem>
+                <FeatureItem title={t("features.perform.title")} icon={<PiMicrophoneFill/>}>{t("features.perform.text")}</FeatureItem>
         </div>
     );
 };
